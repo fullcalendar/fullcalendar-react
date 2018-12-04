@@ -1,7 +1,4 @@
 {
-  "plugins": [
-    "transform-runtime",
-    "transform-decorators-legacy"
-  ],
-  "presets": ["env", "react", "stage-0"]
+  "presets":["es2015","react"],
+  "plugins": ["babel-plugin-add-module-exports"]
 }
