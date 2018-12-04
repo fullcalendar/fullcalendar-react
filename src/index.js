@@ -1,6 +1,6 @@
 import React from 'react';
 import { Calendar } from 'fullcalendar';
-import CalendarObjectMapper from './calendarOptionsMapper';
+import CalendarOptionsMapper from './calendarOptionsMapper';
 
 export default class FullCalendar extends React.Component{
 	constructor(){
