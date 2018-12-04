@@ -66,7 +66,7 @@ class ExampleComponent extends React.Component {
           end: '2018-12-13'
         },
         {
-          title: 'Click for Google',
+          title: 'Click for Google Url Event',
           url: 'http://google.com/',
           start: '2017-12-28'
         }
