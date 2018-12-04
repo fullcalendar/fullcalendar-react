@@ -78,7 +78,7 @@ class ExampleComponent extends React.Component {
   }
 
   eventClicked = (eventClickInfo) => {
-    alert('Event has been clicked!')
+    alert('Event has been clicked!');
   }
 
   getView = () => {
@@ -124,7 +124,7 @@ ReactDOM.render(<ExampleComponent />, document.getElementById('root'));
 The `id` property declares the `id` of the root element for the FullCalendar component. If it isn't provided, the FullCalendar component will get a random generated `id`.
 
 ## License 
-MIT
+* MIT
 
 ## Dependencies
 
