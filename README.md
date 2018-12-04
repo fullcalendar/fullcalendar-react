@@ -29,7 +29,7 @@ Include `sardius-fullcalendar-wrapper/dist/fullcalendar.min.css` for styles.
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-// ... and sardius-fullcalendar-react.
+// ... and sardius-fullcalendar-wrapper.
 import FullCalendar from 'sardius-fullcalendar-wrapper';
 
 // ... and Calendar CSS
