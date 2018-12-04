@@ -21,7 +21,7 @@ module.exports = {
     filename: 'index.js',
   },
   resolve: {
-    modules: [path.resolve('./src'), path.resolve('./node_modules')],
+    modules: [path.resolve('./src'), path.resolve('./node_modules'), path.resolve('./dist'),],
   },
   plugins: [],
 };
