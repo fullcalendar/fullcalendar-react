@@ -17,8 +17,8 @@ module.exports = {
     ],
   },
   output: {
-    path: __dirname,
-    filename: './dist/index.min.js',
+    path: path.join(__dirname, 'dist'),
+    filename: 'index.js',
   },
   resolve: {
     modules: [path.resolve('./src'), path.resolve('./node_modules')],
