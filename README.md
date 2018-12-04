@@ -1,6 +1,6 @@
 # sardius-fullcalendar-react 
 
-A react wrapper component for the the [FullCalendar](https://fullcalendar.io/) (a javascript event calendar).
+A react wrapper component for jquery-free version 4.0 of [FullCalendar](https://fullcalendar.io/) (a customizable javascript event calendar).
 
 Fork off of https://www.npmjs.com/package/fullcalendar-reactwrapper
 
@@ -10,9 +10,8 @@ Full Calendar [v4 docs](https://fullcalendar.io/docs/v4#toc).
 
 ## Table of contents
 1. [Installation](#installation)
-2. [Building](#building)
-3. [Basic usage](#basic-usage)
-4. [License](#license)
+2. [Basic usage](#basic-usage)
+3. [License](#license)
 
 
 ## Installation 
@@ -21,11 +20,9 @@ Full Calendar [v4 docs](https://fullcalendar.io/docs/v4#toc).
 
 Include `sardius-fullcalendar-react/dist/fullcalendar.min.css` for styles.
 
-## Building 
-
 ## Basic usage
 
-`fullcalendar-reactwrapper` creates a `<FullCalendar/>` component. You can use it just like any other React component. For example:
+`sardius-fullcalendar-react` creates a `<FullCalendar/>` component. You can use it just like any other React component. For example:
  
 ```jsx
 // import React...
