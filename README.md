@@ -1,6 +1,7 @@
 # sardius-fullcalendar-wrapper
 
-A react wrapper component for jquery-free version 4.0 of [FullCalendar](https://fullcalendar.io/) (a customizable javascript event calendar). (Note: Full Calendar 4.0 is still in alpha)
+A react wrapper component for jquery-free version 4.0 of [FullCalendar](https://fullcalendar.io/) (a customizable javascript event calendar). 
+(Note: FullCalendar 4.0 is still in alpha)
 
 Fork off of https://www.npmjs.com/package/fullcalendar-reactwrapper
 
@@ -11,7 +12,8 @@ Full Calendar [v4 docs](https://fullcalendar.io/docs/v4#toc).
 ## Table of contents
 1. [Installation](#installation)
 2. [Basic usage](#basic-usage)
-3. [License](#license)
+3. [rrule Plugin](#rrule-plugin)
+4. [License](#license)
 
 
 ## Installation 
@@ -38,7 +40,8 @@ import 'sardius-fullcalendar-wrapper/dist/fullcalendar.min.css';
 class ExampleComponent extends React.Component {
   constructor(props) {
     super(props);
-    this.fullCalendar = React.createRef(); // Create a reference to the component to use Full Calendar methods
+    // Create a reference to the component to use Full Calendar methods
+    this.fullCalendar = React.createRef();
     this.state = {
       events:[
         {
@@ -72,14 +75,15 @@ class ExampleComponent extends React.Component {
         }
       ],		
     }
-  }
+  };
 
   eventClicked = (eventClickInfo) => {
     alert('Event has been clicked!');
   }
 
   getView = () => {
-    const view = this.fullCalendar.current.calendar.getView(); // Use reference to call Full Calendar Methods
+    // Use reference to call Full Calendar Methods
+    const view = this.fullCalendar.current.calendar.getView();
     alert('We are using FullCalendar Methods!');
   }
 
@@ -97,18 +101,23 @@ class ExampleComponent extends React.Component {
             center: 'title',
             right: 'month,basicWeek,basicDay'
           }}
-          defaultDate='2018-12-'
-          navLinks={false} // Example of an option set to false
-          editable // Example of an option set to true
+          defaultDate='2018-12-05'
+          // Example of an option set to false
+          navLinks={false}
+          // Example of an option set to true
+          editable
           selectable
           selectHelper
+          // Example of a callback / handler function
           select={selectionInfo => {
-            this.selectEvent(selectionInfo); // Example of a callback / handler function
+            this.selectEvent(selectionInfo);
           }}
+          // Another example of a callback / handler function
           eventClick={eventClickInfo => {
-            this.eventClicked(eventClickInfo); // Another example of a callback / handler function
+            this.eventClicked(eventClickInfo);
           }}
-          events = {this.state.events} // Load in this calendar's events
+          // Load in this calendar's events
+          events = {this.state.events} 
         />
       </div>
     );
@@ -118,7 +127,49 @@ class ExampleComponent extends React.Component {
 ReactDOM.render(<ExampleComponent />, document.getElementById('root'));
 ```
 
-The `id` property declares the `id` of the root element for the FullCalendar component. If it isn't provided, the FullCalendar component will get a random generated `id`.
+The `id` property declares the `id` of the root element for the FullCalendar component. 
+If it isn't provided, the FullCalendar component will get a random generated `id`.
+
+## rrule Plugin
+
+sardius-fullcalendar-wrapper includes FullCalendar's built in rrule plugin. 
+The RRule plugin is a connector to the rrule js library. It is powerful for specifying recurring events.
+
+The rrule property accepts whatever the rrule lib accepts for a new RRule. 
+[See the docs](https://github.com/jakubroztocil/rrule). 
+
+You can specify a string or an object in your event object. As shown in the example below.
+
+```jsx
+
+class EventUsingRRULE extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      events: [
+        {
+          // standard property
+          title: 'my recurring event',
+
+          // rrule property
+          rrule: 'DTSTART:20120201T103000Z\nRRULE:FREQ=WEEKLY;INTERVAL=5;UNTIL=20120601;BYDAY=MO,FR',
+          // ...or, an object...
+          rrule: {
+            freq: 'weekly',
+            interval: 5,
+            byweekday: [ 'mo', 'fr' ],
+            dtstart: '2012-02-01T10:30:00',
+            until: '2012-06-01'
+          },
+
+          // for specifying the end time of each instance
+          duration: '02:00'
+        },
+      ],
+    };
+
+    ...
+```
 
 ## License 
 * MIT
