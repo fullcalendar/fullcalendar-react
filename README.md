@@ -95,6 +95,7 @@ class ExampleComponent extends React.Component {
     return (
       <div id="example-component">
         <FullCalendar
+          ref={this.fullCalendar} // Add ref defined in constructor to FullCalendar
           id = "your-custom-calendar-ID"
           header = {{
             left: 'prev,next today myCustomButton',
