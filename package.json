@@ -37,8 +37,8 @@
     "webpack-dev-server": "^2.4.5"
   },
   "dependencies": {
-    "fullcalendar": "^4.0.0-alpha.2",
-    "react": "^16.4.1",
-    "react-dom": "^16.2.0"
+    "fullcalendar": "^4.0.0-alpha.4",
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0"
   }
 }
