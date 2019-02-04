@@ -1,7 +1,7 @@
 # sardius-fullcalendar-wrapper
 
 A react wrapper component for jquery-free version 4.0 of [FullCalendar](https://fullcalendar.io/) (a customizable javascript event calendar). 
-(Note: FullCalendar 4.0 is still in alpha)
+(Note: FullCalendar 4.0 is still in alpha - using version 4.0.0-alpha.4)
 
 Fork off of https://www.npmjs.com/package/fullcalendar-reactwrapper
 
