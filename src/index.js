@@ -1,6 +1,6 @@
 import React from 'react';
 import { Calendar } from 'fullcalendar';
-import 'fullcalendar/dist/plugins/rrule';
+// import 'fullcalendar/dist/plugins/rrule';
 import CalendarOptionsMapper from './calendarOptionsMapper';
 
 export default class FullCalendar extends React.Component{
