@@ -22,7 +22,7 @@
   ],
   "author": "Sardius Media",
   "license": "MIT",
-  "repository": "https://github.com/SardiusMedia/react-fullcalendar-sardius",
+  "repository": "https://github.com/SardiusMedia/sardius-fullcalendar-wrapper",
   "peerDependencies": {
     "react": "^16.7.0",
     "react-dom": "^16.7.0"
