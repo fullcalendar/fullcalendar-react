@@ -4,5 +4,3 @@ examples
 .babelrc
 .gitignore
 webpack.config.js
-npm-debug.log
-node_modules

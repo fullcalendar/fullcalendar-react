@@ -1,10 +1,12 @@
-# react-fullcalendar-sardius
+# sardius-fullcalendar-wrapper
 
-A react wrapper component for jquery-free version 4.0 of [FullCalendar](https://fullcalendar.io/) (a customizable javascript event calendar). 
+A react wrapper component for easy `react` integration of Full Calendar 4.0 of [FullCalendar](https://fullcalendar.io/) (a customizable javascript event calendar). 
 
 Full Calendar 4.0 has been officially released: [v4 release notes](https://fullcalendar.io/blog/2019/03/v4-officially-released).
 
 Full Calendar [v4 docs](https://fullcalendar.io/docs#toc).
+
+`sardius-fullcalendar-wrapper` [Demo](https://sardiusmedia.github.io/sardius-fullcalendar-wrapper/).
 
 ## Table of contents
 1. [Installation](#installation)
@@ -15,21 +17,21 @@ Full Calendar [v4 docs](https://fullcalendar.io/docs#toc).
 
 ## Installation 
 
-`npm install react-fullcalendar-sardius --save`
+`npm install sardius-fullcalendar-wrapper --save`
 
 `npm install ...any used @fullcalendar plugins ie. @fullcalendar/interaction`
 
 ## Basic usage
 
-`react-fullcalendar-sardius` creates a `<FullCalendar />` component. You can use it just like any other React component. For example:
+`sardius-fullcalendar-wrapper` creates a `<FullCalendar />` component. You can use it just like any other React component. For example:
  
 ```jsx
 // import React...
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-// ... and react-fullcalendar-sardius.
-import FullCalendar from 'react-fullcalendar-sardius';
+// ... and sardius-fullcalendar-wrapper.
+import FullCalendar from 'sardius-fullcalendar-wrapper';
 
 // ... and any fullcalendar plugins you may require
 import interactionPlugin from '@fullcalendar/interaction';
@@ -140,7 +142,7 @@ If it isn't provided, the FullCalendar component will get a random generated `id
 ### Plugins
 
 By default the @fullcalendar/core and the @fullcalendar/daygrid plugins 
-come already included in the **fullcalendar-react-wrapper** package. 
+come already included in the **sardius-fullcalendar-wrapper** package. 
 
 FullCalendar offers the following packages:
 
