@@ -1,6 +1,6 @@
 {
   "name": "sardius-fullcalendar-wrapper",
-  "version": "1.3.5",
+  "version": "1.3.6",
   "description": "React Wrapper for Fullcalendar 4.0",
   "main": "dist/index.js",
   "scripts": {
