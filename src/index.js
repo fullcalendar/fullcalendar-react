@@ -36,7 +36,7 @@ class FullCalendar extends React.Component{
 
 		this.calendar = new Calendar(calendarEl, {
 			...calendarOptions,
-			plugins: [ dayGridPlugin ],
+			plugins: [ dayGridPlugin, ...passedPlugins  ],
 		});
   	this.calendar.render();
 	}
