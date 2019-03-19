@@ -1,45 +1,44 @@
 const path = require('path');
-const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: [
-    './src/index.js'
-  ],
-  output: {
-    path: path.join(__dirname, 'dist'),
-    filename: 'index.js',
-    libraryTarget: 'umd'
-  },
-  plugins: [
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify('production')
-    })
-  ],
-  resolve: {
-    extensions: ['.js', '.jsx']
-  },
+  entry: path.join(__dirname, "examples/src/index.js"),
   module: {
-    loaders: [
+    rules: [
       {
-        test: /\.js?/,
-        exclude: /build|node_modules|styles/,
-        loaders: ['babel-loader'],
-        include: path.join(__dirname, 'src')
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader'
+        }
+      },
+      {
+        test: /\.scss$/,
+        use: [
+          'style-loader',
+          'css-loader',
+          'sass-loader'
+        ]
       },
       {
         test: /\.css$/,
-        loader: 'style!css'
-      }
+        use: [
+          'style-loader',
+          'css-loader'
+        ]
+      },
     ]
   },
-  externals: [
-    {
-      react: {
-        root: 'React',
-        commonjs2: 'react',
-        commonjs: 'react',
-        amd: 'react'
-      }
-    }
-  ]
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: path.join(__dirname, "examples/src/index.html"),
+      filename: "./index.html"
+    }),
+  ],
+  resolve: {
+    extensions: [".js", ".jsx"]
+  },
+  devServer: {
+    port: 3001
+  }
 };

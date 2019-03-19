@@ -1,9 +1,12 @@
 import React from 'react';
-import { Calendar } from 'fullcalendar';
-// import 'fullcalendar/dist/plugins/rrule';
+import { Calendar } from '@fullcalendar/core';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import '@fullcalendar/core/main.css';
+import '@fullcalendar/daygrid/main.css';
+
 import CalendarOptionsMapper from './calendarOptionsMapper';
 
-export default class FullCalendar extends React.Component{
+class FullCalendar extends React.Component{
 	constructor(){
 		super();
 		this.calendarOptionsMapper = new CalendarOptionsMapper();
@@ -12,21 +15,29 @@ export default class FullCalendar extends React.Component{
 		this.date = new Date();
 	}
 
-	componentDidMount(){
+	componentDidMount() {
 		const calendarOptions = this.calendarOptionsMapper.getOptions(this.props);
 		const calendarEl = document.getElementById(this.root);
+		const passedPlugins = calendarOptions.plugins ? calendarOptions.plugins : [];
 
-		this.calendar = new Calendar(calendarEl, calendarOptions);
+		this.calendar = new Calendar(calendarEl, {
+			...calendarOptions,
+			plugins: [ dayGridPlugin, ...passedPlugins ]
+		});
   	this.calendar.render();
 	}
 
-	componentWillReceiveProps(nextProps){
+	componentWillReceiveProps(nextProps) {
 		this.calendar.destroy();
 
 		const calendarOptions = this.calendarOptionsMapper.getOptions(nextProps);
 		const calendarEl = document.getElementById(this.root);
+		const passedPlugins = calendarOptions.plugins ? calendarOptions.plugins : [];
 
-		this.calendar = new Calendar(calendarEl, calendarOptions);
+		this.calendar = new Calendar(calendarEl, {
+			...calendarOptions,
+			plugins: [ dayGridPlugin ],
+		});
   	this.calendar.render();
 	}
 
@@ -37,3 +48,5 @@ export default class FullCalendar extends React.Component{
 		)
 	}
 }
+
+export default FullCalendar;

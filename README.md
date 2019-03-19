@@ -1,41 +1,39 @@
-# sardius-fullcalendar-wrapper
+# react-fullcalendar-sardius
 
 A react wrapper component for jquery-free version 4.0 of [FullCalendar](https://fullcalendar.io/) (a customizable javascript event calendar). 
-(Note: FullCalendar 4.0 is still in alpha - using version 4.0.0-alpha.4)
 
-Fork off of https://www.npmjs.com/package/fullcalendar-reactwrapper
+Full Calendar 4.0 has been officially released: [v4 release notes](https://fullcalendar.io/blog/2019/03/v4-officially-released).
 
-Full Calendar [v4 release notes](https://fullcalendar.io/docs/v4/release-notes).
-
-Full Calendar [v4 docs](https://fullcalendar.io/docs/v4#toc).
+Full Calendar [v4 docs](https://fullcalendar.io/docs#toc).
 
 ## Table of contents
 1. [Installation](#installation)
 2. [Basic usage](#basic-usage)
-3. [rrule Plugin](#rrule-plugin)
+3. [Plugins](#plugins)
 4. [License](#license)
 
 
 ## Installation 
 
-`npm install sardius-fullcalendar-wrapper --save`
+`npm install react-fullcalendar-sardius --save`
 
-Include `sardius-fullcalendar-wrapper/dist/fullcalendar.min.css` for styles.
+`npm install ...any used @fullcalendar plugins ie. @fullcalendar/interaction`
 
 ## Basic usage
 
-`sardius-fullcalendar-wrapper` creates a `<FullCalendar/>` component. You can use it just like any other React component. For example:
+`react-fullcalendar-sardius` creates a `<FullCalendar />` component. You can use it just like any other React component. For example:
  
 ```jsx
 // import React...
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-// ... and sardius-fullcalendar-wrapper.
-import FullCalendar from 'sardius-fullcalendar-wrapper';
+// ... and react-fullcalendar-sardius.
+import FullCalendar from 'react-fullcalendar-sardius';
 
-// ... and Calendar CSS
-import 'sardius-fullcalendar-wrapper/dist/fullcalendar.min.css';
+// ... and any fullcalendar plugins you may require
+import interactionPlugin from '@fullcalendar/interaction';
+import timeGridPlugin from '@fullcalendar/timegrid';
 
 class ExampleComponent extends React.Component {
   constructor(props) {
@@ -65,8 +63,7 @@ class ExampleComponent extends React.Component {
         },
         {
           title: 'Conference',
-          start: '2018-12-11',
-          end: '2018-12-13'
+          start: Date.now(),
         },
         {
           title: 'Click for Google Url Event',
@@ -102,12 +99,13 @@ class ExampleComponent extends React.Component {
             center: 'title',
             right: 'month,basicWeek,basicDay'
           }}
+          defaultView="timeGrid" // Uses the timeGridPlugin
           defaultDate='2018-12-05'
-          // Example of an option set to false
+          // Example of an option set to false (only required if the default is true)
           navLinks={false}
           // Example of an option set to true
           editable
-          selectable
+          selectable // Uses the interactionPlugin
           selectHelper
           // Example of a callback / handler function
           select={selectionInfo => {
@@ -118,7 +116,12 @@ class ExampleComponent extends React.Component {
             this.eventClicked(eventClickInfo);
           }}
           // Load in this calendar's events
-          events = {this.state.events} 
+          events={this.state.events} 
+          // Add in required plugins for the options that you selected above
+          plugins={[
+            interactionPlugin,
+            timeGridPlugin
+          ]}
         />
       </div>
     );
@@ -131,55 +134,46 @@ ReactDOM.render(<ExampleComponent />, document.getElementById('root'));
 The `id` property declares the `id` of the root element for the FullCalendar component. 
 If it isn't provided, the FullCalendar component will get a random generated `id`.
 
-## rrule Plugin
+### Plugins
 
-sardius-fullcalendar-wrapper includes FullCalendar's built in rrule plugin. 
-The RRule plugin is a connector to the rrule js library. It is powerful for specifying recurring events.
+By default the @fullcalendar/core and the @fullcalendar/daygrid plugins 
+come already included in the **fullcalendar-react-wrapper** package. 
 
-The rrule property accepts whatever the rrule lib accepts for a new RRule. 
-[See the docs](https://github.com/jakubroztocil/rrule). 
+FullCalendar offers the following packages:
 
-You can specify a string or an object in your event object. As shown in the example below.
+Read More here: [Plugin Docs](https://fullcalendar.io/docs/plugin-index).
 
-```jsx
+| Plugin | README |
+| ------ | ------ |
+| @fullcalendar/core | Offers the Calendar class among other things. |
+| @fullcalendar/interaction | Required to detect dateClick actions, selectable actions, and event drag-n-drop & resizing. Not needed for eventClick or eventMouseEnter/eventMouseLeave.|
+| @fullcalendar/daygrid | Offers Month and DayGrid views: dayGridMonth, dayGridWeek, dayGridDay, dayGrid (generic) |
+| @fullcalendar/timegrid | Offers TimeGrid views: timeGridWeek, timeGridDay, timeGrid (generic) |
+| @fullcalendar/list | Offers Lists views: listYear, listMonth, listWeek, listDay, list (generic) |
+| @fullcalendar/timeline | Offers Timeline views with no resource support: timelineYear, timelineMonth, timelineWeek, timelineDay, timeline (generic)|
+| @fullcalendar/resource-common | Offers base support for resources. Required for all resource-related plugins. |
+| @fullcalendar/resource-daygrid | Offers resource-enabled DayGrid views: resourceDayGridMonth, resourceDayGridWeek, resourceDayGridDay resourceDayGrid (generic) |
+| @fullcalendar/resource-timegrid | Offers resource-enabled TimeGrid views: resourceTimeGridWeek, resourceTimeGridDay, resourceTimeGrid (generic) |
+| @fullcalendar/resource-timeline | Offers resource-enabled Timeline views: resourceTimelineYear, resourceTimelineMonth, resourceTimelineWeek, resourceTimelineDay, resourceTimeline (generic) |
+| @fullcalendar/bootstrap | Offers Bootstrap theming |
+| @fullcalendar/google-calendar | For loading events from a public Google Calendar feed	 |
+| @fullcalendar/rrule | For leveraging the RRule library for event recurrence |
+| @fullcalendar/luxon | Offers a named-timezone implementation, a formatting string implementation, and utilities for converting to Luxon DateTimes. |
+| @fullcalendar/moment | Offers a formatting string implementation and utilities fo convert to Moment objects. |
+| @fullcalendar/moment-timezone | Offers a named timezone implementation. |
 
-class EventUsingRRULE extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      events: [
-        {
-          // standard property
-          title: 'my recurring event',
+### View API
+  By default you 
 
-          // rrule property
-          rrule: 'DTSTART:20120201T103000Z\nRRULE:FREQ=WEEKLY;INTERVAL=5;UNTIL=20120601;BYDAY=MO,FR',
-          // ...or, an object...
-          rrule: {
-            freq: 'weekly',
-            interval: 5,
-            byweekday: [ 'mo', 'fr' ],
-            dtstart: '2012-02-01T10:30:00',
-            until: '2012-06-01'
-          },
-
-          // for specifying the end time of each instance
-          duration: '02:00'
-        },
-      ],
-    };
-
-    ...
-```
-
-## License 
+#### License 
 * MIT
 
-## Dependencies
+#### Dependencies
 
-* fullcalendar
+* @fullcalendar/core
+* @fullcalendar/daygrid
 
-## Peer dependencies 
+#### Peer dependencies 
 
 * react
 * react-dom
