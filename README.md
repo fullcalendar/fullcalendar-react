@@ -35,6 +35,9 @@ import FullCalendar from 'react-fullcalendar-sardius';
 import interactionPlugin from '@fullcalendar/interaction';
 import timeGridPlugin from '@fullcalendar/timegrid';
 
+// ... and any fullcalendar specific css
+import '@fullcalendar/timegrid/main.css';
+
 class ExampleComponent extends React.Component {
   constructor(props) {
     super(props);
