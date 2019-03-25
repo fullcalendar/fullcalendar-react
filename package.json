@@ -4,16 +4,14 @@
   "description": "React Wrapper for Fullcalendar 4.0",
   "main": "dist/main.js",
   "files": [
-    "/dist"
+    "/main.js"
   ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest --config ./config/jest/config.js --no-cache",
     "start": "webpack-dev-server --mode development --open",
-    "transpile": "babel src -d dist --copy-files",
-    "prepublishOnly": "npm run transpile",
-    "build": "webpack --mode production",
-    "deploy": "gh-pages -d examples/dist",
-    "publish-demo": "npm run build && npm run deploy"
+    "lint": "eslint src/ ",
+    "prepublishOnly": "npm run build",
+    "build": "webpack --mode production"
   },
   "keywords": [
     "react",
@@ -40,9 +38,15 @@
     "@babel/preset-env": "^7.0.0-beta.51",
     "@babel/preset-react": "^7.0.0-beta.51",
     "@fullcalendar/daygrid": "^4.0.1",
+    "babel-eslint": "^10.0.1",
     "babel-loader": "^8.0.0-beta.0",
     "css-loader": "^0.28.11",
-    "html-webpack-plugin": "^3.2.0",
+    "eslint": "^5.15.3",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-node": "^8.0.1",
+    "eslint-plugin-promise": "^4.0.1",
+    "eslint-plugin-standard": "^4.0.0",
     "node-sass": "^4.8.3",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",

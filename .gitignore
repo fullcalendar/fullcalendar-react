@@ -1,4 +1,5 @@
-dist
+main.js
+.DS_Store
 
 # npm
 node_modules

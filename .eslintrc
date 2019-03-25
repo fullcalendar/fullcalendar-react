@@ -1,28 +1,12 @@
-
 {
-  "ecmaFeatures": {
-    "globalReturn": true,
-    "jsx": true,
-    "modules": true
-  },
-  "env": {
-    "browser": true,
-    "es6": true,
-    "node": true
-  },
-  "globals": {
-    "document": false,
-    "escape": false,
-    "navigator": false,
-    "unescape": false,
-    "window": false,
-    "describe": true,
-    "before": true,
-    "it": true,
-    "expect": true,
-    "sinon": true
-  },
+  "extends": "eslint-config-standard",
   "parser": "babel-eslint",
   "plugins": [],
-  "rules": {}
+  "rules": {
+    "no-multiple-empty-lines": 0,
+    "no-new": 0,
+    "padded-blocks": 0,
+    "space-before-function-paren": 0,
+    "standard/no-callback-literal": 0
+  }
 }
