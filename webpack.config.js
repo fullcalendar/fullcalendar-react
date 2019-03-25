@@ -2,10 +2,15 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: path.join(__dirname, "examples/src/index.js"),
+  entry: {
+    'main.js': [
+      path.resolve(__dirname, "src/index.js"),
+      path.resolve(__dirname, "src/calendarOptionsMapper.js")
+    ]
+  }, 
   output: {
-    path: path.join(__dirname, "examples/dist"),
-    filename: "bundle.js"
+    filename: '[name]',
+    path: path.join(__dirname, 'dist')
   },
   module: {
     rules: [
@@ -34,10 +39,10 @@ module.exports = {
     ]
   },
   plugins: [
-    new HtmlWebpackPlugin({
-      template: path.join(__dirname, "examples/src/index.html"),
-      filename: "./index.html"
-    }),
+    // new HtmlWebpackPlugin({
+    //   template: path.join(__dirname, "examples/src/index.html"),
+    //   filename: "./index.html"
+    // }),
   ],
   resolve: {
     extensions: [".js", ".jsx"]

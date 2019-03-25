@@ -1,14 +1,12 @@
 import React from 'react';
 import { Calendar } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
-import '@fullcalendar/core/main.css';
-import '@fullcalendar/daygrid/main.css';
 
 import CalendarOptionsMapper from './calendarOptionsMapper';
 
 class FullCalendar extends React.Component{
 	constructor(){
-		super();
+	  super();
 		this.calendarOptionsMapper = new CalendarOptionsMapper();
 		this.root = null;
 		this.calendar = null;
@@ -42,7 +40,7 @@ class FullCalendar extends React.Component{
 	}
 
 	render(){
-		this.root = this.props.id || 'ID' + this.date.getTime(); 
+		this.root = this.props.id || 'ID' + this.date.getTime();
 		return(
 			<div id={this.root}></div>
 		)
