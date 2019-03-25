@@ -8,14 +8,14 @@ class FullCalendar extends React.Component {
   constructor() {
     super()
     this.calendarOptionsMapper = new CalendarOptionsMapper()
-    this.root = null
+    this.calendarRef = React.createRef()
     this.calendar = null
     this.date = new Date()
   }
 
   componentDidMount() {
     const calendarOptions = this.calendarOptionsMapper.getOptions(this.props)
-    const calendarEl = document.getElementById(this.root)
+    const calendarEl = this.calendarRef.current
     const passedPlugins = calendarOptions.plugins ? calendarOptions.plugins : []
 
     this.calendar = new Calendar(calendarEl, {
@@ -29,7 +29,7 @@ class FullCalendar extends React.Component {
     this.calendar.destroy()
 
     const calendarOptions = this.calendarOptionsMapper.getOptions(nextProps)
-    const calendarEl = document.getElementById(this.root)
+    const calendarEl = this.calendarRef.current
     const passedPlugins = calendarOptions.plugins ? calendarOptions.plugins : []
 
     this.calendar = new Calendar(calendarEl, {
@@ -40,9 +40,8 @@ class FullCalendar extends React.Component {
   }
 
   render() {
-    this.root = this.props.id || 'ID' + this.date.getTime()
     return (
-      <div id={this.root}></div>
+      <div ref={this.calendarRef}></div>
     )
   }
 }
