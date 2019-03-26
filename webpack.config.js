@@ -1,12 +1,12 @@
-const path = require('path');
+const path = require('path')
 
 module.exports = {
   entry: {
     'main.js': [
-      path.resolve(__dirname, "src/index.js"),
-      path.resolve(__dirname, "src/calendarOptionsMapper.js")
+      path.resolve(__dirname, 'src/index.js'),
+      path.resolve(__dirname, 'src/calendarOptionsMapper.js')
     ]
-  }, 
+  },
   output: {
     filename: '[name]',
     path: path.join(__dirname, '')
@@ -34,14 +34,14 @@ module.exports = {
           'style-loader',
           'css-loader'
         ]
-      },
+      }
     ]
   },
   plugins: [],
   resolve: {
-    extensions: [".js", ".jsx"]
+    extensions: ['.js', '.jsx']
   },
   devServer: {
     port: 3001
   }
-};
+}

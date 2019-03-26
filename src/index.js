@@ -8,17 +8,16 @@ class FullCalendar extends React.Component {
   constructor() {
     super()
     this.calendarOptionsMapper = new CalendarOptionsMapper()
-    this.calendarRef = React.createRef()
+    this.elRef = React.createRef()
     this.calendar = null
     this.date = new Date()
   }
 
   componentDidMount() {
     const calendarOptions = this.calendarOptionsMapper.getOptions(this.props)
-    const calendarEl = this.calendarRef.current
     const passedPlugins = calendarOptions.plugins ? calendarOptions.plugins : []
 
-    this.calendar = new Calendar(calendarEl, {
+    this.calendar = new Calendar(this.elRef.current, {
       ...calendarOptions,
       plugins: [ dayGridPlugin, ...passedPlugins ]
     })
@@ -29,10 +28,9 @@ class FullCalendar extends React.Component {
     this.calendar.destroy()
 
     const calendarOptions = this.calendarOptionsMapper.getOptions(nextProps)
-    const calendarEl = this.calendarRef.current
     const passedPlugins = calendarOptions.plugins ? calendarOptions.plugins : []
 
-    this.calendar = new Calendar(calendarEl, {
+    this.calendar = new Calendar(this.elRef.current, {
       ...calendarOptions,
       plugins: [ dayGridPlugin, ...passedPlugins ]
     })
@@ -41,7 +39,7 @@ class FullCalendar extends React.Component {
 
   render() {
     return (
-      <div ref={this.calendarRef}></div>
+      <div ref={this.elRef}></div>
     )
   }
 }
