@@ -8,11 +8,10 @@
   ],
   "scripts": {
     "test": "jest --config ./config/jest/config.js --no-cache",
-    "start": "webpack-dev-server --mode development --open",
     "pack": "npm pack && tar -xvzf *.tgz && rm -rf package *.tgz",
     "lint": "eslint src/ ",
     "prepublishOnly": "npm run build",
-    "build": "webpack --mode production"
+    "build": "webpack --mode development"
   },
   "keywords": [
     "react",

@@ -6,7 +6,7 @@ Full Calendar 4.0 has been officially released: [v4 release notes](https://fullc
 
 Full Calendar [v4 docs](https://fullcalendar.io/docs#toc).
 
-`sardius-fullcalendar-wrapper` [Demo](https://sardiusmedia.github.io/sardius-fullcalendar-wrapper/).
+`sardius-fullcalendar-wrapper` [Demo](https://joshuaruff.github.io/fullCalendar_examples/).
 
 ## Table of contents
 1. [Installation](#installation)
@@ -26,114 +26,102 @@ Full Calendar [v4 docs](https://fullcalendar.io/docs#toc).
 `sardius-fullcalendar-wrapper` creates a `<FullCalendar />` component. You can use it just like any other React component. For example:
  
 ```jsx
-// import React...
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from 'react'
+import { render } from 'react-dom'
 
 // ... and sardius-fullcalendar-wrapper.
-import FullCalendar from 'sardius-fullcalendar-wrapper';
+import FullCalendar from 'sardius-fullcalendar-wrapper'
 
 // ... and any fullcalendar plugins you may require
-import interactionPlugin from '@fullcalendar/interaction';
-import timeGridPlugin from '@fullcalendar/timegrid';
+import interactionPlugin from '@fullcalendar/interaction'
+import dayGridPlugin from '@fullcalendar/daygrid'
 
 // ... and any fullcalendar specific css
-import '@fullcalendar/timegrid/main.css';
+import '@fullcalendar/core/main.css'
+import '@fullcalendar/daygrid/main.css'
+
+const today = new Date()
+const tomorrow = new Date()
 
 class ExampleComponent extends React.Component {
   constructor(props) {
-    super(props);
-    // Create a reference to the component to use Full Calendar methods
-    this.fullCalendar = React.createRef();
+    super(props)
+    this.fullCalendar = React.createRef()
     this.state = {
-      events:[
+      events: [
         {
-          title: 'All Day Event',
-          start: '2018-12-01'
+          title: 'Example Event',
+          start: today
         },
         {
-          title: 'Long Event',
-          start: '2018-12-07',
-          end: '2018-12-10'
-        },
-        {
-          id: 999,
-          title: 'Repeating Event',
-          start: '2018-12-09T16:00:00'
-        },
-        {
-          id: 999,
-          title: 'Repeating Event',
-          start: '2018-12-16T16:00:00'
-        },
-        {
-          title: 'Conference',
-          start: Date.now(),
-        },
-        {
-          title: 'Click for Google Url Event',
-          url: 'http://google.com/',
-          start: '2017-12-28'
+          title: 'Example Event',
+          start: tomorrow.setDate(today.getDate() + 1)
         }
-      ],		
+      ]
     }
-  };
+  }
 
   eventClicked = (eventClickInfo) => {
-    alert('Event has been clicked!');
+    alert('Event has been clicked!')
   }
 
   getView = () => {
-    // Use reference to call Full Calendar Methods
-    const view = this.fullCalendar.current.calendar.getView();
-    alert('We are using FullCalendar Methods!');
+    let calendarApi = this.fullCalendar.current.getApi()
+    let view = calendarApi.getView()
+    console.log(view)
   }
 
-  selectEvent = (selectionInfo) => {
-    alert('Event Selected!');
+  handleNext = () => {
+    let calendarApi = this.fullCalendar.current.getApi()
+    calendarApi.next()
+  }
+
+  selectEvent = selectionInfo => {
+    alert('Event Selected!')
   }
 
   render() {
     return (
-      <div id="example-component">
+      <div>
+        <button onClick={ this.handleNext }>goto next</button>
         <FullCalendar
-          ref={this.fullCalendar} // Add ref defined in constructor to FullCalendar
-          id = "your-custom-calendar-ID"
-          header = {{
-            left: 'prev,next today myCustomButton',
+          ref={this.fullCalendar}
+          header={{
+            left: 'prev,today,next',
             center: 'title',
-            right: 'month,basicWeek,basicDay'
+            right: 'dayGridMonth, dayGridWeek, dayGridDay'
           }}
-          defaultView="timeGrid" // Uses the timeGridPlugin
-          defaultDate='2018-12-05'
           // Example of an option set to false (only required if the default is true)
           navLinks={false}
-          // Example of an option set to true
-          editable
-          selectable // Uses the interactionPlugin
-          selectHelper
+          allDaySlot={false}
+          // Load in this calendar's events
+          events={this.state.events}
           // Example of a callback / handler function
           select={selectionInfo => {
-            this.selectEvent(selectionInfo);
+            this.selectEvent(selectionInfo)
           }}
           // Another example of a callback / handler function
           eventClick={eventClickInfo => {
-            this.eventClicked(eventClickInfo);
+            this.eventClicked(eventClickInfo)
           }}
-          // Load in this calendar's events
-          events={this.state.events} 
           // Add in required plugins for the options that you selected above
           plugins={[
             interactionPlugin,
-            timeGridPlugin
+            dayGridPlugin
           ]}
+          // Example of an option set to true
+          editable
+          nowIndicator
+          selectable
+          snapDuration="00:05"
+          defaultView="dayGridMonth"
         />
       </div>
-    );
+    )
   }
 }
 
-ReactDOM.render(<ExampleComponent />, document.getElementById('root'));
+render(<ExampleComponent />, document.getElementById('root'))
 ```
 
 The `id` property declares the `id` of the root element for the FullCalendar component. 

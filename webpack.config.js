@@ -1,6 +1,7 @@
 const path = require('path')
 
 module.exports = {
+  mode: 'development',
   entry: {
     'main.js': [
       path.resolve(__dirname, 'src/index.js'),
@@ -10,6 +11,10 @@ module.exports = {
   output: {
     filename: '[name]',
     path: path.join(__dirname, '')
+  },
+  optimization: {
+    // We no not want to minimize our code.
+    minimize: false
   },
   module: {
     rules: [
