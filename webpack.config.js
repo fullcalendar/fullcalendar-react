@@ -1,11 +1,9 @@
 const path = require('path')
 
 module.exports = {
-  mode: 'development',
   entry: {
     'main.js': [
-      path.resolve(__dirname, 'src/index.js'),
-      path.resolve(__dirname, 'src/calendarOptionsMapper.js')
+      path.resolve(__dirname, 'src/FullCalendar.js')
     ]
   },
   output: {

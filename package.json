@@ -2,16 +2,15 @@
   "name": "sardius-fullcalendar-wrapper",
   "version": "1.3.6",
   "description": "React Wrapper for Fullcalendar 4.0",
-  "main": "dist/main.js",
+  "main": "main.js",
   "files": [
     "/main.js"
   ],
   "scripts": {
-    "test": "jest --config ./config/jest/config.js --no-cache",
-    "pack": "npm pack && tar -xvzf *.tgz && rm -rf package *.tgz",
-    "lint": "eslint src/ ",
-    "prepublishOnly": "npm run build",
-    "build": "webpack --mode development"
+    "test": "jest --config ./jest/config.js --no-cache",
+    "lint": "eslint src/",
+    "build": "webpack --mode development",
+    "dist": "webpack --mode production"
   },
   "keywords": [
     "react",

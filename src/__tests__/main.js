@@ -2,17 +2,18 @@
 import React from 'react'
 import { render } from 'react-testing-library'
 
-import FullCalendar from '../index'
+import daygridPlugin from '@fullcalendar/daygrid'
+import FullCalendar from '../FullCalendar'
 
 describe('rendering', () => {
   it('should render without crashing', () => {
-    const { getByText } = render(<FullCalendar />)
+    const { getByText } = render(<FullCalendar plugins={[ daygridPlugin ]} />)
     const el = getByText('today')
     expect(el.classList[0]).toBe('fc-today-button')
   })
 
   it('should unmount from the DOM', () => {
-    const { unmount, queryByText } = render(<FullCalendar />)
+    const { unmount, queryByText } = render(<FullCalendar plugins={[ daygridPlugin ]} />)
     unmount()
     const el = queryByText('today')
     expect(el).toBeNull()
@@ -25,13 +26,13 @@ describe('callbacks and prop changes', () => {
     const callback = () => {
       bool = true;
     }
-    render(<FullCalendar  viewSkeletonRender={callback}/>)
+    render(<FullCalendar  viewSkeletonRender={callback} plugins={[ daygridPlugin ]}/>)
     expect(bool).toBeTruthy()
   })
 
   it('should have updatable props', () => {
      const calendarApiRef = React.createRef()
-     const { rerender, debug } = render(<FullCalendar ref={calendarApiRef}/>);
+     const { rerender, debug } = render(<FullCalendar ref={calendarApiRef} plugins={[ daygridPlugin ]} />);
      let locale = calendarApiRef.current.calendar.getOption('locale');
      expect(locale).toBe('')
 
