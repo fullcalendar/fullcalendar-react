@@ -1,7 +1,9 @@
 {
   "name": "sardius-fullcalendar-wrapper",
   "version": "1.3.6",
-  "description": "React Wrapper for Fullcalendar 4.0",
+  "title": "FullCalendar React Component",
+  "description": "An official FullCalendar component for React",
+  "docs": "https://fullcalendar.io/docs/react",
   "scripts": {
     "test": "jest",
     "lint": "eslint src --ext .js,.jsx",

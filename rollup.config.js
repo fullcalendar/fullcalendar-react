@@ -52,6 +52,5 @@ function buildBanner() {
     packageConfig.title + ' v' + packageConfig.version + '\n' +
     'Docs: ' + packageConfig.docs + '\n' +
     'License: ' + packageConfig.license + '\n' +
-    '(c) ' + packageConfig.copyright + '\n' +
     '*/'
 }
