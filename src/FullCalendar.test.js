@@ -5,6 +5,9 @@ import { render } from 'react-testing-library'
 import daygridPlugin from '@fullcalendar/daygrid'
 import FullCalendar from '../FullCalendar'
 
+import 'jest-dom/extend-expect'
+import 'react-testing-library/cleanup-after-each'
+
 describe('rendering', () => {
   it('should render without crashing', () => {
     const { getByText } = render(<FullCalendar plugins={[ daygridPlugin ]} />)
