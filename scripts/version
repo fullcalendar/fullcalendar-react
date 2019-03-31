@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+
+#
+# version <version-number> [ npm-version-args... ]
+#
+# Generates all files for a release and commits them to a tagged "release commit",
+# which is detached from the current branch so it does not clutter the source files.
+# Calls `npm version` internally. Additional arguments are forwarded.
+#
+
+set -e # always immediately exit upon error
+
+scripts_dir=`dirname $0`
+
+if [[ ! "$@" ]]
+then
+  echo 'You must supply a version argument'
+  exit 1
+fi
+
+"$scripts_dir/require-clean-working-tree"
+"$scripts_dir/update-deps"
+
+# move away from the current branch (for committing release files)
+current_ref=`git symbolic-ref --quiet HEAD`
+git checkout --quiet --detach
+
+# will build the release and commit all generated files
+# see the version-related package.json scripts for more info
+if npm version "$@"
+then
+  echo
+  echo 'Successfully built new version release'
+  echo
+fi
+
+# return to the original branch, but maintain generated files
+git symbolic-ref HEAD "$current_ref" # will keep the diff staged
+git reset --quiet # unstage all generated files
+git reset --quiet --hard # revert files under version control (package.json)
