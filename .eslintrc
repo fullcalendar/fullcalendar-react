@@ -1,11 +1,13 @@
 {
   "extends": "eslint-config-standard",
   "parser": "babel-eslint",
+  "plugins": [
+    "jest"
+  ],
+  "env": {
+    "jest/globals": true
+  },
   "rules": {
-    "no-multiple-empty-lines": 0,
-    "no-new": 0,
-    "padded-blocks": 0,
-    "space-before-function-paren": 0,
-    "standard/no-callback-literal": 0
+    "space-before-function-paren": 0
   }
 }
