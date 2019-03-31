@@ -8,7 +8,8 @@
     "test": "jest",
     "lint": "eslint -c eslint.json src --ext .js,.jsx && tslint --project .",
     "build": "rollup -c",
-    "watch": "rollup -c --watch"
+    "watch": "rollup -c --watch",
+    "ci": "npm run build && npm run test && npm run lint"
   },
   "keywords": [
     "react",
