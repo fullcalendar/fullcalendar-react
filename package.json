@@ -4,7 +4,7 @@
   "description": "React Wrapper for Fullcalendar 4.0",
   "scripts": {
     "test": "jest",
-    "lint": "eslint src",
+    "lint": "eslint src --ext .js,.jsx",
     "build": "rollup -c",
     "watch": "rollup -c --watch"
   },
@@ -30,6 +30,13 @@
     "@babel/preset-env": "^7.0.0-beta.51",
     "@babel/preset-react": "^7.0.0-beta.51",
     "@fullcalendar/daygrid": "^4.0.1",
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.16.0",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-node": "^8.0.1",
+    "eslint-plugin-promise": "^4.0.1",
+    "eslint-plugin-standard": "^4.0.0",
     "jest": "^24.5.0",
     "jest-dom": "^3.1.3",
     "react": "^16.8.4",
