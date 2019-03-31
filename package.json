@@ -6,7 +6,7 @@
   "docs": "https://fullcalendar.io/docs/react",
   "scripts": {
     "test": "jest",
-    "lint": "eslint src --ext .js,.jsx",
+    "lint": "eslint src --ext .js,.jsx && tslint --project .",
     "build": "rollup -c",
     "watch": "rollup -c --watch"
   },
@@ -51,6 +51,8 @@
     "rollup-plugin-node-resolve": "^4.0.1",
     "rollup-plugin-typescript": "^1.0.1",
     "tslib": "^1.9.3",
+    "tslint": "^5.14.0",
+    "tslint-config-standard": "^8.0.1",
     "typescript": "^3.4.1"
   },
   "dependencies": {
