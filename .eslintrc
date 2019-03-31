@@ -1,7 +1,6 @@
 {
   "extends": "eslint-config-standard",
   "parser": "babel-eslint",
-  "plugins": [],
   "rules": {
     "no-multiple-empty-lines": 0,
     "no-new": 0,
