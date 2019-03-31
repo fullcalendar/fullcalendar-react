@@ -5,7 +5,7 @@
     "module": "es6",
     "moduleResolution": "node"
   },
-  "exclude": [
-    "node_modules"
+  "files": [
+    "src/FullCalendar.tsx"
   ]
 }
