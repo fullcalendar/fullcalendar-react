@@ -6,7 +6,7 @@
   "docs": "https://fullcalendar.io/docs/react",
   "scripts": {
     "test": "jest",
-    "lint": "eslint src --ext .js,.jsx && tslint --project .",
+    "lint": "eslint -c eslint.json src --ext .js,.jsx && tslint --project .",
     "build": "rollup -c",
     "watch": "rollup -c --watch"
   },

@@ -1,8 +1,6 @@
 import * as React from 'react'
 import { Calendar, OptionsInput } from '@fullcalendar/core'
 
-// TODO: linting for this file
-
 class FullCalendar extends React.Component<OptionsInput, any> {
 
   private elRef: any = React.createRef()
