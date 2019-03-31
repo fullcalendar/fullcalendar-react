@@ -16,6 +16,7 @@ delete packageConfig.scripts
 
 packageConfig.main = 'main.umd.js'
 packageConfig.module = 'main.esm.js'
+packageConfig.types = 'main.d.ts'
 
 fs.writeFileSync(
   outputPath,
