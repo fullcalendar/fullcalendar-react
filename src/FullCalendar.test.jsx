@@ -3,7 +3,7 @@ import React from 'react'
 import { render } from 'react-testing-library'
 
 import daygridPlugin from '@fullcalendar/daygrid'
-import FullCalendar from '../FullCalendar'
+import FullCalendar from '../dist/main.esm' // weird, but most realistic testing scenario
 
 import 'jest-dom/extend-expect'
 import 'react-testing-library/cleanup-after-each'
