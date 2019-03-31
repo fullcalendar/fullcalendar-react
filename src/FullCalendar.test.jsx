@@ -19,27 +19,27 @@ describe('rendering', () => {
     unmount()
     const el = queryByText('today')
     expect(el).toBeNull()
-  });
+  })
 })
 
 describe('callbacks and prop changes', () => {
   it('should accept a callback', () => {
     let bool = false
     const callback = () => {
-      bool = true;
+      bool = true
     }
-    render(<FullCalendar  viewSkeletonRender={callback} plugins={[ daygridPlugin ]}/>)
+    render(<FullCalendar viewSkeletonRender={callback} plugins={[ daygridPlugin ]}/>)
     expect(bool).toBeTruthy()
   })
 
   it('should have updatable props', () => {
-     const calendarApiRef = React.createRef()
-     const { rerender, debug } = render(<FullCalendar ref={calendarApiRef} plugins={[ daygridPlugin ]} />);
-     let locale = calendarApiRef.current.calendar.getOption('locale');
-     expect(locale).toBe('')
+    const calendarApiRef = React.createRef()
+    render(<FullCalendar ref={calendarApiRef} plugins={[ daygridPlugin ]} />)
+    let locale = calendarApiRef.current.calendar.getOption('locale')
+    expect(locale).toBe('')
 
-     calendarApiRef.current.calendar.setOption('locale', 'fr');
-     locale = calendarApiRef.current.calendar.getOption('locale');
-     expect(locale).toBe('fr')
+    calendarApiRef.current.calendar.setOption('locale', 'fr')
+    locale = calendarApiRef.current.calendar.getOption('locale')
+    expect(locale).toBe('fr')
   })
 })
