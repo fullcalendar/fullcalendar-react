@@ -16,14 +16,16 @@
     "react-fullcalendar"
   ],
   "scripts": {
-    "clean": "rm -rf dist",
+    "clean": "rm -rf dist tmp",
     "test": "jest",
     "lint": "eslint -c eslint.json src --ext .js,.jsx && tslint --project .",
     "build": "rollup -c",
     "watch": "rollup -c --watch",
-    "dist": "npm run build && npm run dist:meta",
+    "dist": "npm run build && npm run dist:meta && npm run dts",
     "dist:meta": "cp README.* LICENSE.* dist && ./scripts/generate-package-config",
-    "ci": "npm run dist && npm run test && npm run lint"
+    "ci": "npm run dist && npm run test && npm run lint",
+    "dts:tmp": "tsc --declaration --module AMD --outFile tmp/main.js",
+    "dts": "npm run dts:tmp && cp tmp/main.d.ts dist"
   },
   "dependencies": {
     "@fullcalendar/core": "^4.0.1"
