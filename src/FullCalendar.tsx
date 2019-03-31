@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { Calendar, OptionsInput } from '@fullcalendar/core'
 
-class FullCalendar extends React.Component<OptionsInput, any> {
+export default class FullCalendar extends React.Component<OptionsInput, any> {
 
   private elRef: any = React.createRef()
   private calendar: Calendar
@@ -25,6 +25,8 @@ class FullCalendar extends React.Component<OptionsInput, any> {
 
   // TODO: unmount!?
 
-}
+  getApi(): Calendar {
+    return this.calendar
+  }
 
-export default FullCalendar
+}
