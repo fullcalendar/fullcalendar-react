@@ -1,5 +1,5 @@
 {
-  "name": "sardius-fullcalendar-wrapper",
+  "name": "@fullcalendar/react",
   "version": "1.3.6",
   "private": true,
   "title": "FullCalendar React Component",
