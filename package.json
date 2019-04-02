@@ -26,7 +26,7 @@
     "dist:meta": "cp README.* LICENSE.* dist && ./scripts/generate-package-config",
     "ci": "npm run dist && npm run test-single && npm run lint",
     "dts:tmp": "tsc --declaration --module AMD --outFile tmp/main.js",
-    "dts": "npm run dts:tmp && cp tmp/main.d.ts dist",
+    "dts": "npm run dts:tmp && cat tmp/main.d.ts | sed -e 's/\"FullCalendar\"/\"@fullcalendar\\/react\"/g' > dist/main.d.ts",
     "preversion": "npm run clean",
     "version": "npm run lint && npm run dist && npm run test-single && git add -f dist package-lock.json"
   },
