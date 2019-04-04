@@ -1,5 +1,5 @@
 
-# FullCalendar React Component
+# FullCalendar React Component [![Build Status](https://travis-ci.com/fullcalendar/fullcalendar-react.svg?branch=master)](https://travis-ci.com/fullcalendar/fullcalendar-react)
 
 This project provides an official React component for FullCalendar, with all the same setting.
 
