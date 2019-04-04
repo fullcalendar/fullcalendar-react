@@ -1,20 +1,21 @@
 {
   "name": "@fullcalendar/react",
-  "version": "1.3.6",
+  "version": "4.0.2-beta",
   "private": true,
   "title": "FullCalendar React Component",
   "description": "An official FullCalendar component for React",
-  "author": "Sardius Media",
-  "license": "MIT",
-  "docs": "https://fullcalendar.io/docs/react",
-  "repository": "https://github.com/SardiusMedia/sardius-fullcalendar-wrapper",
   "keywords": [
     "react",
     "calendar",
-    "events",
-    "fullcalendar",
-    "react-fullcalendar"
+    "fullcalendar"
   ],
+  "docs": "https://fullcalendar.io/docs/react",
+  "license": "MIT",
+  "author": "Sardius Media",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fullcalendar/fullcalendar-react.git"
+  },
   "scripts": {
     "clean": "rm -rf dist tmp",
     "test": "jest --watch",
