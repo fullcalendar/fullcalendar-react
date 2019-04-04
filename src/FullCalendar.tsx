@@ -1,32 +1,22 @@
 import * as React from 'react'
 import { Calendar, OptionsInput } from '@fullcalendar/core'
 
-export default class FullCalendar extends React.Component<OptionsInput, any> {
+const { forwardRef, useEffect, useImperativeHandle, useRef, useState } = React
 
-  private elRef: any = React.createRef()
-  private calendar: Calendar
+export default forwardRef((props: OptionsInput, componentRef) => {
+  const elRef = useRef()
+  const [calendar, setCalendar] = useState()
 
-  render() {
-    return (
-      <div ref={this.elRef}></div>
-    )
-  }
+  useEffect(() => {
+    const c = new Calendar(elRef.current, props)
+    setCalendar(c)
+    c.render()
+    return () => c.destroy()
+  }, [])
 
-  componentDidMount() {
-    this.calendar = new Calendar(this.elRef.current, this.props)
-    this.calendar.render()
-  }
+  useEffect(() => calendar && calendar.resetOptions(props), [calendar, props])
 
-  componentWillReceiveProps(nextProps) {
-    this.calendar.resetOptions(nextProps)
-  }
+  useImperativeHandle(componentRef, () => ({ getApi: (): Calendar => calendar }), [calendar])
 
-  componentWillUnmount() {
-    this.calendar.destroy()
-  }
-
-  getApi(): Calendar {
-    return this.calendar
-  }
-
-}
+  return <div ref={elRef}></div>
+})
