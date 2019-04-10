@@ -1,9 +1,10 @@
 {
   "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
     "jsx": "react",
-    "target": "es5",
     "module": "es6",
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "target": "es5"
   },
   "files": [
     "src/FullCalendar.tsx"

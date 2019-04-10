@@ -1,5 +1,4 @@
-import * as React from 'react'
-import { forwardRef, useEffect, useImperativeHandle, useRef, MutableRefObject } from 'react'
+import React, { forwardRef, useEffect, useImperativeHandle, useRef, MutableRefObject } from 'react'
 import { Calendar, OptionsInput } from '@fullcalendar/core'
 
 export default forwardRef((props: OptionsInput, componentRef) => {
@@ -19,7 +18,7 @@ export default forwardRef((props: OptionsInput, componentRef) => {
   }
 
   function updateOptions() {
-    calRef.current.resetOptions(props);
+    calRef.current.resetOptions(props)
   }
 
   // Calendar initialization
