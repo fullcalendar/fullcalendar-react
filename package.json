@@ -1,6 +1,6 @@
 {
   "name": "@fullcalendar/react",
-  "version": "4.0.2-beta",
+  "version": "4.1.0",
   "private": true,
   "title": "FullCalendar React Component",
   "description": "An official FullCalendar component for React",
