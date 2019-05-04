@@ -6,8 +6,6 @@ Full Calendar 4.0 has been officially released: [v4 release notes](https://fullc
 
 Full Calendar [v4 docs](https://fullcalendar.io/docs#toc).
 
-`sardius-fullcalendar-wrapper` [Demo](https://joshuaruff.github.io/fullCalendar_examples/).
-
 ## Table of contents
 1. [Installation](#installation)
 2. [Basic usage](#basic-usage)
