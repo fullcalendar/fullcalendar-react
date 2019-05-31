@@ -1,5 +1,10 @@
+import deepEquals from 'fast-deep-equal'
 import * as React from 'react'
 import { Calendar, OptionsInput } from '@fullcalendar/core'
+
+/*
+TODO: note about deepEquals performance
+*/
 
 export default class FullCalendar extends React.Component<OptionsInput, any> {
 
@@ -17,8 +22,24 @@ export default class FullCalendar extends React.Component<OptionsInput, any> {
     this.calendar.render()
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.calendar.resetOptions(nextProps)
+  componentDidUpdate(oldProps) {
+    let { props } = this
+    let updates = {}
+    let removals = []
+
+    for (let propName in oldProps) {
+      if (!(propName in props)) {
+        removals.push(propName)
+      }
+    }
+
+    for (let propName in props) {
+      if (!deepEquals(props[propName], oldProps[propName])) {
+        updates[propName] = props[propName]
+      }
+    }
+
+    this.calendar.mutateOptions(updates, removals, false, deepEquals)
   }
 
   componentWillUnmount() {

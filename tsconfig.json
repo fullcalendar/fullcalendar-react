@@ -3,7 +3,8 @@
     "jsx": "react",
     "target": "es5",
     "module": "es6",
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true
   },
   "files": [
     "src/FullCalendar.tsx"

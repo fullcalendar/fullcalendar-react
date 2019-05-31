@@ -1,17 +1,27 @@
-import resolve from 'rollup-plugin-node-resolve'
+import nodeResolve from 'rollup-plugin-node-resolve'
+import commonjs from 'rollup-plugin-commonjs'
+import sourcemaps from 'rollup-plugin-sourcemaps'
 import typescript from 'rollup-plugin-typescript'
 import packageConfig from './package.json'
 
-/*
-Will generate a UMD by default but can be instructed to generate an ES module
-by using command line argument overrides.
-*/
+let isDev
+if (!/^(development|production)$/.test(process.env.BUILD)) {
+  console.warn('BUILD environment not specified. Assuming \'development\'')
+  isDev = true
+} else {
+  isDev = process.env.BUILD === 'development'
+}
+
+let sourcemap = isDev ? 'inline' : false
 
 const BROWSER_GLOBAL = 'FullCalendarReact'
 const EXTERNAL_BROWSER_GLOBALS = {
   'react': 'React',
   '@fullcalendar/core': 'FullCalendar'
 }
+const ESM_EXTERNALS = [ // only for ES build. UMD build will bundle these
+  'fast-deep-equal'
+]
 const OUTPUT_SETTINGS = {
   umd: {
     format: 'umd',
@@ -19,12 +29,14 @@ const OUTPUT_SETTINGS = {
     exports: 'named',
     name: BROWSER_GLOBAL,
     globals: EXTERNAL_BROWSER_GLOBALS,
-    banner: buildBanner
+    banner: buildBanner,
+    sourcemap
   },
   esm: {
     format: 'es',
     file: 'dist/main.esm.js',
-    banner: buildBanner
+    banner: buildBanner,
+    sourcemap
   }
 }
 
@@ -34,16 +46,34 @@ export default [
 ]
 
 function buildSettings(format) {
+  let external = Object.keys(EXTERNAL_BROWSER_GLOBALS)
+  let plugins = []
+
+  if (format === 'esm') {
+    external = external.concat(ESM_EXTERNALS)
+    plugins.push(
+      nodeResolve({ jail: 'src' }) // any files outside of here are considered external libs
+    )
+  } else {
+    plugins.push(
+      nodeResolve()
+    )
+  }
+
+  plugins.push(
+    commonjs(), // allows importing of external cjs modules
+    typescript() // will use tsconfig.json
+  )
+
+  if (isDev) {
+    plugins.push(sourcemaps())
+  }
+
   return {
     input: 'src/FullCalendar.tsx',
     output: OUTPUT_SETTINGS[format],
-    external: Object.keys(EXTERNAL_BROWSER_GLOBALS),
-    plugins: [
-      resolve({
-        jail: 'src' // any files outside of here are considered external libs
-      }),
-      typescript() // will use tsconfig.json
-    ]
+    external,
+    plugins
   }
 }
 
