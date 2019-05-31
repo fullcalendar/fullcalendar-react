@@ -2,9 +2,6 @@ import deepEquals from 'fast-deep-equal'
 import * as React from 'react'
 import { Calendar, OptionsInput } from '@fullcalendar/core'
 
-/*
-TODO: note about deepEquals performance
-*/
 
 export default class FullCalendar extends React.Component<OptionsInput, any> {
 
@@ -33,6 +30,13 @@ export default class FullCalendar extends React.Component<OptionsInput, any> {
       }
     }
 
+    /*
+    Do a deep-comparison for prop changes. We do this because often times the parent component will pass in
+    an object literal that generates a new reference every time its render() function runs.
+    This isn't too much of a performance hit because normally these object literals are rather small.
+    For larger data, the parent component will almost definitely generate a new reference on every mutation,
+    because immutable prop data is the norm in React-world, making the deepEqual function execute really fast.
+    */
     for (let propName in props) {
       if (!deepEquals(props[propName], oldProps[propName])) {
         updates[propName] = props[propName]

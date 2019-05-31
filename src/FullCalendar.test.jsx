@@ -8,11 +8,12 @@ import 'jest-dom/extend-expect'
 import 'react-testing-library/cleanup-after-each'
 
 const PLUGINS = [ daygridPlugin ]
+const NOW_DATE = new Date()
+
 
 it('should render without crashing', () => {
-  const { getByText } = render(<FullCalendar plugins={PLUGINS} />)
-  const el = getByText('today')
-  expect(el.classList[0]).toBe('fc-today-button')
+  const { container } = render(<FullCalendar plugins={PLUGINS} />)
+  expect(getHeaderToolbarEl(container)).toBeTruthy()
 })
 
 it('should unmount and destroy', () => {
@@ -26,10 +27,10 @@ it('should unmount and destroy', () => {
 
 it('should have updatable props', () => {
   const { container, rerender } = render(<FullCalendar plugins={PLUGINS} />)
-  expect(container.querySelector('.fc-sat')).toBeTruthy()
+  expect(isWeekendsRendered(container)).toBe(true)
 
   rerender(<FullCalendar weekends={false} plugins={PLUGINS} />)
-  expect(container.querySelector('.fc-sat')).toBeFalsy()
+  expect(isWeekendsRendered(container)).toBe(false)
 })
 
 it('should accept a callback', () => {
@@ -49,3 +50,57 @@ it('should expose an API', function() {
   calendarApi.gotoDate(newDate)
   expect(calendarApi.getDate().valueOf()).toBe(newDate.valueOf())
 })
+
+it('won\'t rerender toolbar if didn\'t change', function() {
+  const { container, rerender } = render(
+    <FullCalendar plugins={PLUGINS} header={buildToolbar()} />
+  )
+  let headerEl = getHeaderToolbarEl(container)
+
+  rerender(
+    <FullCalendar plugins={PLUGINS} header={buildToolbar()} />
+  )
+  expect(getHeaderToolbarEl(container)).toBe(headerEl)
+})
+
+it('won\'t rerender events if didn\'t change', function() {
+  const { container, rerender } = render(
+    <FullCalendar plugins={PLUGINS} events={[ buildEvent() ]} />
+  )
+  let eventEl = getFirstEventEl(container)
+
+  rerender(
+    <FullCalendar plugins={PLUGINS} events={[ buildEvent() ]} />
+  )
+  expect(getFirstEventEl(container)).toBe(eventEl)
+})
+
+
+// FullCalendar data utils
+
+function buildToolbar() {
+  return {
+    left: 'prev,next today',
+    center: 'title',
+    right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+  }
+}
+
+function buildEvent() {
+  return { title: 'event', start: new Date(NOW_DATE.valueOf()) } // consistent datetime
+}
+
+
+// DOM utils
+
+function getHeaderToolbarEl(container) {
+  return container.querySelector('.fc-header-toolbar')
+}
+
+function isWeekendsRendered(container) {
+  return Boolean(container.querySelector('.fc-sat'))
+}
+
+function getFirstEventEl(container) {
+  return container.querySelector('.fc-event')
+}
