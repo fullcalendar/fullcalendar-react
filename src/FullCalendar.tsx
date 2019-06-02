@@ -1,4 +1,4 @@
-import deepEquals from 'fast-deep-equal'
+import deepEqual from 'fast-deep-equal'
 import * as React from 'react'
 import { Calendar, OptionsInput } from '@fullcalendar/core'
 
@@ -38,12 +38,12 @@ export default class FullCalendar extends React.Component<OptionsInput, any> {
     because immutable prop data is the norm in React-world, making the deepEqual function execute really fast.
     */
     for (let propName in props) {
-      if (!deepEquals(props[propName], oldProps[propName])) {
+      if (!deepEqual(props[propName], oldProps[propName])) {
         updates[propName] = props[propName]
       }
     }
 
-    this.calendar.mutateOptions(updates, removals, false, deepEquals)
+    this.calendar.mutateOptions(updates, removals, false, deepEqual)
   }
 
   componentWillUnmount() {
