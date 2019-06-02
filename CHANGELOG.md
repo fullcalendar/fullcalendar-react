@@ -5,3 +5,4 @@
   any change to ANY of the FullCalendar component's props would trigger
   a full rerender.
 - new dependency: fast-deep-equal
+  automatically bundled with UMD dist
