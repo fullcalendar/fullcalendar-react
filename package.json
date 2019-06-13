@@ -1,7 +1,7 @@
 {
+  "private": true,
   "name": "@fullcalendar/react",
   "version": "4.2.0",
-  "private": true,
   "title": "FullCalendar React Component",
   "description": "An official FullCalendar component for React",
   "keywords": [
@@ -46,7 +46,7 @@
     "@babel/plugin-syntax-dynamic-import": "^7.0.0",
     "@babel/preset-env": "^7.0.0-beta.51",
     "@babel/preset-react": "^7.0.0-beta.51",
-    "@fullcalendar/daygrid": "^4.2.0",
+    "@fullcalendar/daygrid": "~4.2.0",
     "@types/react": "^16.8.12",
     "babel-eslint": "^10.0.1",
     "eslint": "^5.16.0",
