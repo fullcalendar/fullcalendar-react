@@ -25,8 +25,7 @@
     "watch": "rollup -c --environment BUILD:development --watch",
     "meta": "mkdir -p dist && cp README.* LICENSE.* dist && ./scripts/pkg-json.js",
     "dts": "./scripts/dts.sh",
-    "ci": "./scripts/ci.sh",
-    "version": "npm run ci"
+    "ci": "./scripts/ci.sh"
   },
   "dependencies": {
     "@fullcalendar/core": "~4.2.0",
