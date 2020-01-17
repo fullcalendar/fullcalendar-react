@@ -15,15 +15,25 @@ export default class FullCalendar extends React.Component<OptionsInput, any> {
   }
 
   componentDidMount() {
-    this.calendar = new Calendar(this.elRef.current, this.props)
-    this.calendar.render()
+    const { props } = this
+    const { events }: any = props
+    this.calendar = new Calendar(this.elRef.current,props)
+    for (const propName in props) {
+      if (propName === 'events') {
+        this.calendar.batchRendering(() => {
+          this.calendar.removeAllEvents()
+          events.map(event => this.calendar.addEvent(event))
+          this.calendar.render()
+        })
+      }
+    }
   }
 
   componentDidUpdate(oldProps) {
     let { props } = this
+    const { events }: any = props
     let updates = {}
     let removals = []
-
     for (let propName in oldProps) {
       if (!(propName in props)) {
         removals.push(propName)
@@ -37,8 +47,13 @@ export default class FullCalendar extends React.Component<OptionsInput, any> {
     For larger data, the parent component will almost definitely generate a new reference on every mutation,
     because immutable prop data is the norm in React-world, making the deepEqual function execute really fast.
     */
-    for (let propName in props) {
-      if (!deepEqual(props[propName], oldProps[propName])) {
+    for (const propName in props) {
+      if (propName === 'events') {
+        this.calendar.batchRendering(() => {
+          this.calendar.removeAllEvents()
+          events.map(event => this.calendar.addEvent(event))
+        })
+      } else if (!deepEqual(props[propName], oldProps[propName])) {
         updates[propName] = props[propName]
       }
     }
