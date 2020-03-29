@@ -36,7 +36,7 @@ it('should have updatable props', () => {
 it('should accept a callback', () => {
   let called = false
   const callback = () => { called = true }
-  render(<FullCalendar viewSkeletonRender={callback} plugins={PLUGINS}/>)
+  render(<FullCalendar viewDidMount={callback} plugins={PLUGINS}/>)
   expect(called).toBe(true)
 })
 
@@ -98,7 +98,7 @@ function getHeaderToolbarEl(container) {
 }
 
 function isWeekendsRendered(container) {
-  return Boolean(container.querySelector('.fc-sat'))
+  return Boolean(container.querySelector('.fc-day-sat'))
 }
 
 function getFirstEventEl(container) {
