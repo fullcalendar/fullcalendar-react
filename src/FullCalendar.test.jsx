@@ -7,42 +7,71 @@ import FullCalendar from '../dist/main.esm' // must run build/watch beforehand
 import 'jest-dom/extend-expect'
 import 'react-testing-library/cleanup-after-each'
 
-const PLUGINS = [ daygridPlugin ]
+const DEFAULT_OPTIONS = {
+  plugins: [ daygridPlugin ]
+}
 const NOW_DATE = new Date()
 
 
 it('should render without crashing', () => {
-  const { container } = render(<FullCalendar plugins={PLUGINS} />)
+  let { container } = render(
+    <FullCalendar {...DEFAULT_OPTIONS} />
+  )
   expect(getHeaderToolbarEl(container)).toBeTruthy()
 })
 
+
 it('should unmount and destroy', () => {
-  let destroyedCalled = false
-  const destroyed = () => { destroyedCalled = true }
-  const { unmount } = render(<FullCalendar plugins={PLUGINS} _destroyed={destroyed} />)
+  let unmountCalled = false
+
+  let { unmount } = render(
+    <FullCalendar
+      {...DEFAULT_OPTIONS}
+      viewWillUnmount={() => {
+        unmountCalled = true
+      }}
+    />
+  )
 
   unmount()
-  expect(destroyedCalled).toBe(true)
+  expect(unmountCalled).toBe(true)
 })
 
+
 it('should have updatable props', () => {
-  const { container, rerender } = render(<FullCalendar plugins={PLUGINS} />)
+  let { container, rerender } = render(
+    <FullCalendar {...DEFAULT_OPTIONS} />
+  )
   expect(isWeekendsRendered(container)).toBe(true)
 
-  rerender(<FullCalendar weekends={false} plugins={PLUGINS} />)
+  rerender(
+    <FullCalendar {...DEFAULT_OPTIONS} weekends={false} />
+  )
   expect(isWeekendsRendered(container)).toBe(false)
 })
 
+
 it('should accept a callback', () => {
-  let called = false
-  const callback = () => { called = true }
-  render(<FullCalendar viewDidMount={callback} plugins={PLUGINS}/>)
-  expect(called).toBe(true)
+  let mountCalled = false
+
+  render(
+    <FullCalendar
+      {...DEFAULT_OPTIONS}
+      viewDidMount={() => {
+        mountCalled = true
+      }}
+    />
+  )
+  expect(mountCalled).toBe(true)
 })
+
 
 it('should expose an API', function() {
   let componentRef = React.createRef()
-  render(<FullCalendar ref={componentRef} plugins={PLUGINS} />)
+  render(
+    <FullCalendar {...DEFAULT_OPTIONS} ref={componentRef} />
+  )
+
   let calendarApi = componentRef.current.getApi()
   expect(calendarApi).toBeTruthy()
 
@@ -51,32 +80,40 @@ it('should expose an API', function() {
   expect(calendarApi.getDate().valueOf()).toBe(newDate.valueOf())
 })
 
-it('won\'t rerender toolbar if didn\'t change', function() {
-  const { container, rerender } = render(
-    <FullCalendar plugins={PLUGINS} header={buildToolbar()} />
+
+it('won\'t rerender toolbar if didn\'t change', function() { // works because internal VDOM reuses toolbar element
+  let { container, rerender } = render(
+    <FullCalendar {...DEFAULT_OPTIONS} header={buildToolbar()} />
   )
   let headerEl = getHeaderToolbarEl(container)
 
   rerender(
-    <FullCalendar plugins={PLUGINS} header={buildToolbar()} />
+    <FullCalendar {...DEFAULT_OPTIONS} header={buildToolbar()} />
   )
   expect(getHeaderToolbarEl(container)).toBe(headerEl)
 })
 
-it('won\'t rerender events if didn\'t change', function() {
-  const { container, rerender } = render(
-    <FullCalendar plugins={PLUGINS} events={[ buildEvent() ]} />
+
+it('won\'t rerender events if nothing changed', function() {
+  let options = {
+    ...DEFAULT_OPTIONS,
+    events: [ buildEvent() ]
+  }
+
+  let { container, rerender } = render(
+    <FullCalendar {...options} />
   )
   let eventEl = getFirstEventEl(container)
 
   rerender(
-    <FullCalendar plugins={PLUGINS} events={[ buildEvent() ]} />
+    <FullCalendar {...options} />
   )
   expect(getFirstEventEl(container)).toBe(eventEl)
 })
 
 
 // FullCalendar data utils
+
 
 function buildToolbar() {
   return {
@@ -86,6 +123,7 @@ function buildToolbar() {
   }
 }
 
+
 function buildEvent() {
   return { title: 'event', start: new Date(NOW_DATE.valueOf()) } // consistent datetime
 }
@@ -93,13 +131,16 @@ function buildEvent() {
 
 // DOM utils
 
+
 function getHeaderToolbarEl(container) {
   return container.querySelector('.fc-header-toolbar')
 }
 
+
 function isWeekendsRendered(container) {
   return Boolean(container.querySelector('.fc-day-sat'))
 }
+
 
 function getFirstEventEl(container) {
   return container.querySelector('.fc-event')
