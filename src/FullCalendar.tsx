@@ -21,7 +21,9 @@ export default class FullCalendar extends React.Component<OptionsInput, any> {
 
   componentDidUpdate(oldProps) {
     let diff = diffProps(oldProps, this.props)
-    this.calendar.mutateOptions(diff.updates, diff.removals)
+    if (diff.anyChanges) {
+      this.calendar.mutateOptions(diff.updates, diff.removals)
+    }
   }
 
   componentWillUnmount() {
