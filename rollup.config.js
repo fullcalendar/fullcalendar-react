@@ -17,6 +17,7 @@ let sourcemap = isDev ? 'inline' : false
 const BROWSER_GLOBAL = 'FullCalendarReact'
 const EXTERNAL_BROWSER_GLOBALS = {
   'react': 'React',
+  'react-dom': 'ReactDOM',
   '@fullcalendar/core': 'FullCalendar'
 }
 const ESM_EXTERNALS = [
