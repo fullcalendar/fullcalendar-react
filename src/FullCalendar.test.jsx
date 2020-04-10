@@ -83,12 +83,12 @@ it('should expose an API', function() {
 
 it('won\'t rerender toolbar if didn\'t change', function() { // works because internal VDOM reuses toolbar element
   let { container, rerender } = render(
-    <FullCalendar {...DEFAULT_OPTIONS} header={buildToolbar()} />
+    <FullCalendar {...DEFAULT_OPTIONS} headerToolbar={buildToolbar()} />
   )
   let headerEl = getHeaderToolbarEl(container)
 
   rerender(
-    <FullCalendar {...DEFAULT_OPTIONS} header={buildToolbar()} />
+    <FullCalendar {...DEFAULT_OPTIONS} headerToolbar={buildToolbar()} />
   )
   expect(getHeaderToolbarEl(container)).toBe(headerEl)
 })
