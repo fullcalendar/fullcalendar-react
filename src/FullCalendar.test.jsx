@@ -1,8 +1,8 @@
 import React from 'react'
 import { render } from 'react-testing-library'
 
-import daygridPlugin from '@fullcalendar/daygrid'
 import FullCalendar from '../dist/main.esm' // must run build/watch beforehand
+import daygridPlugin from '@fullcalendar/daygrid'
 
 import 'jest-dom/extend-expect'
 import 'react-testing-library/cleanup-after-each'
