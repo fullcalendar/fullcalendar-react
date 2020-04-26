@@ -15,6 +15,7 @@ declare global {
     export import RefObject = react.RefObject
     export import ComponentType = react.ComponentType
     export import VNode = react.ReactNode
+    export import Context = react.Context
     export import Component = react.Component
     export type ComponentChild = ReactComponentChild
     export type ComponentChildren = ReactComponentChild | ReactComponentChild[];
