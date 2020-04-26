@@ -1,6 +1,7 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
-import { Calendar, OptionsInput, createPlugin, mapHash } from '@fullcalendar/core'
+import { OptionsInput, createPlugin, mapHash } from '@fullcalendar/core'
+import { Calendar } from '@fullcalendar/preact'
 import { diffProps } from './utils'
 
 
