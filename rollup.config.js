@@ -18,7 +18,7 @@ const BROWSER_GLOBAL = 'FullCalendarReact'
 const EXTERNAL_BROWSER_GLOBALS = {
   'react': 'React',
   'react-dom': 'ReactDOM',
-  '@fullcalendar/preact': 'FullCalendar'
+  '@fullcalendar/core': 'FullCalendar'
 }
 const ESM_EXTERNALS = [
   // put module names here that we DON'T want to bundle in the ES build
