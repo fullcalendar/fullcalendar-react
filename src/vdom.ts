@@ -1,6 +1,8 @@
 import * as react from 'react'
 import * as reactDom from 'react-dom'
 
+import ReactJSX = JSX // our reference to the JSX namespace
+
 export type ReactComponentChild = react.ReactNode
   | object
   | string
@@ -25,6 +27,9 @@ declare global {
     export import Fragment = react.Fragment
     export import createContext = react.createContext
     export type VUIEvent = react.UIEvent
+  }
+  namespace h {
+    export import JSX = ReactJSX // preact exports the h.JSX namespace whereas react has it global. use preact's technique
   }
 }
 
