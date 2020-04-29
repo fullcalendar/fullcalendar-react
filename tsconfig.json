@@ -4,7 +4,11 @@
     "target": "es5",
     "module": "es6",
     "moduleResolution": "node",
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "importHelpers": true,
+    "declaration": true,
+    "rootDir": "src",
+    "outDir": "tmp/tsc-output"
   },
   "files": [
     "src/FullCalendar.tsx"
