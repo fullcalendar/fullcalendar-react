@@ -24,7 +24,7 @@
     "clean": "rm -rf dist",
     "test": "jest --watch",
     "test:single": "jest --no-cache",
-    "lint": "eslint -c eslint.json src --ext .js,.jsx && tslint --project .",
+    "lint": "eslint -c eslint.json tests --ext .js,.jsx && tslint --project .",
     "ci": "./scripts/ci.sh"
   },
   "dependencies": {

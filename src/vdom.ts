@@ -20,7 +20,7 @@ declare global {
     export import Context = react.Context
     export import Component = react.Component
     export type ComponentChild = ReactComponentChild
-    export type ComponentChildren = ReactComponentChild | ReactComponentChild[];
+    export type ComponentChildren = ReactComponentChild | ReactComponentChild[]
     export import h = react.createElement
     export import render = reactDom.render
     export import createRef = react.createRef
