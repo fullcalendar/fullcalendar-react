@@ -16,6 +16,8 @@
     "type": "git",
     "url": "https://github.com/fullcalendar/fullcalendar-react.git"
   },
+  "module": "dist/main.js",
+  "types": "dist/main.d.ts",
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "watch": "tsc -p tsconfig.json --sourceMap --watch",
@@ -23,7 +25,6 @@
     "test": "jest --watch",
     "test:single": "jest --no-cache",
     "lint": "eslint -c eslint.json src --ext .js,.jsx && tslint --project .",
-    "meta": "mkdir -p dist && cp README.* LICENSE.* dist && ./scripts/pkg-json.js",
     "ci": "./scripts/ci.sh"
   },
   "dependencies": {

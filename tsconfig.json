@@ -11,6 +11,6 @@
     "outDir": "dist"
   },
   "files": [
-    "src/FullCalendar.tsx"
+    "src/main.tsx"
   ]
 }
