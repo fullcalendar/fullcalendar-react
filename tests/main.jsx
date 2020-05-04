@@ -1,14 +1,17 @@
 import React from 'react'
-import { render } from 'react-testing-library'
+import { render, cleanup } from 'react-testing-library'
 import FullCalendar from '../dist/main'
 import daygridPlugin from '@fullcalendar/daygrid'
-import 'react-testing-library/cleanup-after-each'
 
 
+const NOW_DATE = new Date()
 const DEFAULT_OPTIONS = {
   plugins: [ daygridPlugin ]
 }
-const NOW_DATE = new Date()
+
+
+// like, react-testing-library/cleanup-after-each, but doesn't double-import react-testing-library
+afterEach(() => cleanup())
 
 
 it('should render without crashing', () => {
