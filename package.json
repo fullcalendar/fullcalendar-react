@@ -21,6 +21,7 @@
   "files": [
     "dist"
   ],
+  "sideEffects": true,
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "watch": "tsc -p tsconfig.json --sourceMap --watch",
