@@ -1,13 +1,13 @@
 import './vdom'
 import * as React from 'react'
 import {
-  OptionsInput,
+  CalendarOptions,
   CalendarApi, CalendarDataProvider,
   CalendarContent, computeCalendarHeight, computeCalendarClassNames
 } from '@fullcalendar/common'
 
 
-export default class FullCalendar extends React.Component<OptionsInput, any> {
+export default class FullCalendar extends React.Component<CalendarOptions> {
 
   private _calendarApi = new CalendarApi()
 

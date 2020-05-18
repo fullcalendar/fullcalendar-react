@@ -18,6 +18,9 @@
   },
   "module": "dist/main.js",
   "types": "dist/main.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "watch": "tsc -p tsconfig.json --sourceMap --watch",

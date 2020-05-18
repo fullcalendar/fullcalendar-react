@@ -41,3 +41,7 @@ window.FullCalendarVDom = {
   Fragment: react.Fragment,
   createContext: react.createContext
 }
+
+export function flushToDom() {
+  // because
+}
