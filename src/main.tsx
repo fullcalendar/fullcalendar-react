@@ -30,3 +30,7 @@ export default class FullCalendar extends React.Component<CalendarOptions> {
   }
 
 }
+
+
+// export all important utils/types
+export * from '@fullcalendar/common'
