@@ -21,7 +21,7 @@ declare global {
     export import Component = react.Component
     export type ComponentChild = ReactComponentChild
     export type ComponentChildren = ReactComponentChild | ReactComponentChild[]
-    export import h = react.createElement
+    export import createElement = react.createElement
     export import render = reactDom.render
     export import createRef = react.createRef
     export import Fragment = react.Fragment
@@ -35,7 +35,7 @@ declare global {
 
 window.FullCalendarVDom = {
   Component: react.Component,
-  h: react.createElement,
+  createElement: react.createElement,
   render: reactDom.render,
   createRef: react.createRef,
   Fragment: react.Fragment,
