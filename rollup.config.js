@@ -6,6 +6,8 @@ import postcss from 'rollup-plugin-postcss'
 import react from 'react'
 import reactDom from 'react-dom'
 
+// ONLY FOR TESTS. tsc compiles main lib, with no post-processing
+
 export default [
   {
     input: 'tests/main.jsx',

@@ -28,7 +28,7 @@ declare global {
     export import createContext = react.createContext
     export type VUIEvent = react.UIEvent
   }
-  namespace h {
+  namespace createElement {
     export import JSX = ReactJSX // preact exports the h.JSX namespace whereas react has it global. use preact's technique
   }
 }
