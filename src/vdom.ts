@@ -45,4 +45,5 @@ window.FullCalendarVDom = {
 }
 
 export function flushToDom() {
+  // always sync from top-level
 }
