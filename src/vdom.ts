@@ -27,6 +27,7 @@ declare global {
     export import Fragment = react.Fragment
     export import createContext = react.createContext
     export type VUIEvent = react.UIEvent
+    export function flushToDom(): void
   }
   namespace createElement {
     export import JSX = ReactJSX // preact exports the h.JSX namespace whereas react has it global. use preact's technique
@@ -39,9 +40,9 @@ window.FullCalendarVDom = {
   render: reactDom.render,
   createRef: react.createRef,
   Fragment: react.Fragment,
-  createContext: react.createContext
+  createContext: react.createContext,
+  flushToDom
 }
 
 export function flushToDom() {
-  // because
 }

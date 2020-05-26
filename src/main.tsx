@@ -3,7 +3,7 @@ import * as React from 'react'
 import {
   CalendarOptions,
   CalendarApi, CalendarDataProvider,
-  CalendarContent, computeCalendarHeight, computeCalendarClassNames
+  CalendarContent, CalendarRoot
 } from '@fullcalendar/common'
 
 
@@ -16,9 +16,17 @@ export default class FullCalendar extends React.Component<CalendarOptions> {
     return (
       <CalendarDataProvider optionOverrides={this.props} calendarApi={this._calendarApi}>
         {(data) => (
-          <div className={computeCalendarClassNames(data).join(' ')} style={{ height: computeCalendarHeight(data) }}>
-            <CalendarContent {...data} />
-          </div>
+          <CalendarRoot options={data.calendarOptions} theme={data.theme} emitter={data.emitter}>
+            {(classNames, height, isHeightAuto, forPrint) => (
+              <div className={classNames.join(' ')} style={{ height }}>
+                <CalendarContent
+                  isHeightAuto={isHeightAuto}
+                  forPrint={forPrint}
+                  {...data}
+                />
+              </div>
+            )}
+          </CalendarRoot>
         )}
       </CalendarDataProvider>
     )
