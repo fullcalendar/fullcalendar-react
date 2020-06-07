@@ -32,7 +32,9 @@ export default [
       babel({ // will automatically use babel.config.js
         babelHelpers: 'bundled'
       }),
-      postcss()
+      postcss({
+        config: false // don't look in current and parent dirs for a config
+      })
     ]
   }
 ]
