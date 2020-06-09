@@ -75,7 +75,6 @@
     "react-testing-library": "^6.0.2",
     "rollup": "^1.31.0",
     "rollup-plugin-postcss": "^2.0.3",
-    "typescript": "^3.8.3",
-    "tslib": "^1.11.1"
+    "typescript": "^3.8.3"
   }
 }
