@@ -1,9 +1,0 @@
-{
-  "extends": "tslint-config-standard",
-  "rules": {
-    "space-before-function-paren": false,
-    "space-within-parens": false,
-    "strict-type-predicates": false,
-    "no-consecutive-blank-lines": false
-  }
-}
