@@ -6,7 +6,7 @@ import daygridPlugin from '@fullcalendar/daygrid'
 
 const NOW_DATE = new Date()
 const DEFAULT_OPTIONS = {
-  plugins: [ daygridPlugin ]
+  plugins: [daygridPlugin]
 }
 
 
@@ -98,7 +98,7 @@ it('won\'t rerender toolbar if didn\'t change', function() { // works because in
 it('won\'t rerender events if nothing changed', function() {
   let options = {
     ...DEFAULT_OPTIONS,
-    events: [ buildEvent() ]
+    events: [buildEvent()]
   }
 
   let { container, rerender } = render(
