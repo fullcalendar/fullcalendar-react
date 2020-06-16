@@ -18,7 +18,8 @@
   "module": "dist/main.js",
   "types": "dist/main.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "src"
   ],
   "sideEffects": true,
   "scripts": {
