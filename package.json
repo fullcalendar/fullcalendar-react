@@ -10,7 +10,6 @@
   ],
   "docs": "https://fullcalendar.io/docs/react",
   "license": "MIT",
-  "author": "Sardius Media",
   "repository": {
     "type": "git",
     "url": "https://github.com/fullcalendar/fullcalendar-react.git"
