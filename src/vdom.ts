@@ -34,7 +34,7 @@ declare global {
   }
 }
 
-window.FullCalendarVDom = {
+(typeof globalThis !== 'undefined' ? globalThis : window).FullCalendarVDom = { // TODO: streamline when killing IE11 support
   Component: react.Component,
   createElement: react.createElement,
   render: reactDom.render,
