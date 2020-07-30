@@ -28,11 +28,11 @@
     "clean": "rm -rf dist tmp",
     "rollup": "rollup -c",
     "rollup:watch": "rollup -c --watch",
-    "karma": "karma start --browsers ChromeHeadless --single-run --no-auto-watch",
+    "karma": "karma start karma.config.cjs --browsers ChromeHeadless --single-run --no-auto-watch",
     "karma:watch": "karma start",
     "test": "npm run rollup && npm run karma",
     "test:watch": "npm run rollup && concurrently 'npm:rollup:watch' 'npm:karma:watch'",
-    "lint": "eslint -c eslint.config.js tests --ext .js,.jsx",
+    "lint": "eslint -c eslint.config.cjs tests --ext .js,.jsx",
     "ci": "./scripts/ci.sh"
   },
   "dependencies": {
