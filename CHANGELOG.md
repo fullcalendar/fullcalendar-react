@@ -1,4 +1,10 @@
 
+v5.2.0 (2020-07-30)
+-------------------
+
+bugfix: dayMinWidth causes error "NowTimer(...): Nothing was returned from render..." (#80)
+
+
 4.2.0 (2019-06-02)
 ------------------
 
