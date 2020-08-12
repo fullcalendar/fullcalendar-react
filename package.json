@@ -1,6 +1,6 @@
 {
   "name": "@fullcalendar/react",
-  "version": "5.2.0",
+  "version": "5.3.0",
   "title": "FullCalendar React Component",
   "description": "An official FullCalendar component for React",
   "keywords": [
@@ -36,7 +36,7 @@
     "ci": "./scripts/ci.sh"
   },
   "dependencies": {
-    "@fullcalendar/common": "~5.2.0",
+    "@fullcalendar/common": "~5.3.0",
     "tslib": "^2.0.0"
   },
   "peerDependencies": {
@@ -47,7 +47,7 @@
     "@babel/core": "^7.0.0",
     "@babel/preset-env": "^7.9.0",
     "@babel/preset-react": "^7.9.4",
-    "@fullcalendar/daygrid": "~5.2.0",
+    "@fullcalendar/daygrid": "~5.3.0",
     "@rollup/plugin-babel": "^5.0.0",
     "@rollup/plugin-commonjs": "^11.1.0",
     "@rollup/plugin-json": "^4.0.3",
@@ -58,7 +58,7 @@
     "@typescript-eslint/eslint-plugin": "^3.1.0",
     "@typescript-eslint/parser": "^3.1.0",
     "babel-eslint": "^10.1.0",
-    "concurrently": "^5.2.0",
+    "concurrently": "^5.3.0",
     "eslint": "^7.2.0",
     "eslint-config-standard": "^14.1.1",
     "eslint-plugin-import": "^2.21.1",
