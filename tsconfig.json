@@ -4,6 +4,11 @@
     "target": "es5",
     "module": "es6",
     "moduleResolution": "node",
+    "lib": [
+      "dom",
+      "es2015",
+      "scripthost"
+    ],
     "allowSyntheticDefaultImports": true,
     "importHelpers": true,
     "sourceMap": true,
