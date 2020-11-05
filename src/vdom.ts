@@ -28,6 +28,7 @@ declare global {
     export import createContext = react.createContext
     export type VUIEvent = react.UIEvent
     export function flushToDom(): void
+    export function unmountComponentAtNode(node: HTMLElement): void
   }
   namespace createElement {
     export import JSX = ReactJSX // preact exports the h.JSX namespace whereas react has it global. use preact's technique
@@ -41,7 +42,8 @@ declare global {
   createRef: react.createRef,
   Fragment: react.Fragment,
   createContext: react.createContext,
-  flushToDom
+  flushToDom,
+  unmountComponentAtNode: reactDom.unmountComponentAtNode
 }
 
 export function flushToDom() {
