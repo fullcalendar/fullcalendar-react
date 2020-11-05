@@ -32,11 +32,11 @@
     "rollup:tests:watch": "rollup -c rollup.tests.js --watch",
     "rollup:cjs": "rollup -c rollup.cjs.js",
     "rollup:cjs:watch": "rollup -c rollup.cjs.js --watch",
-    "karma": "karma start karma.config.cjs --browsers ChromeHeadless --single-run --no-auto-watch",
-    "karma:watch": "karma start karma.config.cjs",
+    "karma": "karma start karma.config.js --browsers ChromeHeadless --single-run --no-auto-watch",
+    "karma:watch": "karma start karma.config.js",
     "test": "npm run rollup:tests && npm run karma",
     "test:watch": "npm run rollup:tests && concurrently 'npm:rollup:tests:watch' 'npm:karma:watch'",
-    "lint": "eslint -c eslint.config.cjs tests --ext .js,.jsx",
+    "lint": "eslint -c eslint.config.js tests --ext .js,.jsx",
     "ci": "./scripts/ci.sh"
   },
   "dependencies": {
