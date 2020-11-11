@@ -36,7 +36,7 @@
     "karma:watch": "karma start karma.config.js",
     "test": "npm run rollup:tests && npm run karma",
     "test:watch": "npm run rollup:tests && concurrently 'npm:rollup:tests:watch' 'npm:karma:watch'",
-    "lint": "eslint -c eslint.config.js tests --ext .js,.jsx",
+    "lint": "eslint -c eslint.config.js tests --ext .js,.jsx --no-eslintrc",
     "ci": "./scripts/ci.sh"
   },
   "dependencies": {
