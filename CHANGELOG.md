@@ -1,6 +1,6 @@
 
-v5.4.0
-------
+v5.4.0 (2020-11-11)
+-------------------
 
 - react 17 support
 - better compatibility with Webpack 5, deeming `resolve.fullySpecified` unnecessary ([core-5822])
