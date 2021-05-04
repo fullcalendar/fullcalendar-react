@@ -26,6 +26,7 @@ declare global {
     export import createRef = react.createRef
     export import Fragment = react.Fragment
     export import createContext = react.createContext
+    export import createPortal = reactDom.createPortal
     export type VUIEvent = react.UIEvent
     export function flushToDom(): void
     export function unmountComponentAtNode(node: HTMLElement): void
@@ -42,6 +43,7 @@ declare global {
   createRef: react.createRef,
   Fragment: react.Fragment,
   createContext: react.createContext,
+  createPortal: reactDom.createPortal,
   flushToDom,
   unmountComponentAtNode: reactDom.unmountComponentAtNode
 }
