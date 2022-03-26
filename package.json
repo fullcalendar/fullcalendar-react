@@ -40,8 +40,9 @@
     "ci": "./scripts/ci.sh"
   },
   "dependencies": {
-    "@fullcalendar/common": "~5.10.1",
-    "tslib": "^2.1.0"
+    "@fullcalendar/common": "5.9.0",
+    "@fullcalendar/interaction": "5.9.0",
+    "@fullcalendar/timegrid": "5.9.0"
   },
   "peerDependencies": {
     "react": "^16.7.0 || ^17",
@@ -51,7 +52,7 @@
     "@babel/core": "^7.0.0",
     "@babel/preset-env": "^7.9.0",
     "@babel/preset-react": "^7.9.4",
-    "@fullcalendar/daygrid": "~5.10.1",
+    "@fullcalendar/daygrid": "5.9.0",
     "@rollup/plugin-babel": "^5.0.0",
     "@rollup/plugin-commonjs": "^11.1.0",
     "@rollup/plugin-json": "^4.0.3",

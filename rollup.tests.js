@@ -10,9 +10,10 @@ import reactDom from 'react-dom'
 export default {
   input: 'tests/main.jsx',
   output: {
-    format: 'iife',
+    format: 'es',
     file: 'tmp/tests.js',
-    sourcemap: 'inline'
+    sourcemap: 'inline',
+    inlineDynamicImports: true
   },
   plugins: [
     replace({ // important it goes first
