@@ -8,7 +8,7 @@ import reactDom from 'react-dom'
 
 
 export default {
-  input: 'tests/main.jsx',
+  input: 'tests/index.jsx',
   output: {
     format: 'iife',
     file: 'tmp/tests.js',
