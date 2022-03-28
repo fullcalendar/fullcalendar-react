@@ -5,6 +5,7 @@ import {
   CalendarApi, CalendarDataProvider,
   CalendarContent, CalendarRoot
 } from '@fullcalendar/common'
+import deepEqual from 'fast-deep-equal'
 
 
 export default class FullCalendar extends React.Component<CalendarOptions> {
@@ -32,6 +33,9 @@ export default class FullCalendar extends React.Component<CalendarOptions> {
     )
   }
 
+  shouldComponentUpdate(nextProps: Readonly<CalendarOptions>, nextState: Readonly<{}>, nextContext: any): boolean {
+    return !deepEqual(nextProps,this.props)
+  }
 
   getApi(): CalendarApi {
     return this._calendarApi
