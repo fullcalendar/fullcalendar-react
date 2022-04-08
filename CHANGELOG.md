@@ -1,4 +1,11 @@
 
+v5.11.0 (2022-04-08)
+--------------------
+
+- support for React 18
+- fix CalendarContent crashes when suspended in concurrent mode (#177)
+
+
 v5.4.0 (2020-11-11)
 -------------------
 
