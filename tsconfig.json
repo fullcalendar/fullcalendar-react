@@ -17,6 +17,7 @@
     "outDir": "dist"
   },
   "files": [
-    "src/main.tsx"
+    "src/main.tsx",
+    "src/vdom-test-react18.ts"
   ]
 }

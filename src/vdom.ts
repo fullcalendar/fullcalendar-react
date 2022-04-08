@@ -28,7 +28,7 @@ declare global {
     export import createContext = react.createContext
     export import createPortal = reactDom.createPortal
     export type VUIEvent = react.UIEvent
-    export function flushToDom(): void
+    export function flushSync(callback: () => void): void
     export function unmountComponentAtNode(node: HTMLElement): void
   }
   namespace createElement {
@@ -39,15 +39,16 @@ declare global {
 (typeof globalThis !== 'undefined' ? globalThis : window).FullCalendarVDom = { // TODO: streamline when killing IE11 support
   Component: react.Component,
   createElement: react.createElement,
-  render: reactDom.render,
+  render: reactDom.render, // never called by FullCalendar's React component
   createRef: react.createRef,
   Fragment: react.Fragment,
   createContext: react.createContext,
   createPortal: reactDom.createPortal,
-  flushToDom,
-  unmountComponentAtNode: reactDom.unmountComponentAtNode
+  flushSync,
+  unmountComponentAtNode: reactDom.unmountComponentAtNode // never called by FullCalendar's React component
 }
 
-export function flushToDom() {
+export function flushSync(callback) {
   // always sync from top-level
+  callback()
 }

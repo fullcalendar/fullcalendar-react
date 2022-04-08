@@ -44,8 +44,8 @@
     "tslib": "^2.1.0"
   },
   "peerDependencies": {
-    "react": "^16.7.0 || ^17",
-    "react-dom": "^16.7.0 || ^17"
+    "react": "^16.7.0 || ^18",
+    "react-dom": "^16.7.0 || ^18"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
@@ -76,8 +76,8 @@
     "karma-jasmine": "^4.0.1",
     "karma-sourcemap-loader": "^0.3.8",
     "karma-spec-reporter": "^0.0.32",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
     "react-testing-library": "^6.0.2",
     "rollup": "^1.31.0",
     "rollup-plugin-postcss": "^2.0.3",
