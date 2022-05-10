@@ -1,6 +1,6 @@
 {
   "name": "@fullcalendar/react",
-  "version": "5.11.0",
+  "version": "5.11.1",
   "title": "FullCalendar React Component",
   "description": "An official FullCalendar component for React",
   "keywords": [
@@ -44,8 +44,8 @@
     "tslib": "^2.1.0"
   },
   "peerDependencies": {
-    "react": "^16.7.0 || ^18",
-    "react-dom": "^16.7.0 || ^18"
+    "react": "^16.7.0 || ^17 || ^18",
+    "react-dom": "^16.7.0 || ^17 || ^18"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",

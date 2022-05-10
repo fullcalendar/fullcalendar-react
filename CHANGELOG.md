@@ -1,4 +1,9 @@
 
+v5.11.1 (2022-04-20)
+--------------------
+FIX: restore accidentally-removed support for React 17 (#182)
+
+
 v5.11.0 (2022-04-08)
 --------------------
 
