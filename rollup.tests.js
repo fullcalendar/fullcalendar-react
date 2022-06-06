@@ -16,16 +16,13 @@ export default {
   },
   plugins: [
     replace({ // important it goes first
+      preventAssignment: false,
       values: {
-        'process.env.NODE_ENV': '"production"' // best???
+        'process.env.NODE_ENV': '"development"' // needed for @testing-library/react
       }
     }),
     nodeResolve(),
     commonjs({ // for importing commonjs modules
-      namedExports: {
-        'react': Object.keys(react),
-        'react-dom': Object.keys(reactDom)
-      }
     }),
     babel({ // will automatically use babel.config.js
       babelHelpers: 'bundled'

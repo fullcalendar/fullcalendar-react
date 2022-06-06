@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, cleanup } from 'react-testing-library'
+import { render } from '@testing-library/react'
 import FullCalendar from '../dist/main'
 import daygridPlugin from '@fullcalendar/daygrid'
 
@@ -8,10 +8,6 @@ const NOW_DATE = new Date()
 const DEFAULT_OPTIONS = {
   plugins: [daygridPlugin]
 }
-
-
-// like, react-testing-library/cleanup-after-each, but doesn't double-import react-testing-library
-afterEach(() => cleanup())
 
 
 it('should render without crashing', () => {
@@ -111,7 +107,6 @@ it('won\'t rerender events if nothing changed', function() {
   )
   expect(getFirstEventEl(container)).toBe(eventEl)
 })
-
 
 // FullCalendar data utils
 
