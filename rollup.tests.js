@@ -3,9 +3,7 @@ import commonjs from '@rollup/plugin-commonjs'
 import babel from '@rollup/plugin-babel'
 import replace from '@rollup/plugin-replace'
 import postcss from 'rollup-plugin-postcss'
-import react from 'react'
-import reactDom from 'react-dom'
-
+import sourcemaps from 'rollup-plugin-sourcemaps'
 
 export default {
   input: 'tests/main.jsx',
@@ -15,6 +13,7 @@ export default {
     sourcemap: 'inline'
   },
   plugins: [
+    sourcemaps(), // read sourcemaps from input files
     replace({ // important it goes first
       preventAssignment: false,
       values: {
@@ -25,7 +24,8 @@ export default {
     commonjs({ // for importing commonjs modules
     }),
     babel({ // will automatically use babel.config.js
-      babelHelpers: 'bundled'
+      babelHelpers: 'bundled',
+      inputSourceMap: false, // only way sourcemaps plugin will work
     }),
     postcss({
       config: false // don't look in current and parent dirs for a config
