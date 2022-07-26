@@ -109,6 +109,7 @@ it('won\'t rerender events if nothing changed', function() {
 })
 
 
+// https://github.com/fullcalendar/fullcalendar-react/issues/185
 it('will not inifinitely recurse in strict mode with datesSet', function(done) {
   function TestApp() {
     const [events, setEvents] = useState([
@@ -141,6 +142,48 @@ it('will not inifinitely recurse in strict mode with datesSet', function(done) {
     <React.StrictMode>
       <TestApp />
     </React.StrictMode>
+  )
+})
+
+
+// https://github.com/fullcalendar/fullcalendar-react/issues/13
+it('will not inifinitely recurse with datesSet and dateIncrement', function(done) {
+  function TestApp() {
+    const [events, setEvents] = useState([
+      { title: 'event 1', date: '2022-04-01' },
+      { title: 'event 2', date: '2022-04-02' }
+    ]);
+
+    const dateChange = () => {
+      setEvents([
+        { title: 'event 10', date: '2022-04-01' },
+        { title: 'event 20', date: '2022-04-02' }
+      ]);
+    };
+
+    useEffect(() => {
+      setTimeout(done, 100)
+    });
+
+    return (
+      <FullCalendar
+        plugins={[daygridPlugin]}
+        views={{
+          rollingSevenDay: {
+            type: 'dayGrid',
+            duration: { days: 7 },
+            dateIncrement: { days: 1 },
+          }
+        }}
+        initialView='rollingSevenDay'
+        events={events}
+        datesSet={dateChange}
+      />
+    );
+  }
+
+  render(
+    <TestApp />
   )
 })
 
