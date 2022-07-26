@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { render } from '@testing-library/react'
 import FullCalendar from '../dist/main'
 import daygridPlugin from '@fullcalendar/daygrid'
@@ -107,6 +107,43 @@ it('won\'t rerender events if nothing changed', function() {
   )
   expect(getFirstEventEl(container)).toBe(eventEl)
 })
+
+
+it('will not inifinitely recurse in strict mode with datesSet', function(done) {
+  function TestApp() {
+    const [events, setEvents] = useState([
+      { title: 'event 1', date: '2022-04-01' },
+      { title: 'event 2', date: '2022-04-02' }
+    ]);
+
+    const dateChange = () => {
+      setEvents([
+        { title: 'event 10', date: '2022-04-01' },
+        { title: 'event 20', date: '2022-04-02' }
+      ]);
+    };
+
+    useEffect(() => {
+      setTimeout(done, 100)
+    });
+
+    return (
+      <FullCalendar
+        plugins={[daygridPlugin]}
+        initialView='dayGridMonth'
+        events={events}
+        datesSet={dateChange}
+      />
+    );
+  }
+
+  render(
+    <React.StrictMode>
+      <TestApp />
+    </React.StrictMode>
+  )
+})
+
 
 // FullCalendar data utils
 
