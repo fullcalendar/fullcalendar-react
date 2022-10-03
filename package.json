@@ -40,7 +40,7 @@
     "ci": "./scripts/ci.sh"
   },
   "dependencies": {
-    "@fullcalendar/common": "~5.11.2",
+    "@fullcalendar/common": "~5.11.3",
     "tslib": "^2.1.0"
   },
   "peerDependencies": {
