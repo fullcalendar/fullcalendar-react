@@ -23,7 +23,7 @@ export default {
     nodeResolve(),
     commonjs({ // for importing commonjs modules
     }),
-    babel({ // will automatically use babel.config.js
+    babel({ // will automatically use babel.config.cjs
       babelHelpers: 'bundled',
       inputSourceMap: false, // only way sourcemaps plugin will work
     }),
