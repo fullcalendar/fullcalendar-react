@@ -1,7 +1,7 @@
 
-/dist
-/tmp
-
-/node_modules
-package-lock.json
-npm-debug.log
+dist
+tmp
+node_modules
+tsconfig.json
+.tsbuildinfo
+.turbo
