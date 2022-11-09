@@ -20,7 +20,9 @@ export default {
         'process.env.NODE_ENV': '"development"' // needed for @testing-library/react
       }
     }),
-    nodeResolve(),
+    nodeResolve({
+      browser: true // needed for @testing-library/react
+    }),
     commonjs({ // for importing commonjs modules
     }),
     babel({ // will automatically use babel.config.cjs

@@ -111,6 +111,8 @@ it('won\'t rerender events if nothing changed', function() {
 
 // https://github.com/fullcalendar/fullcalendar-react/issues/185
 it('will not inifinitely recurse in strict mode with datesSet', function(done) {
+  let calledDone = false
+
   function TestApp() {
     const [events, setEvents] = useState([
       { title: 'event 1', date: '2022-04-01' },
@@ -125,7 +127,12 @@ it('will not inifinitely recurse in strict mode with datesSet', function(done) {
     };
 
     useEffect(() => {
-      setTimeout(done, 100)
+      setTimeout(() => {
+        if (!calledDone) {
+          calledDone = true
+          done()
+        }
+      }, 100)
     });
 
     return (
@@ -148,6 +155,8 @@ it('will not inifinitely recurse in strict mode with datesSet', function(done) {
 
 // https://github.com/fullcalendar/fullcalendar-react/issues/13
 it('will not inifinitely recurse with datesSet and dateIncrement', function(done) {
+  let calledDone = false
+
   function TestApp() {
     const [events, setEvents] = useState([
       { title: 'event 1', date: '2022-04-01' },
@@ -162,7 +171,12 @@ it('will not inifinitely recurse with datesSet and dateIncrement', function(done
     };
 
     useEffect(() => {
-      setTimeout(done, 100)
+      setTimeout(() => {
+        if (!calledDone) {
+          calledDone = true
+          done()
+        }
+      }, 100)
     });
 
     return (
