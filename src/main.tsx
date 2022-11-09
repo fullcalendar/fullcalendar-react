@@ -23,7 +23,7 @@ export default class FullCalendar extends Component<CalendarOptions> {
 
   render() {
     return (
-      <div ref={this.elRef} className='fc-calendar-outer'>
+      <div ref={this.elRef}>
         {Array.from(this.state.customRenderings).map((customRendering) => {
           return createPortal(
             customRendering.generatorMeta(customRendering.renderProps),

@@ -1,7 +1,4 @@
 
-There's now an outer wrapper around main calendar div
-
-
 v5.11.1 (2022-04-20)
 --------------------
 FIX: restore accidentally-removed support for React 17 (#182)
