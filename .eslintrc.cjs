@@ -41,5 +41,9 @@ module.exports = {
         browser: true,
       }
     },
-  ]
+  ],
+  ignorePatterns: [
+    'tmp',
+    'dist',
+  ],
 }
