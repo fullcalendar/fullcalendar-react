@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { Component, createRef } from 'react'
 import { createPortal } from 'react-dom'
 import {
@@ -14,7 +15,6 @@ interface CalendarState {
 
 export default class FullCalendar extends Component<CalendarOptions> {
   private elRef = createRef<HTMLDivElement>()
-  private handleCustomRendering: (customRendering: CustomRendering<unknown>) => void
   private calendar: Calendar
 
   state: CalendarState = {
@@ -38,8 +38,11 @@ export default class FullCalendar extends Component<CalendarOptions> {
   componentDidMount() {
     const customRenderingStore = new CustomRenderingStore<unknown>()
 
-    this.handleCustomRendering = customRenderingStore.handle.bind(customRenderingStore)
-    this.calendar = new Calendar(this.elRef.current, this.buildOptions())
+    this.calendar = new Calendar(this.elRef.current, {
+      ...this.props,
+      handleCustomRendering: customRenderingStore.handle.bind(customRenderingStore),
+      customRenderingMetaMap: this.props, // render functions are given as props
+    })
 
     this.calendar.render()
     customRenderingStore.subscribe((customRenderings) => {
@@ -47,8 +50,12 @@ export default class FullCalendar extends Component<CalendarOptions> {
     })
   }
 
-  componentDidUpdate() {
-    this.calendar.resetOptions(this.buildOptions())
+  componentDidUpdate(prevProps: CalendarOptions) {
+    const updates = computeUpdates(prevProps, this.props)
+
+    if (Object.keys(updates).length) {
+      this.calendar.resetOptions(updates, true)
+    }
   }
 
   componentWillUnmount() {
@@ -58,15 +65,23 @@ export default class FullCalendar extends Component<CalendarOptions> {
   getApi(): CalendarApi {
     return this.calendar
   }
-
-  private buildOptions(): CalendarOptions {
-    return {
-      ...this.props,
-      handleCustomRendering: this.handleCustomRendering,
-      customRenderingMetaMap: this.props, // render functions are given as props
-    }
-  }
 }
 
 // export all important utils/types
 export * from '@fullcalendar/core'
+
+// Utils
+
+function computeUpdates(origObj: any, newObj: any): any {
+  const updates: any = {}
+
+  if (newObj !== origObj) {
+    for (const key in newObj) {
+      if (newObj[key] !== origObj[key]) {
+        updates[key] = newObj[key]
+      }
+    }
+  }
+
+  return updates
+}
