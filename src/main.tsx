@@ -5,9 +5,11 @@ import {
   CalendarOptions,
   CalendarApi,
   Calendar,
+} from '@fullcalendar/core'
+import {
   CustomRendering,
   CustomRenderingStore,
-} from '@fullcalendar/core'
+} from '@fullcalendar/core/internal'
 
 interface CalendarState {
   customRenderings: Iterable<CustomRendering<unknown>>
@@ -66,9 +68,6 @@ export default class FullCalendar extends Component<CalendarOptions> {
     return this.calendar
   }
 }
-
-// export all important utils/types
-export * from '@fullcalendar/core'
 
 // Utils
 
