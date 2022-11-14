@@ -8,5 +8,12 @@ export default {
     dir: 'dist',
     entryFileNames: '[name].cjs',
     exports: 'named'
-  }
+  },
+  external: [
+    '@fullcalendar/core',
+    '@fullcalendar/core/internal',
+    'tslib',
+    'react',
+    'react-dom',
+  ]
 }
