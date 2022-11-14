@@ -14,9 +14,18 @@
     "type": "git",
     "url": "https://github.com/fullcalendar/fullcalendar-react.git"
   },
-  "main": "dist/main.cjs.js",
+  "type": "module",
+  "main": "dist/main.cjs",
   "module": "dist/main.js",
   "types": "dist/main.d.ts",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "require": "./dist/main.cjsasdfasdf",
+      "import": "./dist/main.jsasdfasdf",
+      "types": "./dist/main.d.tsasdfasdf"
+    }
+  },
   "files": [
     "dist",
     "src"
