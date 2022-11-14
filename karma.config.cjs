@@ -10,12 +10,12 @@ module.exports = function(config) {
     ],
     frameworks: ['jasmine'],
     files: [
-      'tmp/tests.js',
+      './tmp/tests.js',
     ],
     preprocessors: {
-      '**/*.+(js|css)': ['sourcemap']
+      './**/*.+(js|css)': ['sourcemap']
     },
     logLevel: config.LOG_INFO,
-    reporters: [ 'spec' ]
+    reporters: ['spec'],
   })
 }

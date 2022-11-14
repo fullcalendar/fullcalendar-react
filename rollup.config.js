@@ -7,23 +7,23 @@ import sourcemaps from 'rollup-plugin-sourcemaps'
 import pkgJson from './package.json'
 
 export default [
-  // cjs
+  // CJS
   {
-    input: 'dist/index.js', // the esm file
+    input: './dist/index.js', // the esm file
     output: {
-      file: 'dist/index.cjs',
+      file: './dist/index.cjs',
       format: 'cjs',
       exports: 'named',
     },
     external: buildDepRegexps(),
   },
 
-  // tests
+  // Tests
   {
-    input: 'tests/index.jsx',
+    input: './tests/index.jsx',
     output: {
       format: 'iife',
-      file: 'tmp/tests.js',
+      file: './tmp/tests.js',
       sourcemap: 'inline',
     },
     plugins: [
