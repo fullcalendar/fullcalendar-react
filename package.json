@@ -2,7 +2,7 @@
   "name": "@fullcalendar/react",
   "version": "6.0.0-beta.1",
   "title": "FullCalendar React Component",
-  "description": "An official FullCalendar component for React",
+  "description": "The official FullCalendar component for React",
   "keywords": [
     "react",
     "calendar",
@@ -13,40 +13,6 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/fullcalendar/fullcalendar-react.git"
-  },
-  "type": "module",
-  "main": "dist/main.cjs",
-  "module": "dist/main.js",
-  "types": "dist/main.d.ts",
-  "exports": {
-    "./package.json": "./package.json",
-    ".": {
-      "require": "./dist/main.cjs",
-      "import": "./dist/main.js",
-      "types": "./dist/main.d.ts"
-    }
-  },
-  "files": [
-    "dist",
-    "src"
-  ],
-  "sideEffects": true,
-  "scripts": {
-    "build": "npm run tsc && npm run rollup:cjs",
-    "watch": "npm run tsc && concurrently 'npm:tsc:watch' 'npm:rollup:cjs:watch'",
-    "clean": "rm -rf dist tmp",
-    "tsc": "tsc -p tsconfig.json",
-    "tsc:watch": "tsc -p tsconfig.json --watch",
-    "rollup:tests": "rollup -c rollup.tests.js",
-    "rollup:tests:watch": "rollup -c rollup.tests.js --watch",
-    "rollup:cjs": "rollup -c rollup.cjs.js",
-    "rollup:cjs:watch": "rollup -c rollup.cjs.js --watch",
-    "karma": "karma start karma.config.cjs --browsers ChromeHeadless --single-run --no-auto-watch",
-    "karma:watch": "karma start karma.config.cjs",
-    "test": "npm run rollup:tests && npm run karma",
-    "test:watch": "npm run rollup:tests && concurrently 'npm:rollup:tests:watch' 'npm:karma:watch'",
-    "lint": "eslint .",
-    "ci": "./scripts/ci.sh"
   },
   "dependencies": {
     "tslib": "^2.1.0"
@@ -87,5 +53,38 @@
     "rollup-plugin-postcss": "^2.0.3",
     "rollup-plugin-sourcemaps": "^0.6.3",
     "typescript": "^4.0.5"
-  }
+  },
+  "scripts": {
+    "build": "npm run tsc && npm run rollup:cjs",
+    "watch": "npm run tsc && concurrently 'npm:tsc:watch' 'npm:rollup:cjs:watch'",
+    "clean": "rm -rf dist tmp",
+    "tsc": "tsc -p tsconfig.json",
+    "tsc:watch": "tsc -p tsconfig.json --watch",
+    "rollup:tests": "rollup -c rollup.tests.js",
+    "rollup:tests:watch": "rollup -c rollup.tests.js --watch",
+    "rollup:cjs": "rollup -c rollup.cjs.js",
+    "rollup:cjs:watch": "rollup -c rollup.cjs.js --watch",
+    "karma": "karma start karma.config.cjs --browsers ChromeHeadless --single-run --no-auto-watch",
+    "karma:watch": "karma start karma.config.cjs",
+    "test": "npm run rollup:tests && npm run karma",
+    "test:watch": "npm run rollup:tests && concurrently 'npm:rollup:tests:watch' 'npm:karma:watch'",
+    "lint": "eslint .",
+    "ci": "./scripts/ci.sh"
+  },
+  "type": "module",
+  "main": "dist/main.cjs",
+  "module": "dist/main.js",
+  "types": "dist/main.d.ts",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "require": "./dist/main.cjs",
+      "import": "./dist/main.js",
+      "types": "./dist/main.d.ts"
+    }
+  },
+  "files": [
+    "dist",
+    "src"
+  ]
 }
