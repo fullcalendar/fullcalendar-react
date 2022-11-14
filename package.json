@@ -15,14 +15,14 @@
     "url": "https://github.com/fullcalendar/fullcalendar-react.git"
   },
   "type": "module",
-  "main": "dist/main.js",
-  "module": "dist/main.esm.js",
+  "main": "dist/main.cjs",
+  "module": "dist/main.js",
   "types": "dist/main.d.ts",
   "exports": {
     "./package.json": "./package.json",
     ".": {
-      "require": "./dist/main.js",
-      "import": "./dist/main.esm.js",
+      "require": "./dist/main.cjs",
+      "import": "./dist/main.js",
       "types": "./dist/main.d.ts"
     }
   },
