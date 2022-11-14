@@ -3,12 +3,10 @@ import { render } from '@testing-library/react'
 import FullCalendar from '../dist/index.js'
 import daygridPlugin from '@fullcalendar/daygrid'
 
-
 const NOW_DATE = new Date()
 const DEFAULT_OPTIONS = {
   plugins: [daygridPlugin]
 }
-
 
 it('should render without crashing', () => {
   let { container } = render(
@@ -16,7 +14,6 @@ it('should render without crashing', () => {
   )
   expect(getHeaderToolbarEl(container)).toBeTruthy()
 })
-
 
 it('should unmount and destroy', () => {
   let unmountCalled = false
@@ -34,7 +31,6 @@ it('should unmount and destroy', () => {
   expect(unmountCalled).toBe(true)
 })
 
-
 it('should have updatable props', () => {
   let { container, rerender } = render(
     <FullCalendar {...DEFAULT_OPTIONS} />
@@ -46,7 +42,6 @@ it('should have updatable props', () => {
   )
   expect(isWeekendsRendered(container)).toBe(false)
 })
-
 
 it('should accept a callback', () => {
   let mountCalled = false
@@ -62,7 +57,6 @@ it('should accept a callback', () => {
   expect(mountCalled).toBe(true)
 })
 
-
 it('should expose an API', function() {
   let componentRef = React.createRef()
   render(
@@ -77,7 +71,6 @@ it('should expose an API', function() {
   expect(calendarApi.getDate().valueOf()).toBe(newDate.valueOf())
 })
 
-
 it('won\'t rerender toolbar if didn\'t change', function() { // works because internal VDOM reuses toolbar element
   let { container, rerender } = render(
     <FullCalendar {...DEFAULT_OPTIONS} headerToolbar={buildToolbar()} />
@@ -89,7 +82,6 @@ it('won\'t rerender toolbar if didn\'t change', function() { // works because in
   )
   expect(getHeaderToolbarEl(container)).toBe(headerEl)
 })
-
 
 it('won\'t rerender events if nothing changed', function() {
   let options = {
@@ -107,7 +99,6 @@ it('won\'t rerender events if nothing changed', function() {
   )
   expect(getFirstEventEl(container)).toBe(eventEl)
 })
-
 
 // https://github.com/fullcalendar/fullcalendar-react/issues/185
 it('will not inifinitely recurse in strict mode with datesSet', function(done) {
@@ -151,7 +142,6 @@ it('will not inifinitely recurse in strict mode with datesSet', function(done) {
     </React.StrictMode>
   )
 })
-
 
 // https://github.com/fullcalendar/fullcalendar-react/issues/13
 it('will not inifinitely recurse with datesSet and dateIncrement', function(done) {
@@ -201,9 +191,8 @@ it('will not inifinitely recurse with datesSet and dateIncrement', function(done
   )
 })
 
-
 // FullCalendar data utils
-
+// -------------------------------------------------------------------------------------------------
 
 function buildToolbar() {
   return {
@@ -213,14 +202,12 @@ function buildToolbar() {
   }
 }
 
-
 function buildEvent() {
   return { title: 'event', start: new Date(NOW_DATE.valueOf()) } // consistent datetime
 }
 
-
 // DOM utils
-
+// -------------------------------------------------------------------------------------------------
 
 function getHeaderToolbarEl(container) {
   return container.querySelector('.fc-header-toolbar')
