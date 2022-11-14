@@ -10,12 +10,12 @@ export default {
   output: {
     format: 'iife',
     file: 'tmp/tests.js',
-    sourcemap: 'inline'
+    sourcemap: 'inline',
   },
   plugins: [
     sourcemaps(), // read sourcemaps from input files
     replace({ // important it goes first
-      preventAssignment: false,
+      preventAssignment: true,
       values: {
         'process.env.NODE_ENV': '"development"' // needed for @testing-library/react
       }
@@ -23,8 +23,7 @@ export default {
     nodeResolve({
       browser: true // needed for @testing-library/react
     }),
-    commonjs({ // for importing commonjs modules
-    }),
+    commonjs(), // for importing commonjs modules
     babel({ // will automatically use babel.config.cjs
       babelHelpers: 'bundled',
       inputSourceMap: false, // only way sourcemaps plugin will work

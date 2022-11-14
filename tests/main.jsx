@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { render } from '@testing-library/react'
-import FullCalendar from '../dist/main'
+import FullCalendar from '../dist/main.esm.js'
 import daygridPlugin from '@fullcalendar/daygrid'
 
 
