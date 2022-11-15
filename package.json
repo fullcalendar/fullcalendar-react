@@ -55,14 +55,14 @@
     "lint": "eslint .",
     "build": "pnpm run tsc && pnpm run rollup",
     "dev": "pnpm run tsc && concurrently 'npm:tsc:dev' 'npm:rollup:dev'",
+    "test": "karma start karma.config.cjs --browsers ChromeHeadless --single-run --no-auto-watch",
+    "test:dev": "karma start karma.config.cjs",
     "clean": "rm -rf dist tmp",
+    "ci": "pnpm run clean && pnpm run lint && pnpm run build && pnpm run test",
     "tsc": "tsc -p .",
     "tsc:dev": "tsc -p . --watch --preserveWatchOutput --pretty",
     "rollup": "rollup -c",
-    "rollup:dev": "rollup -c --watch",
-    "test": "karma start karma.config.cjs --browsers ChromeHeadless --single-run --no-auto-watch",
-    "test:dev": "karma start karma.config.cjs",
-    "ci": "pnpm run clean && pnpm run lint && pnpm run build && pnpm run test"
+    "rollup:dev": "rollup -c --watch"
   },
   "type": "module",
   "main": "dist/index.cjs",
