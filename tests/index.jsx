@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext, createContext } from 'react'
 import { render } from '@testing-library/react'
 import FullCalendar from '../dist/index.js'
 import daygridPlugin from '@fullcalendar/daygrid'
@@ -190,6 +190,45 @@ it('will not inifinitely recurse with datesSet and dateIncrement', function(done
     <TestApp />
   )
 })
+
+it('slot rendering inherits parent context', () => {
+  const ThemeColor = createContext('')
+
+  function TestApp() {
+    return (
+      <ThemeColor.Provider value='red'>
+        <Calendar />
+      </ThemeColor.Provider>
+    )
+  }
+
+  function Calendar() {
+    const themeColor = useContext(ThemeColor)
+
+    return (
+      <FullCalendar
+        {...DEFAULT_OPTIONS}
+        initialDate='2022-04-01'
+        events={[
+          { title: 'event 1', date: '2022-04-01' },
+        ]}
+        eventContent={(arg) => (
+          <span style={{ color: themeColor }}>{arg.event.title}</span>
+        )}
+      />
+    )
+  }
+
+  let { container } = render(
+    <React.StrictMode>
+      <TestApp />
+    </React.StrictMode>
+  )
+
+  let eventEl = getFirstEventEl(container)
+  expect(eventEl.querySelector('span').style.color).toBe('red')
+})
+
 
 // FullCalendar data utils
 // -------------------------------------------------------------------------------------------------
