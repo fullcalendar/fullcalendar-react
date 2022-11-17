@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { Component, createRef } from 'react'
+import React, { Component, createRef, ReactPortal } from 'react'
 import { createPortal } from 'react-dom'
 import {
   CalendarOptions,
@@ -12,27 +12,33 @@ import {
 } from '@fullcalendar/core/internal'
 
 interface CalendarState {
-  customRenderings: Iterable<CustomRendering<unknown>>
+  customRenderingMap: Map<string, CustomRendering<any>>
 }
 
-export default class FullCalendar extends Component<CalendarOptions> {
+export default class FullCalendar extends Component<CalendarOptions, CalendarState> {
   private elRef = createRef<HTMLDivElement>()
   private calendar: Calendar
 
   state: CalendarState = {
-    customRenderings: []
+    customRenderingMap: new Map<string, CustomRendering<any>>()
   }
 
   render() {
+    const portalNodes: ReactPortal[] = []
+
+    for (const customRendering of this.state.customRenderingMap.values()) {
+      portalNodes.push(
+        createPortal(
+          customRendering.generatorMeta(customRendering.renderProps),
+          customRendering.containerEl,
+          customRendering.id, // key
+        )
+      )
+    }
+
     return (
       <div ref={this.elRef}>
-        {Array.from(this.state.customRenderings).map((customRendering) => {
-          return createPortal(
-            customRendering.generatorMeta(customRendering.renderProps),
-            customRendering.containerEl,
-            customRendering.id, // key
-          )
-        })}
+        {portalNodes}
       </div>
     )
   }
@@ -47,8 +53,8 @@ export default class FullCalendar extends Component<CalendarOptions> {
     })
 
     this.calendar.render()
-    customRenderingStore.subscribe((customRenderings) => {
-      this.setState({ customRenderings })
+    customRenderingStore.subscribe((customRenderingMap) => {
+      this.setState({ customRenderingMap })
     })
   }
 
