@@ -57,7 +57,7 @@
     "dev": "pnpm run tsc && concurrently 'npm:tsc:dev' 'npm:rollup:dev'",
     "test": "karma start karma.config.cjs --browsers ChromeHeadless --single-run --no-auto-watch",
     "test:dev": "karma start karma.config.cjs",
-    "clean": "rm -rf dist tmp",
+    "clean": "rm -rf dist tests/dist",
     "ci": "pnpm run clean && pnpm run lint && pnpm run build && pnpm run test",
     "tsc": "tsc -p .",
     "tsc:dev": "tsc -p . --watch --preserveWatchOutput --pretty",

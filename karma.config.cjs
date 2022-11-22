@@ -10,7 +10,7 @@ module.exports = function(config) {
     ],
     frameworks: ['jasmine'],
     files: [
-      './tmp/tests.js',
+      './tests/dist/index.js',
     ],
     preprocessors: {
       './**/*.+(js|css)': ['sourcemap']

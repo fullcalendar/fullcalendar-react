@@ -23,7 +23,7 @@ export default [
     input: './tests/index.jsx',
     output: {
       format: 'iife',
-      file: './tmp/tests.js',
+      file: './tests/dist/index.js',
       sourcemap: 'inline',
     },
     plugins: [
