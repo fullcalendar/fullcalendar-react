@@ -1,7 +1,10 @@
 
+# Package manager
 node_modules
-.turbo
-tsconfig.json
-tsconfig.tsbuildinfo
+
+# Generated
 dist
 tmp
+
+# Outer monorepo
+.turbo
