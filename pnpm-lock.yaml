@@ -7,8 +7,8 @@ importers:
       '@babel/core': ^7.0.0
       '@babel/preset-env': ^7.9.0
       '@babel/preset-react': ^7.9.4
-      '@fullcalendar/core': 6.0.0-beta.1
-      '@fullcalendar/daygrid': 6.0.0-beta.1
+      '@fullcalendar/core': 6.0.0-beta.2
+      '@fullcalendar/daygrid': 6.0.0-beta.2
       '@rollup/plugin-babel': ^5.0.0
       '@rollup/plugin-commonjs': ^12.0.0
       '@rollup/plugin-json': ^4.0.3
@@ -38,8 +38,8 @@ importers:
       '@babel/core': 7.20.2
       '@babel/preset-env': 7.20.2_@babel+core@7.20.2
       '@babel/preset-react': 7.18.6_@babel+core@7.20.2
-      '@fullcalendar/core': 6.0.0-beta.1
-      '@fullcalendar/daygrid': 6.0.0-beta.1
+      '@fullcalendar/core': link:../../standard/packages/core/dist
+      '@fullcalendar/daygrid': link:../../standard/packages/daygrid/dist
       '@rollup/plugin-babel': 5.3.1_rw3hudt2pmn5afxog7l3b6qtze
       '@rollup/plugin-commonjs': 12.0.0_rollup@2.79.1
       '@rollup/plugin-json': 4.1.0_rollup@2.79.1
@@ -1303,27 +1303,6 @@ packages:
       strip-json-comments: 3.1.1
     transitivePeerDependencies:
       - supports-color
-    dev: true
-
-  /@fullcalendar/common/6.0.0-beta.1:
-    resolution: {integrity: sha512-1TQ/+s8XJzfUqmMH1v86Dh51Xf5xZu9lhdnpdxTNAaoD7f+BCYZb4z1X7n9JEXbToqEBrzMIbGoppn87vc5dGw==}
-    dependencies:
-      tslib: 2.4.1
-    dev: true
-
-  /@fullcalendar/core/6.0.0-beta.1:
-    resolution: {integrity: sha512-PWopCMDJ/s5KHdxAhu5nKGjX0uaxdixf5HGmpLDH3HAs1L24Qx3yJ4GVwnBGb9IqTUeetbwRXQDGO+dDjql/qw==}
-    dependencies:
-      '@fullcalendar/common': 6.0.0-beta.1
-      preact: 10.11.3
-      tslib: 2.4.1
-    dev: true
-
-  /@fullcalendar/daygrid/6.0.0-beta.1:
-    resolution: {integrity: sha512-0/iiWIydCBJDORKAwDded9UHxwVTy6PB2MQZO/AiF7d/stN5i2LrWFDzPgWWovNYZxljrnQ4DTAo/FAnYgBMaw==}
-    dependencies:
-      '@fullcalendar/common': 6.0.0-beta.1
-      tslib: 2.4.1
     dev: true
 
   /@humanwhocodes/config-array/0.11.7:
@@ -4461,10 +4440,6 @@ packages:
       source-map: 0.6.1
     dev: true
 
-  /preact/10.11.3:
-    resolution: {integrity: sha512-eY93IVpod/zG3uMF22Unl8h9KkrcKIRs2EGar8hwLZZDU1lkjph303V9HZBwufh2s736U6VXuhD109LYqPoffg==}
-    dev: true
-
   /prelude-ls/1.2.1:
     resolution: {integrity: sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==}
     engines: {node: '>= 0.8.0'}
@@ -5143,10 +5118,6 @@ packages:
 
   /tslib/1.14.1:
     resolution: {integrity: sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==}
-    dev: true
-
-  /tslib/2.4.1:
-    resolution: {integrity: sha512-tGyy4dAjRIEwI7BzsB0lynWgOpfqjUdq91XXAlIWD2OwKBH7oCl/GZG/HT4BOHrTlPMOASlMQ7veyTqpmRcrNA==}
     dev: true
 
   /tsutils/3.21.0_typescript@4.9.3:
