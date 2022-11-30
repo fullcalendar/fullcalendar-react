@@ -27,9 +27,14 @@ export default class FullCalendar extends Component<CalendarOptions, CalendarSta
     const portalNodes: ReactPortal[] = []
 
     for (const customRendering of this.state.customRenderingMap.values()) {
+      const { generatorMeta } = customRendering
+      const vnode = typeof generatorMeta === 'function' ?
+        generatorMeta(customRendering.renderProps) :
+        generatorMeta
+
       portalNodes.push(
         createPortal(
-          customRendering.generatorMeta(customRendering.renderProps),
+          vnode,
           customRendering.containerEl,
           customRendering.id, // key
         )

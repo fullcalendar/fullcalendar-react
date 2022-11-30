@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useContext, createContext } from 'react'
 import { render } from '@testing-library/react'
 import FullCalendar from '../dist/index.js'
-import daygridPlugin from '@fullcalendar/daygrid'
+import dayGridPlugin from '@fullcalendar/daygrid'
+import listPlugin from '@fullcalendar/list'
 
 const NOW_DATE = new Date()
 const DEFAULT_OPTIONS = {
-  plugins: [daygridPlugin]
+  plugins: [dayGridPlugin, listPlugin]
 }
 
 it('should render without crashing', () => {
@@ -128,7 +129,7 @@ it('will not inifinitely recurse in strict mode with datesSet', function(done) {
 
     return (
       <FullCalendar
-        plugins={[daygridPlugin]}
+        plugins={[dayGridPlugin]}
         initialView='dayGridMonth'
         events={events}
         datesSet={dateChange}
@@ -171,7 +172,7 @@ it('will not inifinitely recurse with datesSet and dateIncrement', function(done
 
     return (
       <FullCalendar
-        plugins={[daygridPlugin]}
+        plugins={[dayGridPlugin]}
         views={{
           rollingSevenDay: {
             type: 'dayGrid',
@@ -227,6 +228,18 @@ it('slot rendering inherits parent context', () => {
 
   let eventEl = getFirstEventEl(container)
   expect(eventEl.querySelector('span').style.color).toBe('red')
+})
+
+it('accepts jsx node for slot', () => {
+  const { container } = render(
+    <FullCalendar
+      {...DEFAULT_OPTIONS}
+      initialView='listDay'
+      noEventsContent={<div className='empty-message'>no events</div>}
+    />
+  )
+
+  expect(container.querySelectorAll('.empty-message').length).toBe(1)
 })
 
 

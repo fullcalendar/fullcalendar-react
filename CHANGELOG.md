@@ -1,4 +1,11 @@
 
+v6.0.0-beta.3
+-------------
+FIX: content-injection functions not accepting jsx ([core-7034])
+
+[core-7034]: https://github.com/fullcalendar/fullcalendar/issues/7034
+
+
 v5.11.1 (2022-04-20)
 --------------------
 FIX: restore accidentally-removed support for React 17 (#182)
