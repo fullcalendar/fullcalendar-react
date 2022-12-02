@@ -1,7 +1,7 @@
 
 v6.0.0-beta.3
 -------------
-FIX: content-injection functions not accepting jsx ([core-7034])
+FIX: content-injection functions not directly accepting jsx ([core-7034])
 
 [core-7034]: https://github.com/fullcalendar/fullcalendar/issues/7034
 
