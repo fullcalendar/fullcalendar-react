@@ -7,9 +7,9 @@ importers:
       '@babel/core': ^7.0.0
       '@babel/preset-env': ^7.9.0
       '@babel/preset-react': ^7.9.4
-      '@fullcalendar/core': 6.0.0-beta.3
-      '@fullcalendar/daygrid': 6.0.0-beta.3
-      '@fullcalendar/list': 6.0.0-beta.3
+      '@fullcalendar/core': 6.0.0-beta.4
+      '@fullcalendar/daygrid': 6.0.0-beta.4
+      '@fullcalendar/list': 6.0.0-beta.4
       '@rollup/plugin-babel': ^5.0.0
       '@rollup/plugin-commonjs': ^12.0.0
       '@rollup/plugin-json': ^4.0.3
@@ -4883,6 +4883,7 @@ packages:
 
   /sourcemap-codec/1.4.8:
     resolution: {integrity: sha512-9NykojV5Uih4lgo5So5dtw+f0JgJX30KCNI8gwhz2J9A15wD0Ml6tjHKwf6fTSa6fAdVBdZeNOs9eJ71qCk8vA==}
+    deprecated: Please use @jridgewell/sourcemap-codec instead
     dev: true
 
   /spawn-command/0.0.2-1:
