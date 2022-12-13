@@ -13,7 +13,7 @@ npm install @fullcalendar/react @fullcalendar/core @fullcalendar/daygrid
 
 ## Usage
 
-Render a `FullCalendar` component, passing-in [options](https://fullcalendar.io/docs#toc) as props:
+Render a `FullCalendar` component, supplying [options](https://fullcalendar.io/docs#toc) as props:
 
 ```jsx
 import FullCalendar from '@fullcalendar/react'
@@ -54,3 +54,20 @@ function renderEventContent(eventInfo) {
 - [Documentation](https://fullcalendar.io/docs/react)
 - [Example Project](https://github.com/fullcalendar/fullcalendar-example-projects/tree/master/react)
 - [Contributor Guide](CONTRIBUTORS.md)
+
+## Development
+
+You must install this repo with [PNPM](https://pnpm.io/):
+
+```
+pnpm install
+```
+
+Available scripts (via `pnpm run <script>`):
+
+- `build` - build production-ready dist files
+- `dev` - build & watch development dist files
+- `test` - test headlessly
+- `test:dev` - test interactively
+- `lint`
+- `clean`
