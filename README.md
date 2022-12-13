@@ -53,7 +53,6 @@ function renderEventContent(eventInfo) {
 
 - [Documentation](https://fullcalendar.io/docs/react)
 - [Example Project](https://github.com/fullcalendar/fullcalendar-examples/tree/main/react)
-- [Contributor Guide](CONTRIBUTORS.md)
 
 ## Development
 
