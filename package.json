@@ -1,49 +1,23 @@
 {
   "name": "@fullcalendar/react",
-  "version": "5.11.3",
+  "version": "6.0.0",
   "title": "FullCalendar React Component",
-  "description": "An official FullCalendar component for React",
+  "description": "The official React Component for FullCalendar",
   "keywords": [
-    "react",
     "calendar",
-    "fullcalendar"
+    "event",
+    "full-sized",
+    "fullcalendar",
+    "react"
   ],
-  "docs": "https://fullcalendar.io/docs/react",
+  "homepage": "https://fullcalendar.io/docs/react",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/fullcalendar/fullcalendar-react.git"
   },
-  "main": "dist/main.cjs.js",
-  "module": "dist/main.js",
-  "types": "dist/main.d.ts",
-  "files": [
-    "dist",
-    "src"
-  ],
-  "sideEffects": true,
-  "scripts": {
-    "build": "npm run tsc && npm run rollup:cjs",
-    "watch": "npm run tsc && concurrently 'npm:tsc:watch' 'npm:rollup:cjs:watch'",
-    "clean": "rm -rf dist tmp",
-    "tsc": "tsc -p tsconfig.json",
-    "tsc:watch": "tsc -p tsconfig.json --watch",
-    "rollup:tests": "rollup -c rollup.tests.js",
-    "rollup:tests:watch": "rollup -c rollup.tests.js --watch",
-    "rollup:cjs": "rollup -c rollup.cjs.js",
-    "rollup:cjs:watch": "rollup -c rollup.cjs.js --watch",
-    "karma": "karma start karma.config.js --browsers ChromeHeadless --single-run --no-auto-watch",
-    "karma:watch": "karma start karma.config.js",
-    "test": "npm run rollup:tests && npm run karma",
-    "test:watch": "npm run rollup:tests && concurrently 'npm:rollup:tests:watch' 'npm:karma:watch'",
-    "lint": "eslint -c eslint.config.js tests --ext .js,.jsx --no-eslintrc",
-    "ci": "./scripts/ci.sh"
-  },
-  "dependencies": {
-    "@fullcalendar/common": "~5.11.3",
-    "tslib": "^2.1.0"
-  },
   "peerDependencies": {
+    "@fullcalendar/core": "~6.0.0",
     "react": "^16.7.0 || ^17 || ^18",
     "react-dom": "^16.7.0 || ^17 || ^18"
   },
@@ -51,37 +25,63 @@
     "@babel/core": "^7.0.0",
     "@babel/preset-env": "^7.9.0",
     "@babel/preset-react": "^7.9.4",
-    "@fullcalendar/daygrid": "~5.11.3",
+    "@fullcalendar/core": "~6.0.0",
+    "@fullcalendar/daygrid": "~6.0.0",
+    "@fullcalendar/list": "~6.0.0",
     "@rollup/plugin-babel": "^5.0.0",
     "@rollup/plugin-commonjs": "^12.0.0",
     "@rollup/plugin-json": "^4.0.3",
-    "@rollup/plugin-node-resolve": "^7.1.3",
-    "@rollup/plugin-replace": "^2.3.2",
-    "@testing-library/react": "^13.3.0",
+    "@rollup/plugin-node-resolve": "^14.0.1",
+    "@rollup/plugin-replace": "^5.0.1",
+    "@testing-library/react": "^13.4.0",
     "@types/react": "^16.9.55",
     "@types/react-dom": "^16.9.9",
-    "@typescript-eslint/eslint-plugin": "^3.1.0",
-    "@typescript-eslint/parser": "^3.1.0",
+    "@typescript-eslint/eslint-plugin": "^5.40.0",
+    "@typescript-eslint/parser": "^5.40.0",
     "babel-eslint": "^10.1.0",
     "concurrently": "^5.3.0",
-    "eslint": "^7.2.0",
-    "eslint-config-standard": "^14.1.1",
-    "eslint-import-resolver-node": "^0.3.4",
-    "eslint-plugin-import": "^2.21.1",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^4.2.1",
-    "eslint-plugin-react": "^7.20.0",
-    "eslint-plugin-standard": "^4.0.1",
+    "eslint": "^8.25.0",
+    "eslint-plugin-react": "^7.31.10",
     "karma": "^6.3.2",
     "karma-chrome-launcher": "^3.1.0",
     "karma-jasmine": "^4.0.1",
     "karma-sourcemap-loader": "^0.3.8",
     "karma-spec-reporter": "^0.0.32",
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0",
-    "rollup": "^1.31.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "rollup": "^2.79.0",
     "rollup-plugin-postcss": "^2.0.3",
     "rollup-plugin-sourcemaps": "^0.6.3",
     "typescript": "^4.0.5"
-  }
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "build": "pnpm run tsc && pnpm run rollup && pnpm run meta",
+    "dev": "pnpm run tsc && concurrently 'npm:tsc:dev' 'npm:rollup:dev'",
+    "test": "karma start karma.config.cjs --browsers ChromeHeadless --single-run --no-auto-watch",
+    "test:dev": "karma start karma.config.cjs",
+    "clean": "rm -rf dist tests/dist",
+    "ci": "pnpm run clean && pnpm run lint && pnpm run build && pnpm run test",
+    "tsc": "tsc -p .",
+    "tsc:dev": "tsc -p . --watch --preserveWatchOutput --pretty",
+    "rollup": "rollup -c",
+    "rollup:dev": "rollup -c --watch",
+    "meta": "mkdir -p dist && cp README.md LICENSE.txt dist"
+  },
+  "type": "module",
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "src"
+  ]
 }

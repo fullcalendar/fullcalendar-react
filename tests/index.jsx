@@ -1,14 +1,13 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext, createContext } from 'react'
 import { render } from '@testing-library/react'
-import FullCalendar from '../dist/main'
-import daygridPlugin from '@fullcalendar/daygrid'
-
+import FullCalendar from '../dist/index.js'
+import dayGridPlugin from '@fullcalendar/daygrid'
+import listPlugin from '@fullcalendar/list'
 
 const NOW_DATE = new Date()
 const DEFAULT_OPTIONS = {
-  plugins: [daygridPlugin]
+  plugins: [dayGridPlugin, listPlugin]
 }
-
 
 it('should render without crashing', () => {
   let { container } = render(
@@ -16,7 +15,6 @@ it('should render without crashing', () => {
   )
   expect(getHeaderToolbarEl(container)).toBeTruthy()
 })
-
 
 it('should unmount and destroy', () => {
   let unmountCalled = false
@@ -34,7 +32,6 @@ it('should unmount and destroy', () => {
   expect(unmountCalled).toBe(true)
 })
 
-
 it('should have updatable props', () => {
   let { container, rerender } = render(
     <FullCalendar {...DEFAULT_OPTIONS} />
@@ -46,7 +43,6 @@ it('should have updatable props', () => {
   )
   expect(isWeekendsRendered(container)).toBe(false)
 })
-
 
 it('should accept a callback', () => {
   let mountCalled = false
@@ -62,7 +58,6 @@ it('should accept a callback', () => {
   expect(mountCalled).toBe(true)
 })
 
-
 it('should expose an API', function() {
   let componentRef = React.createRef()
   render(
@@ -77,7 +72,6 @@ it('should expose an API', function() {
   expect(calendarApi.getDate().valueOf()).toBe(newDate.valueOf())
 })
 
-
 it('won\'t rerender toolbar if didn\'t change', function() { // works because internal VDOM reuses toolbar element
   let { container, rerender } = render(
     <FullCalendar {...DEFAULT_OPTIONS} headerToolbar={buildToolbar()} />
@@ -89,7 +83,6 @@ it('won\'t rerender toolbar if didn\'t change', function() { // works because in
   )
   expect(getHeaderToolbarEl(container)).toBe(headerEl)
 })
-
 
 it('won\'t rerender events if nothing changed', function() {
   let options = {
@@ -108,9 +101,10 @@ it('won\'t rerender events if nothing changed', function() {
   expect(getFirstEventEl(container)).toBe(eventEl)
 })
 
-
 // https://github.com/fullcalendar/fullcalendar-react/issues/185
 it('will not inifinitely recurse in strict mode with datesSet', function(done) {
+  let calledDone = false
+
   function TestApp() {
     const [events, setEvents] = useState([
       { title: 'event 1', date: '2022-04-01' },
@@ -125,12 +119,17 @@ it('will not inifinitely recurse in strict mode with datesSet', function(done) {
     };
 
     useEffect(() => {
-      setTimeout(done, 100)
+      setTimeout(() => {
+        if (!calledDone) {
+          calledDone = true
+          done()
+        }
+      }, 100)
     });
 
     return (
       <FullCalendar
-        plugins={[daygridPlugin]}
+        plugins={[dayGridPlugin]}
         initialView='dayGridMonth'
         events={events}
         datesSet={dateChange}
@@ -145,9 +144,10 @@ it('will not inifinitely recurse in strict mode with datesSet', function(done) {
   )
 })
 
-
 // https://github.com/fullcalendar/fullcalendar-react/issues/13
 it('will not inifinitely recurse with datesSet and dateIncrement', function(done) {
+  let calledDone = false
+
   function TestApp() {
     const [events, setEvents] = useState([
       { title: 'event 1', date: '2022-04-01' },
@@ -162,12 +162,17 @@ it('will not inifinitely recurse with datesSet and dateIncrement', function(done
     };
 
     useEffect(() => {
-      setTimeout(done, 100)
+      setTimeout(() => {
+        if (!calledDone) {
+          calledDone = true
+          done()
+        }
+      }, 100)
     });
 
     return (
       <FullCalendar
-        plugins={[daygridPlugin]}
+        plugins={[dayGridPlugin]}
         views={{
           rollingSevenDay: {
             type: 'dayGrid',
@@ -187,9 +192,59 @@ it('will not inifinitely recurse with datesSet and dateIncrement', function(done
   )
 })
 
+it('slot rendering inherits parent context', () => {
+  const ThemeColor = createContext('')
+
+  function TestApp() {
+    return (
+      <ThemeColor.Provider value='red'>
+        <Calendar />
+      </ThemeColor.Provider>
+    )
+  }
+
+  function Calendar() {
+    const themeColor = useContext(ThemeColor)
+
+    return (
+      <FullCalendar
+        {...DEFAULT_OPTIONS}
+        initialDate='2022-04-01'
+        events={[
+          { title: 'event 1', date: '2022-04-01' },
+        ]}
+        eventContent={(arg) => (
+          <span style={{ color: themeColor }}>{arg.event.title}</span>
+        )}
+      />
+    )
+  }
+
+  let { container } = render(
+    <React.StrictMode>
+      <TestApp />
+    </React.StrictMode>
+  )
+
+  let eventEl = getFirstEventEl(container)
+  expect(eventEl.querySelector('span').style.color).toBe('red')
+})
+
+it('accepts jsx node for slot', () => {
+  const { container } = render(
+    <FullCalendar
+      {...DEFAULT_OPTIONS}
+      initialView='listDay'
+      noEventsContent={<div className='empty-message'>no events</div>}
+    />
+  )
+
+  expect(container.querySelectorAll('.empty-message').length).toBe(1)
+})
+
 
 // FullCalendar data utils
-
+// -------------------------------------------------------------------------------------------------
 
 function buildToolbar() {
   return {
@@ -199,14 +254,12 @@ function buildToolbar() {
   }
 }
 
-
 function buildEvent() {
   return { title: 'event', start: new Date(NOW_DATE.valueOf()) } // consistent datetime
 }
 
-
 // DOM utils
-
+// -------------------------------------------------------------------------------------------------
 
 function getHeaderToolbarEl(container) {
   return container.querySelector('.fc-header-toolbar')

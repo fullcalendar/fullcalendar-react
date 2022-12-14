@@ -8,14 +8,14 @@ module.exports = function(config) {
       require('karma-spec-reporter'),
       require('karma-chrome-launcher'),
     ],
-    frameworks: [ 'jasmine' ],
+    frameworks: ['jasmine'],
     files: [
-      'tmp/tests.js',
+      './tests/dist/index.js',
     ],
     preprocessors: {
-      '**/*.+(js|css)': [ 'sourcemap' ]
+      './**/*.+(js|css)': ['sourcemap']
     },
     logLevel: config.LOG_INFO,
-    reporters: [ 'spec' ]
+    reporters: ['spec'],
   })
 }
