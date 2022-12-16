@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Bug Report
+    url: https://github.com/fullcalendar/fullcalendar/issues/new?template=bug-report.yml
+    about: Create a ticket on the main issue tracker. Choose the "React" connector
+  - name: Feature Request
+    url: https://github.com/fullcalendar/fullcalendar/issues/new?template=feature-request.yml
+    about: Create a ticket on the main issue tracker. Choose the "React" connector
+  - name: Getting Help
+    url: https://stackoverflow.com/questions/tagged/fullcalendar%20reactjs
+    about: Stuck on a tough problem? Visit the StackOverflow fullcalendar + reactjs tags
