@@ -3,6 +3,7 @@ import { render } from '@testing-library/react'
 import FullCalendar from '../dist/index.js'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import listPlugin from '@fullcalendar/list'
+import { anyElsIntersect } from './utils.js'
 
 const NOW_DATE = new Date()
 const DEFAULT_OPTIONS = {
@@ -242,6 +243,37 @@ it('accepts jsx node for slot', () => {
   expect(container.querySelectorAll('.empty-message').length).toBe(1)
 })
 
+// https://github.com/fullcalendar/fullcalendar/issues/7089
+it('does not produce overlapping multiday events with custom eventContent', () => {
+  const DATE = '2022-04-01'
+  const EVENTS = [
+    { title: 'event 1', start: '2022-04-04', end: '2022-04-09' },
+    { title: 'event 2', date: '2022-04-05', end: '2022-04-08' }
+  ]
+
+  function renderEvent(eventArg) {
+    return <i>{eventArg.event.title}</i>
+  }
+
+  function TestApp() {
+    return (
+      <FullCalendar
+        plugins={[dayGridPlugin]}
+        initialView='dayGridMonth'
+        initialDate={DATE}
+        initialEvents={EVENTS}
+        eventContent={renderEvent}
+      />
+    );
+  }
+
+  const { container } = render(<TestApp />)
+  const eventEls = getEventEls(container)
+
+  expect(eventEls.length).toBe(2)
+  expect(anyElsIntersect(eventEls)).toBe(false)
+})
+
 
 // FullCalendar data utils
 // -------------------------------------------------------------------------------------------------
@@ -273,4 +305,8 @@ function isWeekendsRendered(container) {
 
 function getFirstEventEl(container) {
   return container.querySelector('.fc-event')
+}
+
+function getEventEls(container) {
+  return [...container.querySelectorAll('.fc-event')]
 }

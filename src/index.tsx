@@ -18,6 +18,7 @@ interface CalendarState {
 export default class FullCalendar extends Component<CalendarOptions, CalendarState> {
   private elRef = createRef<HTMLDivElement>()
   private calendar: Calendar
+  private needCustomRenderingResize = false
 
   state: CalendarState = {
     customRenderingMap: new Map<string, CustomRendering<any>>()
@@ -59,6 +60,7 @@ export default class FullCalendar extends Component<CalendarOptions, CalendarSta
 
     this.calendar.render()
     customRenderingStore.subscribe((customRenderingMap) => {
+      this.needCustomRenderingResize = true
       this.setState({ customRenderingMap })
     })
   }
@@ -68,6 +70,11 @@ export default class FullCalendar extends Component<CalendarOptions, CalendarSta
 
     if (Object.keys(updates).length) {
       this.calendar.resetOptions(updates, true)
+    }
+
+    if (this.needCustomRenderingResize) {
+      this.needCustomRenderingResize = false
+      this.calendar.updateSize()
     }
   }
 
