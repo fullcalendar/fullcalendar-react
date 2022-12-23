@@ -274,6 +274,26 @@ it('does not produce overlapping multiday events with custom eventContent', () =
   expect(anyElsIntersect(eventEls)).toBe(false)
 })
 
+// https://github.com/fullcalendar/fullcalendar/issues/7107
+it('does not infinite loop on navLinks w/ dayCellContent', () => {
+  function CustomDayCellContent() {
+    return <div>hello world</div>
+  }
+
+  function TestApp() {
+    return (
+      <FullCalendar
+        plugins={[dayGridPlugin]}
+        initialView='dayGridWeek'
+        navLinks
+        dayCellContent={() => <CustomDayCellContent />}
+      />
+    );
+  }
+
+  render(<TestApp />)
+})
+
 
 // FullCalendar data utils
 // -------------------------------------------------------------------------------------------------
