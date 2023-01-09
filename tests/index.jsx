@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext, createContext } from 'react'
+import { act } from 'react-dom/test-utils'
 import { render } from '@testing-library/react'
 import FullCalendar from '../dist/index.js'
 import dayGridPlugin from '@fullcalendar/daygrid'
@@ -272,6 +273,53 @@ it('does not produce overlapping multiday events with custom eventContent', () =
 
   expect(eventEls.length).toBe(2)
   expect(anyElsIntersect(eventEls)).toBe(false)
+})
+
+// https://github.com/fullcalendar/fullcalendar/issues/7119
+it('rerenders content-injection with latest render-func closure', (done) => {
+  const DATE = '2022-04-01'
+  const EVENTS = [
+    { title: 'event 1', start: '2022-04-04', end: '2022-04-09' }
+  ]
+
+  function TestApp() {
+    const [counter, setCounter] = useState(0)
+
+    useEffect(() => {
+      setTimeout(() => {
+        act(() => {
+          setCounter(counter + 1)
+        })
+      }, 100)
+    }, [])
+
+    return (
+      <FullCalendar
+        plugins={[dayGridPlugin]}
+        initialView='dayGridMonth'
+        initialDate={DATE}
+        initialEvents={EVENTS}
+        eventContent={(eventArg) => (
+          <i>{eventArg.event.title + ' - ' + counter}</i>
+        )}
+      />
+    );
+  }
+
+  const { container } = render(<TestApp />)
+
+  let eventEls = getEventEls(container)
+  expect(eventEls.length).toBe(1)
+  expect(eventEls[0].querySelector('i').innerText).toBe('event 1 - 0')
+
+  setTimeout(() => {
+    let newEventEls = getEventEls(container)
+    expect(newEventEls.length).toBe(1)
+    expect(newEventEls[0]).toBe(eventEls[0])
+    expect(newEventEls[0].querySelector('i').innerText).toBe('event 1 - 1')
+
+    done()
+  }, 200)
 })
 
 // https://github.com/fullcalendar/fullcalendar/issues/7107

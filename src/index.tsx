@@ -69,7 +69,10 @@ export default class FullCalendar extends Component<CalendarOptions, CalendarSta
     const updates = computeUpdates(prevProps, this.props)
 
     if (Object.keys(updates).length) {
-      this.calendar.resetOptions(updates, true)
+      this.calendar.resetOptions({
+        ...updates,
+        customRenderingMetaMap: this.props,
+      }, true)
     }
 
     if (this.needCustomRenderingResize) {
