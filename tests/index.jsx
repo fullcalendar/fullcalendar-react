@@ -342,6 +342,68 @@ it('does not infinite loop on navLinks w/ dayCellContent', () => {
   render(<TestApp />)
 })
 
+// https://github.com/fullcalendar/fullcalendar/issues/7116
+it('does not infinite loop on certain eventContent', () => {
+  const INITIAL_DATE = '2022-12-01'
+  const EVENTS = [
+    {
+      start: '2022-12-31T03:40:00',
+      end: '2022-12-31T07:40:00',
+      title: 'titme33'
+    },
+    {
+      start: '2022-12-30T23:00:00',
+      end: '2022-12-31T00:30:00',
+      title: 'titme34'
+    },
+    {
+      start: '2022-12-30T23:00:00',
+      end: '2022-12-31T00:30:00',
+      title: 'titme35'
+    },
+    {
+      start: '2022-12-30T22:30:00',
+      end: '2022-12-31T00:00:00',
+      title: 'titme36'
+    },
+    {
+      start: '2022-12-30T22:00:00',
+      end: '2022-12-31T07:00:00',
+      title: 'titme37'
+    },
+    {
+      start: '2022-12-30T19:20:00',
+      end: '2022-12-31T01:10:00',
+      title: 'titme38'
+    },
+    {
+      start: '2022-12-30T19:00:00',
+      end: '2022-12-30T20:00:00',
+      title: 'titme39'
+    },
+    {
+      start: '2022-12-30T18:30:00',
+      end: '2022-12-30T19:00:00',
+      title: 'titme40'
+    }
+  ]
+
+  function TestApp() {
+    return (
+      <FullCalendar
+        plugins={[dayGridPlugin]}
+        initialDate={INITIAL_DATE}
+        initialView='dayGridMonth'
+        dayMaxEvents={2}
+        events={EVENTS}
+        eventContent={(eventArg) => <i>{eventArg.event.title}</i>}
+      />
+    );
+  }
+
+  render(<TestApp />)
+})
+
 
 // FullCalendar data utils
 // -------------------------------------------------------------------------------------------------
