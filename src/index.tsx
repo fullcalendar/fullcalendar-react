@@ -19,6 +19,7 @@ interface CalendarState {
 export default class FullCalendar extends Component<CalendarOptions, CalendarState> {
   private elRef = createRef<HTMLDivElement>()
   private calendar: Calendar
+  private customRenderingRequestId: any
   private needsCustomRenderingResize = false
 
   state: CalendarState = {
@@ -61,12 +62,26 @@ export default class FullCalendar extends Component<CalendarOptions, CalendarSta
 
     this.calendar.render()
 
-    customRenderingStore.subscribe(
-      debounceLayoutEffect((customRenderingMap) => {
+    customRenderingStore.subscribe((customRenderingMap) => {
+      this.requestCustomRendering(customRenderingMap)
+    })
+  }
+
+  requestCustomRendering(customRenderingMap) {
+    this.cancelCustomRendering()
+    this.customRenderingRequestId = requestAnimationFrame(() => {
+      act(() => {
         this.needsCustomRenderingResize = true
         this.setState({ customRenderingMap })
       })
-    )
+    })
+  }
+
+  cancelCustomRendering() {
+    if (this.customRenderingRequestId) {
+      cancelAnimationFrame(this.customRenderingRequestId)
+      this.customRenderingRequestId = undefined
+    }
   }
 
   componentDidUpdate(prevProps: CalendarOptions) {
@@ -87,6 +102,7 @@ export default class FullCalendar extends Component<CalendarOptions, CalendarSta
 
   componentWillUnmount() {
     this.calendar.destroy()
+    this.cancelCustomRendering()
   }
 
   getApi(): CalendarApi {
@@ -110,16 +126,3 @@ function computeUpdates(origObj: any, newObj: any): any {
   return updates
 }
 
-function debounceLayoutEffect(func: any){
-  let requestId: any
-
-  return (...args: any[]) => {
-    if (requestId) {
-      cancelAnimationFrame(requestId)
-      requestId = undefined
-    }
-    requestId = requestAnimationFrame(() => {
-      act(() => func.apply(this, args))
-    })
-  }
-}
