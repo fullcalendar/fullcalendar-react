@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { Component, createRef, ReactPortal } from 'react'
 import { createPortal } from 'react-dom'
+import { act } from 'react-dom/test-utils'
 import {
   CalendarOptions,
   CalendarApi,
@@ -118,7 +119,7 @@ function debounceLayoutEffect(func: any){
       requestId = undefined
     }
     requestId = requestAnimationFrame(() => {
-      func.apply(this, args)
+      act(() => func.apply(this, args))
     })
   }
 }

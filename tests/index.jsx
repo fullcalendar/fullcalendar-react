@@ -194,7 +194,7 @@ it('will not inifinitely recurse with datesSet and dateIncrement', function(done
   )
 })
 
-it('slot rendering inherits parent context', () => {
+it('slot rendering inherits parent context', (done) => {
   const ThemeColor = createContext('')
 
   function TestApp() {
@@ -228,11 +228,14 @@ it('slot rendering inherits parent context', () => {
     </React.StrictMode>
   )
 
-  let eventEl = getFirstEventEl(container)
-  expect(eventEl.querySelector('span').style.color).toBe('red')
+  setTimeout(() => { // wait for custom rendering
+    let eventEl = getFirstEventEl(container)
+    expect(eventEl.querySelector('span').style.color).toBe('red')
+    done()
+  })
 })
 
-it('accepts jsx node for slot', () => {
+it('accepts jsx node for slot', (done) => {
   const { container } = render(
     <FullCalendar
       {...DEFAULT_OPTIONS}
@@ -241,11 +244,14 @@ it('accepts jsx node for slot', () => {
     />
   )
 
-  expect(container.querySelectorAll('.empty-message').length).toBe(1)
+  setTimeout(() => { // wait for custom rendering
+    expect(container.querySelectorAll('.empty-message').length).toBe(1)
+    done()
+  }, 100)
 })
 
 // https://github.com/fullcalendar/fullcalendar/issues/7089
-it('does not produce overlapping multiday events with custom eventContent', () => {
+it('does not produce overlapping multiday events with custom eventContent', (done) => {
   const DATE = '2022-04-01'
   const EVENTS = [
     { title: 'event 1', start: '2022-04-04', end: '2022-04-09' },
@@ -269,10 +275,13 @@ it('does not produce overlapping multiday events with custom eventContent', () =
   }
 
   const { container } = render(<TestApp />)
-  const eventEls = getEventEls(container)
 
-  expect(eventEls.length).toBe(2)
-  expect(anyElsIntersect(eventEls)).toBe(false)
+  setTimeout(() => { // wait for custom rendering
+    const eventEls = getEventEls(container)
+    expect(eventEls.length).toBe(2)
+    expect(anyElsIntersect(eventEls)).toBe(false)
+    done()
+  })
 })
 
 // https://github.com/fullcalendar/fullcalendar/issues/7119
@@ -290,7 +299,7 @@ it('rerenders content-injection with latest render-func closure', (done) => {
         act(() => {
           setCounter(counter + 1)
         })
-      }, 100)
+      }, 150)
     }, [])
 
     return (
@@ -308,18 +317,19 @@ it('rerenders content-injection with latest render-func closure', (done) => {
 
   const { container } = render(<TestApp />)
 
-  let eventEls = getEventEls(container)
-  expect(eventEls.length).toBe(1)
-  expect(eventEls[0].querySelector('i').innerText).toBe('event 1 - 0')
+  setTimeout(() => { // wait for custom rendering
+    let eventEls = getEventEls(container)
+    expect(eventEls.length).toBe(1)
+    expect(eventEls[0].querySelector('i').innerText).toBe('event 1 - 0')
 
-  setTimeout(() => {
-    let newEventEls = getEventEls(container)
-    expect(newEventEls.length).toBe(1)
-    expect(newEventEls[0]).toBe(eventEls[0])
-    expect(newEventEls[0].querySelector('i').innerText).toBe('event 1 - 1')
-
-    done()
-  }, 200)
+    setTimeout(() => { // wait for useEffect timeout
+      let newEventEls = getEventEls(container)
+      expect(newEventEls.length).toBe(1)
+      expect(newEventEls[0]).toBe(eventEls[0])
+      expect(newEventEls[0].querySelector('i').innerText).toBe('event 1 - 1')
+      done()
+    }, 100)
+  }, 100)
 })
 
 // https://github.com/fullcalendar/fullcalendar/issues/7107
@@ -343,7 +353,7 @@ it('does not infinite loop on navLinks w/ dayCellContent', () => {
 })
 
 // https://github.com/fullcalendar/fullcalendar/issues/7116
-it('does not infinite loop on certain eventContent', () => {
+it('does not infinite loop on certain eventContent', (done) => {
   const INITIAL_DATE = '2022-12-01'
   const EVENTS = [
     {
@@ -402,6 +412,10 @@ it('does not infinite loop on certain eventContent', () => {
   }
 
   render(<TestApp />)
+
+  setTimeout(() => { // wait for custom rendering
+    done()
+  })
 })
 
 
