@@ -276,7 +276,7 @@ it('does not produce overlapping multiday events with custom eventContent', () =
 })
 
 // https://github.com/fullcalendar/fullcalendar/issues/7119
-it('rerenders content-injection with latest render-func closure', () => {
+it('rerenders content-injection with latest render-func closure', (done) => {
   const DATE = '2022-04-01'
   const EVENTS = [
     { title: 'event 1', start: '2022-04-04', end: '2022-04-09' }
@@ -290,7 +290,7 @@ it('rerenders content-injection with latest render-func closure', () => {
         act(() => {
           setCounter(counter + 1)
         })
-      }, 150)
+      }, 50)
     }, [])
 
     return (
