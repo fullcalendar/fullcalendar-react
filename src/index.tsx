@@ -18,7 +18,7 @@ interface CalendarState {
 export default class FullCalendar extends Component<CalendarOptions, CalendarState> {
   private elRef = createRef<HTMLDivElement>()
   private calendar: Calendar
-  private needCustomRenderingResize = false
+  private needsCustomRenderingResize = false
 
   state: CalendarState = {
     customRenderingMap: new Map<string, CustomRendering<any>>()
@@ -60,7 +60,7 @@ export default class FullCalendar extends Component<CalendarOptions, CalendarSta
 
     this.calendar.render()
     customRenderingStore.subscribe((customRenderingMap) => {
-      this.needCustomRenderingResize = true
+      this.needsCustomRenderingResize = true
       this.setState({ customRenderingMap })
     })
   }
@@ -75,11 +75,15 @@ export default class FullCalendar extends Component<CalendarOptions, CalendarSta
       }, true)
     }
 
-    if (this.needCustomRenderingResize) {
-      this.needCustomRenderingResize = false
-      this.calendar.updateSize()
+    if (this.needsCustomRenderingResize) {
+      this.needsCustomRenderingResize = false
+      this.requestCustomRenderingResize()
     }
   }
+
+  requestCustomRenderingResize = debounce(() => {
+    this.calendar.updateSize()
+  })
 
   componentWillUnmount() {
     this.calendar.destroy()
@@ -104,4 +108,14 @@ function computeUpdates(origObj: any, newObj: any): any {
   }
 
   return updates
+}
+
+function debounce(func: any){
+  let timer: number
+  return (...args: any[]) => {
+    clearTimeout(timer)
+    timer = setTimeout(() => {
+      func.apply(this, args)
+    })
+  };
 }
