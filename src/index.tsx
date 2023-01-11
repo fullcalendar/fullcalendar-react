@@ -59,10 +59,13 @@ export default class FullCalendar extends Component<CalendarOptions, CalendarSta
     })
 
     this.calendar.render()
-    customRenderingStore.subscribe((customRenderingMap) => {
-      this.needsCustomRenderingResize = true
-      this.setState({ customRenderingMap })
-    })
+
+    customRenderingStore.subscribe(
+      debounceLayoutEffect((customRenderingMap) => {
+        this.needsCustomRenderingResize = true
+        this.setState({ customRenderingMap })
+      })
+    )
   }
 
   componentDidUpdate(prevProps: CalendarOptions) {
@@ -77,13 +80,9 @@ export default class FullCalendar extends Component<CalendarOptions, CalendarSta
 
     if (this.needsCustomRenderingResize) {
       this.needsCustomRenderingResize = false
-      this.requestCustomRenderingResize()
+      this.calendar.updateSize()
     }
   }
-
-  requestCustomRenderingResize = debounce(() => {
-    this.calendar.updateSize()
-  })
 
   componentWillUnmount() {
     this.calendar.destroy()
@@ -110,12 +109,16 @@ function computeUpdates(origObj: any, newObj: any): any {
   return updates
 }
 
-function debounce(func: any){
-  let timer: number
+function debounceLayoutEffect(func: any){
+  let requestId: any
+
   return (...args: any[]) => {
-    clearTimeout(timer)
-    timer = setTimeout(() => {
+    if (requestId) {
+      cancelAnimationFrame(requestId)
+      requestId = undefined
+    }
+    requestId = requestAnimationFrame(() => {
       func.apply(this, args)
     })
-  };
+  }
 }
