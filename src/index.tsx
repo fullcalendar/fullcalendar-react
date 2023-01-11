@@ -21,6 +21,7 @@ export default class FullCalendar extends Component<CalendarOptions, CalendarSta
   private calendar: Calendar
   private customRenderingRequestId: any
   private needsCustomRenderingResize = false
+  private isInitialRender = true
 
   state: CalendarState = {
     customRenderingMap: new Map<string, CustomRendering<any>>()
@@ -63,7 +64,11 @@ export default class FullCalendar extends Component<CalendarOptions, CalendarSta
     this.calendar.render()
 
     customRenderingStore.subscribe((customRenderingMap) => {
-      this.requestCustomRendering(customRenderingMap)
+      if (this.isInitialRender) {
+        this.doCustomRendering(customRenderingMap)
+      } else {
+        this.requestCustomRendering(customRenderingMap)
+      }
     })
   }
 
@@ -71,10 +76,14 @@ export default class FullCalendar extends Component<CalendarOptions, CalendarSta
     this.cancelCustomRendering()
     this.customRenderingRequestId = requestAnimationFrame(() => {
       act(() => {
-        this.needsCustomRenderingResize = true
-        this.setState({ customRenderingMap })
+        this.doCustomRendering(customRenderingMap)
       })
     })
+  }
+
+  doCustomRendering(customRenderingMap) {
+    this.needsCustomRenderingResize = true
+    this.setState({ customRenderingMap })
   }
 
   cancelCustomRendering() {
@@ -85,6 +94,8 @@ export default class FullCalendar extends Component<CalendarOptions, CalendarSta
   }
 
   componentDidUpdate(prevProps: CalendarOptions) {
+    this.isInitialRender = false
+
     const updates = computeUpdates(prevProps, this.props)
 
     if (Object.keys(updates).length) {
