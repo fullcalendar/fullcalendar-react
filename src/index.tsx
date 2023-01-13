@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { Component, createRef, ReactPortal } from 'react'
 import { createPortal } from 'react-dom'
-import { act } from 'react-dom/test-utils'
 import {
   CalendarOptions,
   CalendarApi,
@@ -17,6 +16,8 @@ interface CalendarState {
 }
 
 export default class FullCalendar extends Component<CalendarOptions, CalendarState> {
+  static act = (f: () => void) => { f() }
+
   private elRef = createRef<HTMLDivElement>()
   private calendar: Calendar
   private customRenderingRequestId: any
@@ -75,7 +76,7 @@ export default class FullCalendar extends Component<CalendarOptions, CalendarSta
   requestCustomRendering(customRenderingMap) {
     this.cancelCustomRendering()
     this.customRenderingRequestId = requestAnimationFrame(() => {
-      act(() => {
+      FullCalendar.act(() => {
         this.doCustomRendering(customRenderingMap)
       })
     })
@@ -136,4 +137,3 @@ function computeUpdates(origObj: any, newObj: any): any {
 
   return updates
 }
-

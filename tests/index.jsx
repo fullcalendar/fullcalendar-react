@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, createContext } from 'react'
+import React, { useState, useEffect, useContext, useCallback, createContext } from 'react'
 import { act } from 'react-dom/test-utils'
 import { render } from '@testing-library/react'
 import FullCalendar from '../dist/index.js'
@@ -10,6 +10,8 @@ const NOW_DATE = new Date()
 const DEFAULT_OPTIONS = {
   plugins: [dayGridPlugin, listPlugin]
 }
+
+FullCalendar.act = act
 
 it('should render without crashing', () => {
   let { container } = render(
@@ -281,17 +283,14 @@ it('rerenders content-injection with latest render-func closure', (done) => {
   const EVENTS = [
     { title: 'event 1', start: '2022-04-04', end: '2022-04-09' }
   ]
+  let incrementCounter
 
   function TestApp() {
     const [counter, setCounter] = useState(0)
 
-    useEffect(() => {
-      setTimeout(() => {
-        act(() => {
-          setCounter(counter + 1)
-        })
-      }, 50)
-    }, [])
+    incrementCounter = useCallback(() => {
+      setCounter(counter + 1)
+    })
 
     return (
       <FullCalendar
@@ -312,6 +311,9 @@ it('rerenders content-injection with latest render-func closure', (done) => {
   expect(eventEls.length).toBe(1)
   expect(eventEls[0].querySelector('i').innerText).toBe('event 1 - 0')
 
+  act(() => {
+    incrementCounter()
+  })
   setTimeout(() => { // wait for useEffect timeout
     let newEventEls = getEventEls(container)
     expect(newEventEls.length).toBe(1)
