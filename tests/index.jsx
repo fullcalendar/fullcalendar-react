@@ -429,6 +429,22 @@ it('renders resourceAreaHeaderContent in correct place', () => {
   expect(container.querySelectorAll('.test-col1').length).toBe(1)
 })
 
+// https://github.com/fullcalendar/fullcalendar/issues/7160
+it('can render custom content in a completely custom view', () => {
+  const { container } = render(
+    <FullCalendar
+      initialView="customView"
+      views={{
+        customView: {
+          content: <div className='custom-view-content'>custom view content</div>
+        }
+      }}
+    />
+  )
+
+  expect(container.querySelectorAll('.custom-view-content').length).toBe(1)
+})
+
 
 // FullCalendar data utils
 // -------------------------------------------------------------------------------------------------
