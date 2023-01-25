@@ -406,6 +406,30 @@ it('does not infinite loop on certain eventContent', () => {
   render(<TestApp />)
 })
 
+it('eventContent render can return true to use default rendering', () => {
+  const INITIAL_DATE = '2022-12-01'
+  const EVENTS = [
+    {
+      start: '2022-12-31T03:40:00',
+      end: '2022-12-31T07:40:00',
+      title: 'titme33'
+    }
+  ]
+
+  const { container } = render(
+    <FullCalendar
+      plugins={[dayGridPlugin]}
+      initialDate={INITIAL_DATE}
+      initialView='dayGridMonth'
+      events={EVENTS}
+      eventContent={() => true}
+    />
+  )
+
+  let eventEls = getEventEls(container)
+  expect(eventEls[0].innerHTML.trim()).toBeTruthy()
+})
+
 // https://github.com/fullcalendar/fullcalendar/issues/7153
 it('renders resourceAreaHeaderContent in correct place', () => {
   const { container } = render(
