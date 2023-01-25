@@ -4,6 +4,7 @@ import { render } from '@testing-library/react'
 import FullCalendar from '../dist/index.js'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import listPlugin from '@fullcalendar/list'
+import resourceTimelinePlugin from '@fullcalendar/resource-timeline'
 import { anyElsIntersect } from './utils.js'
 
 const NOW_DATE = new Date()
@@ -403,6 +404,29 @@ it('does not infinite loop on certain eventContent', () => {
   }
 
   render(<TestApp />)
+})
+
+// https://github.com/fullcalendar/fullcalendar/issues/7153
+it('renders resourceAreaHeaderContent in correct place', () => {
+  const { container } = render(
+    <FullCalendar
+      plugins={[resourceTimelinePlugin]}
+      initialView="resourceTimelineDay"
+      resources={[
+        { num: '22', name: 'John' },
+        { num: '66', name: 'Glen' },
+      ]}
+      resourceAreaHeaderContent={<div className='test-header'>Resource Area Header</div>}
+      resourceAreaColumns={[
+        { field: 'num', headerContent: <div className='test-col0'>Num</div> },
+        { field: 'name', headerContent: <div className='test-col1'>Name</div> },
+      ]}
+    />
+  )
+
+  expect(container.querySelectorAll('.test-header').length).toBe(1)
+  expect(container.querySelectorAll('.test-col0').length).toBe(1)
+  expect(container.querySelectorAll('.test-col1').length).toBe(1)
 })
 
 
