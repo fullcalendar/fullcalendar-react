@@ -324,6 +324,82 @@ it('rerenders content-injection with latest render-func closure', (done) => {
   }, 100)
 })
 
+it('no unnecessary rerenders, using events, when parent rerenders', () => {
+  const DATE = '2022-04-01'
+  const EVENTS = [
+    { title: 'event 1', start: '2022-04-04', end: '2022-04-09' }
+  ]
+  let incrementCounter
+  let customRenderCnt = 0
+
+  function TestApp() {
+    const [counter, setCounter] = useState(0)
+
+    incrementCounter = useCallback(() => {
+      setCounter(counter + 1)
+    })
+
+    return (
+      <FullCalendar
+        plugins={[dayGridPlugin]}
+        headerToolbar={buildToolbar()}
+        initialView='dayGridMonth'
+        initialDate={DATE}
+        events={EVENTS}
+        eventContent={renderEvent}
+      />
+    )
+  }
+
+  function renderEvent(eventArg) {
+    customRenderCnt++
+    return <i>{eventArg.event.title}</i>
+  }
+
+  render(<TestApp />)
+  expect(customRenderCnt).toBe(1)
+  act(() => incrementCounter())
+  expect(customRenderCnt).toBe(1)
+})
+
+it('no unnecessary rerenders, using eventSources, when parent rerenders', () => {
+  const DATE = '2022-04-01'
+  const EVENTS = [
+    { title: 'event 1', start: '2022-04-04', end: '2022-04-09' }
+  ]
+  let incrementCounter
+  let customRenderCnt = 0
+
+  function TestApp() {
+    const [counter, setCounter] = useState(0)
+
+    incrementCounter = useCallback(() => {
+      setCounter(counter + 1)
+    })
+
+    return (
+      <FullCalendar
+        plugins={[dayGridPlugin]}
+        headerToolbar={buildToolbar()}
+        initialView='dayGridMonth'
+        initialDate={DATE}
+        eventSources={[EVENTS]}
+        eventContent={renderEvent}
+      />
+    )
+  }
+
+  function renderEvent(eventArg) {
+    customRenderCnt++
+    return <i>{eventArg.event.title}</i>
+  }
+
+  render(<TestApp />)
+  expect(customRenderCnt).toBe(1)
+  act(() => incrementCounter())
+  expect(customRenderCnt).toBe(1)
+})
+
 // https://github.com/fullcalendar/fullcalendar/issues/7107
 it('does not infinite loop on navLinks w/ dayCellContent', () => {
   function CustomDayCellContent() {
