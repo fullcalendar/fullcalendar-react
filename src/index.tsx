@@ -59,7 +59,6 @@ export default class FullCalendar extends Component<CalendarOptions, CalendarSta
     this.calendar = new Calendar(this.elRef.current, {
       ...this.props,
       handleCustomRendering: customRenderingStore.handle.bind(customRenderingStore),
-      customRenderingMetaMap: this.props, // render functions are given as props
     })
 
     this.calendar.render()
@@ -100,10 +99,7 @@ export default class FullCalendar extends Component<CalendarOptions, CalendarSta
     const updates = computeUpdates(prevProps, this.props)
 
     if (Object.keys(updates).length) {
-      this.calendar.resetOptions({
-        ...updates,
-        customRenderingMetaMap: this.props,
-      }, true)
+      this.calendar.resetOptions(updates, true) // append=true
     }
 
     if (this.needsCustomRenderingResize) {
