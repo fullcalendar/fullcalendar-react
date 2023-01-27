@@ -21,6 +21,7 @@ export default class FullCalendar extends Component<CalendarOptions, CalendarSta
   private elRef = createRef<HTMLDivElement>()
   private calendar: Calendar
   private customRenderingRequestId: any
+  private handleCustomRendering: (customRendering: CustomRendering<any>) => void
   private needsCustomRenderingResize = false
   private isInitialRender = true
 
@@ -55,10 +56,11 @@ export default class FullCalendar extends Component<CalendarOptions, CalendarSta
 
   componentDidMount() {
     const customRenderingStore = new CustomRenderingStore<unknown>()
+    this.handleCustomRendering = customRenderingStore.handle.bind(customRenderingStore)
 
     this.calendar = new Calendar(this.elRef.current, {
       ...this.props,
-      handleCustomRendering: customRenderingStore.handle.bind(customRenderingStore),
+      handleCustomRendering: this.handleCustomRendering,
     })
 
     this.calendar.render()
@@ -93,14 +95,12 @@ export default class FullCalendar extends Component<CalendarOptions, CalendarSta
     }
   }
 
-  componentDidUpdate(prevProps: CalendarOptions) {
+  componentDidUpdate() {
     this.isInitialRender = false
-
-    const updates = computeUpdates(prevProps, this.props)
-
-    if (Object.keys(updates).length) {
-      this.calendar.resetOptions(updates, true) // append=true
-    }
+    this.calendar.resetOptions({
+      ...this.props,
+      handleCustomRendering: this.handleCustomRendering,
+    })
 
     if (this.needsCustomRenderingResize) {
       this.needsCustomRenderingResize = false
@@ -116,20 +116,4 @@ export default class FullCalendar extends Component<CalendarOptions, CalendarSta
   getApi(): CalendarApi {
     return this.calendar
   }
-}
-
-// Utils
-
-function computeUpdates(origObj: any, newObj: any): any {
-  const updates: any = {}
-
-  if (newObj !== origObj) {
-    for (const key in newObj) {
-      if (newObj[key] !== origObj[key]) {
-        updates[key] = newObj[key]
-      }
-    }
-  }
-
-  return updates
 }
