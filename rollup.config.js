@@ -6,6 +6,8 @@ import postcss from 'rollup-plugin-postcss'
 import sourcemaps from 'rollup-plugin-sourcemaps'
 import pkgJson from './package.json'
 
+const [ourPkgNames, otherPkgNames] = getDepNames()
+
 export default [
   // CJS
   {
@@ -15,7 +17,10 @@ export default [
       format: 'cjs',
       exports: 'named',
     },
-    external: buildDepRegexps(),
+    plugins: [
+      externalizePkgsPlugin(ourPkgNames, '.cjs'),
+      externalizePkgsPlugin(otherPkgNames),
+    ],
   },
 
   // Tests
@@ -49,20 +54,51 @@ export default [
   },
 ]
 
-// ensures subpaths of packages are matched
-function buildDepRegexps() {
+// plugins & utils
+// -------------------------------------------------------------------------------------------------
+
+function getDepNames() {
   const pkgNames = Object.keys({
     ...pkgJson.dependencies,
     ...pkgJson.peerDependencies,
     ...pkgJson.optionalDependencies,
   })
+  const ourPkgNames = []
+  const otherPkgNames = []
 
-  return pkgNames.map((pkgName) => {
-    return RegExp(`^${escapeRegExp(pkgName)}($|/)`)
-  })
+  for (const pkgName of pkgNames) {
+    if (pkgName.match(/^@fullcalendar\//)) {
+      ourPkgNames.push(pkgName)
+    } else {
+      otherPkgNames.push(pkgName)
+    }
+  }
+
+  return [ourPkgNames, otherPkgNames]
 }
 
-// https://stackoverflow.com/a/6969486/96342
-function escapeRegExp(string) {
-  return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
+function externalizePkgsPlugin(pkgNames, forceExtension) {
+  return {
+    name: 'externalize-pkgs',
+    resolveId(importId) {
+      if (!isImportRelative(importId)) {
+        for (const pkgName of pkgNames) {
+          if (importId === pkgName || importId.startsWith(pkgName + '/')) {
+            if (forceExtension) {
+              if (importId === pkgName) {
+                importId += '/index' + forceExtension
+              } else {
+                importId += forceExtension
+              }
+            }
+            return { id: importId, external: true }
+          }
+        }
+      }
+    },
+  }
+}
+
+function isImportRelative(importId) {
+  return importId.startsWith('./') || importId.startsWith('../')
 }
