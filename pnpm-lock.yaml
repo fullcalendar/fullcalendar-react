@@ -7,9 +7,11 @@ importers:
       '@babel/core': ^7.0.0
       '@babel/preset-env': ^7.9.0
       '@babel/preset-react': ^7.9.4
-      '@fullcalendar/core': ~6.0.0
-      '@fullcalendar/daygrid': ~6.0.0
-      '@fullcalendar/list': ~6.0.0
+      '@fullcalendar/core': ~6.1.1
+      '@fullcalendar/daygrid': ~6.1.1
+      '@fullcalendar/list': ~6.1.1
+      '@fullcalendar/resource': ~6.1.1
+      '@fullcalendar/resource-timeline': ~6.1.1
       '@rollup/plugin-babel': ^5.0.0
       '@rollup/plugin-commonjs': ^12.0.0
       '@rollup/plugin-json': ^4.0.3
@@ -39,9 +41,11 @@ importers:
       '@babel/core': 7.20.2
       '@babel/preset-env': 7.20.2_@babel+core@7.20.2
       '@babel/preset-react': 7.18.6_@babel+core@7.20.2
-      '@fullcalendar/core': link:../../standard/packages/core/dist
-      '@fullcalendar/daygrid': link:../../standard/packages/daygrid/dist
-      '@fullcalendar/list': link:../../standard/packages/list/dist
+      '@fullcalendar/core': 6.1.1
+      '@fullcalendar/daygrid': 6.1.1_@fullcalendar+core@6.1.1
+      '@fullcalendar/list': 6.1.1_@fullcalendar+core@6.1.1
+      '@fullcalendar/resource': 6.1.1_@fullcalendar+core@6.1.1
+      '@fullcalendar/resource-timeline': 6.1.1_fua6kvsyvpr55sj25tedizkrlu
       '@rollup/plugin-babel': 5.3.1_rw3hudt2pmn5afxog7l3b6qtze
       '@rollup/plugin-commonjs': 12.0.0_rollup@2.79.1
       '@rollup/plugin-json': 4.1.0_rollup@2.79.1
@@ -67,6 +71,14 @@ importers:
       rollup-plugin-postcss: 2.9.0
       rollup-plugin-sourcemaps: 0.6.3_rollup@2.79.1
       typescript: 4.9.3
+
+  ../..:
+    specifiers:
+      '@fullcalendar/standard-scripts': '*'
+      '@fullcalendar/workspace-scripts': '*'
+    devDependencies:
+      '@fullcalendar/standard-scripts': 0.0.0
+      '@fullcalendar/workspace-scripts': 0.0.0
 
 packages:
 
@@ -1306,6 +1318,85 @@ packages:
       strip-json-comments: 3.1.1
     transitivePeerDependencies:
       - supports-color
+    dev: true
+
+  /@fullcalendar/core/6.1.1:
+    resolution: {integrity: sha512-im5Dbgi/d7Q8DEUFuLaInL/TG+CrRH+zePq58LrKyFFoJKkx2CP+OS29ijVBnUiGyzCWtZ9lMIzLmWDzIMnJ0A==}
+    dependencies:
+      preact: 10.11.3
+    dev: true
+
+  /@fullcalendar/daygrid/6.1.1_@fullcalendar+core@6.1.1:
+    resolution: {integrity: sha512-/yIrN3IZSdob/UvAaPqWzBqyaQf3+DdcGG7xocVpmt2MudFbTpstF+ffPdBAQWqoWoB18Q92s6fn9teva5nDwA==}
+    peerDependencies:
+      '@fullcalendar/core': ~6.1.1
+    dependencies:
+      '@fullcalendar/core': 6.1.1
+    dev: true
+
+  /@fullcalendar/list/6.1.1_@fullcalendar+core@6.1.1:
+    resolution: {integrity: sha512-JHhjIREGDYdmoPdniP6fNDypuAXwVZkouWUSD8/8CMmgHAICPuME95ttVZNTmvsE6Jbv1NY4VGoUkTpBGlfG+g==}
+    peerDependencies:
+      '@fullcalendar/core': ~6.1.1
+    dependencies:
+      '@fullcalendar/core': 6.1.1
+    dev: true
+
+  /@fullcalendar/premium-common/6.1.1_@fullcalendar+core@6.1.1:
+    resolution: {integrity: sha512-20uW8NiXEpCjJfGY7XUrXR9PAwk3/VSAeKIFmMf75+qtHU5Fs+NcDjN3xeig9zbIz6jFYdVWW8PON77gdVLDYw==}
+    peerDependencies:
+      '@fullcalendar/core': ~6.1.1
+    dependencies:
+      '@fullcalendar/core': 6.1.1
+    dev: true
+
+  /@fullcalendar/resource-timeline/6.1.1_fua6kvsyvpr55sj25tedizkrlu:
+    resolution: {integrity: sha512-mc9Fib6PQSlkvmM+jgdptjYYx4S+oyywqRgmhqoeQJYBCtLthrARnBlf96el7fVQjxobiTPCv2HMQbjiNVwkKQ==}
+    peerDependencies:
+      '@fullcalendar/core': ~6.1.1
+      '@fullcalendar/resource': ~6.1.1
+    dependencies:
+      '@fullcalendar/core': 6.1.1
+      '@fullcalendar/premium-common': 6.1.1_@fullcalendar+core@6.1.1
+      '@fullcalendar/resource': 6.1.1_@fullcalendar+core@6.1.1
+      '@fullcalendar/scrollgrid': 6.1.1_@fullcalendar+core@6.1.1
+      '@fullcalendar/timeline': 6.1.1_@fullcalendar+core@6.1.1
+    dev: true
+
+  /@fullcalendar/resource/6.1.1_@fullcalendar+core@6.1.1:
+    resolution: {integrity: sha512-YbLd7dlTv+Gbn5XZ4wXyXGskd6Fu5P92unvTgJQ25aSAE2di7xLZbn11jKlqKntUIoR8/PK0F1ueWy7swT8W6Q==}
+    peerDependencies:
+      '@fullcalendar/core': ~6.1.1
+    dependencies:
+      '@fullcalendar/core': 6.1.1
+      '@fullcalendar/premium-common': 6.1.1_@fullcalendar+core@6.1.1
+    dev: true
+
+  /@fullcalendar/scrollgrid/6.1.1_@fullcalendar+core@6.1.1:
+    resolution: {integrity: sha512-2mPxiyHvsHgPDWmfJ+mzz3aW4sW1DKefoNtvxCTnRSmu45l4j++qotOiapxOpVikRbsJZcRq4NIagsS8GbdlXw==}
+    peerDependencies:
+      '@fullcalendar/core': ~6.1.1
+    dependencies:
+      '@fullcalendar/core': 6.1.1
+      '@fullcalendar/premium-common': 6.1.1_@fullcalendar+core@6.1.1
+    dev: true
+
+  /@fullcalendar/standard-scripts/0.0.0:
+    resolution: {integrity: sha512-vXE/ZYb/7ZhMgWLjfGa/mxUZ/VZlzYTy/AKlOpVk8CK0J7iZyoe6mzp4WJfzSKpk39HkNbeIPaKjTxEt2jlzHw==}
+    dev: true
+
+  /@fullcalendar/timeline/6.1.1_@fullcalendar+core@6.1.1:
+    resolution: {integrity: sha512-cRS+DDqOWHX1xGZzWNkXnOTBpFk1CA+Kw5dgyGS+qW4BvqoPwQBDOwRmzIdEMG9EDdm72bMM/+78L2hHnzWARA==}
+    peerDependencies:
+      '@fullcalendar/core': ~6.1.1
+    dependencies:
+      '@fullcalendar/core': 6.1.1
+      '@fullcalendar/premium-common': 6.1.1_@fullcalendar+core@6.1.1
+      '@fullcalendar/scrollgrid': 6.1.1_@fullcalendar+core@6.1.1
+    dev: true
+
+  /@fullcalendar/workspace-scripts/0.0.0:
+    resolution: {integrity: sha512-Jg5oNLF8M84uAEa3g1sDrVbE2ISO3JbOyxdPU27h07hFeqWRYfprR7gz6tOYwKAGFCeRObQa/X2HVdIhPIKW9A==}
     dev: true
 
   /@humanwhocodes/config-array/0.11.7:
@@ -4450,6 +4541,10 @@ packages:
     dependencies:
       picocolors: 0.2.1
       source-map: 0.6.1
+    dev: true
+
+  /preact/10.11.3:
+    resolution: {integrity: sha512-eY93IVpod/zG3uMF22Unl8h9KkrcKIRs2EGar8hwLZZDU1lkjph303V9HZBwufh2s736U6VXuhD109LYqPoffg==}
     dev: true
 
   /prelude-ls/1.2.1:
