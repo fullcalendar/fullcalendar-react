@@ -58,7 +58,7 @@
   },
   "scripts": {
     "lint": "eslint .",
-    "build": "pnpm run tsc && pnpm run rollup && pnpm run meta",
+    "build": "pnpm run tsc && pnpm run rollup",
     "dev": "pnpm run tsc && concurrently 'npm:tsc:dev' 'npm:rollup:dev'",
     "test": "karma start karma.config.cjs --browsers ChromeHeadless --single-run --no-auto-watch",
     "test:dev": "karma start karma.config.cjs",
@@ -67,8 +67,7 @@
     "tsc": "tsc -p .",
     "tsc:dev": "tsc -p . --watch --preserveWatchOutput --pretty",
     "rollup": "rollup -c",
-    "rollup:dev": "rollup -c --watch",
-    "meta": "mkdir -p dist && cp README.md LICENSE.txt dist"
+    "rollup:dev": "rollup -c --watch"
   },
   "type": "module",
   "main": "dist/index.cjs",
