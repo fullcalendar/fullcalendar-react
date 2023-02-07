@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext, useCallback, createContext } fr
 import { act } from 'react-dom/test-utils'
 import { render } from '@testing-library/react'
 import FullCalendar from '../dist/index.js'
+import { sliceEvents } from '@fullcalendar/core'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import listPlugin from '@fullcalendar/list'
 import resourceTimelinePlugin from '@fullcalendar/resource-timeline'
@@ -530,7 +531,7 @@ it('renders resourceAreaHeaderContent in correct place', () => {
 })
 
 // https://github.com/fullcalendar/fullcalendar/issues/7160
-it('can render custom content in a completely custom view', () => {
+it('can render custom content in a custom view', () => {
   const { container } = render(
     <FullCalendar
       initialView="customView"
@@ -545,6 +546,39 @@ it('can render custom content in a completely custom view', () => {
   expect(container.querySelectorAll('.custom-view-content').length).toBe(1)
 })
 
+// https://github.com/fullcalendar/fullcalendar/issues/7189
+it('custom view receives enough props for slicing', () => {
+  const { container } = render(
+    <FullCalendar
+      initialDate={NOW_DATE}
+      initialView="customView"
+      initialEvents={[
+        {
+          title: 'event1',
+          start: NOW_DATE,
+        }
+      ]}
+      views={{
+        customView: {
+          content: (props) => {
+            const segs = sliceEvents(props, true); // allDay=true
+            return (
+              <>
+                <div className="custom-view-title">
+                  {props.dateProfile.currentRange.start.getMonth()}
+                </div>
+                <div className="custom-view-events">{segs.length} events</div>
+              </>
+            );
+          }
+        }
+      }}
+    />
+  )
+
+  expect(container.querySelector('.custom-view-title').innerText).toBe(String(NOW_DATE.getMonth()))
+  expect(container.querySelector('.custom-view-events').innerText).toBe('1 events')
+})
 
 // FullCalendar data utils
 // -------------------------------------------------------------------------------------------------
