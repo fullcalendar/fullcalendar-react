@@ -508,7 +508,7 @@ it('eventContent render can return true to use default rendering', () => {
 })
 
 // https://github.com/fullcalendar/fullcalendar/issues/7153
-it('renders resourceAreaHeaderContent in correct place', () => {
+it('renders resourceAreaHeaderContent jsx', () => {
   const { container } = render(
     <FullCalendar
       plugins={[resourceTimelinePlugin]}
@@ -528,6 +528,30 @@ it('renders resourceAreaHeaderContent in correct place', () => {
   expect(container.querySelectorAll('.test-header').length).toBe(1)
   expect(container.querySelectorAll('.test-col0').length).toBe(1)
   expect(container.querySelectorAll('.test-col1').length).toBe(1)
+})
+
+// https://github.com/fullcalendar/fullcalendar/issues/7203
+it('renders resourceGroupLaneContent function', () => {
+  const { container } = render(
+    <FullCalendar
+      plugins={[resourceTimelinePlugin]}
+      initialView="resourceTimelineDay"
+      resources={[
+        { num: '22', name: 'John' },
+        { num: '66', name: 'Glen' },
+      ]}
+      resourceAreaColumns={[
+        { field: 'num' },
+        { field: 'name' },
+      ]}
+      resourceGroupField='num'
+      resourceGroupLaneContent={() => (
+        <span className='test-group-lane' />
+      )}
+    />
+  )
+
+  expect(container.querySelectorAll('.test-group-lane').length).toBe(2)
 })
 
 // https://github.com/fullcalendar/fullcalendar/issues/7160
