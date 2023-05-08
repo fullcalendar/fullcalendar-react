@@ -13,8 +13,6 @@ const DEFAULT_OPTIONS = {
   plugins: [dayGridPlugin, listPlugin]
 }
 
-FullCalendar.act = act
-
 it('should render without crashing', () => {
   let { container } = render(
     <FullCalendar {...DEFAULT_OPTIONS} />
@@ -254,6 +252,37 @@ it('does not produce overlapping multiday events with custom eventContent', () =
   const EVENTS = [
     { title: 'event 1', start: '2022-04-04', end: '2022-04-09' },
     { title: 'event 2', date: '2022-04-05', end: '2022-04-08' }
+  ]
+
+  function renderEvent(eventArg) {
+    return <i>{eventArg.event.title}</i>
+  }
+
+  function TestApp() {
+    return (
+      <FullCalendar
+        plugins={[dayGridPlugin]}
+        initialView='dayGridMonth'
+        initialDate={DATE}
+        initialEvents={EVENTS}
+        eventContent={renderEvent}
+      />
+    );
+  }
+
+  const { container } = render(<TestApp />)
+
+  const eventEls = getEventEls(container)
+  expect(eventEls.length).toBe(2)
+  expect(anyElsIntersect(eventEls)).toBe(false)
+})
+
+// https://github.com/fullcalendar/fullcalendar/issues/7239
+it('does not produce overlapping all-day & timed events with custom eventContent', () => {
+  const DATE = '2022-04-01'
+  const EVENTS = [
+    { title: 'event 1', start: '2022-04-04', end: '2022-04-09' },
+    { title: 'event 2', date: '2022-04-05T12:00:00' }
   ]
 
   function renderEvent(eventArg) {

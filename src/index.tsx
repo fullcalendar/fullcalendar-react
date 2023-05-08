@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { Component, createRef, ReactPortal } from 'react'
-import { createPortal } from 'react-dom'
+import React, { Component, createRef, PureComponent } from 'react'
+import { createPortal, flushSync } from 'react-dom'
 import {
   CalendarOptions,
   CalendarApi,
@@ -16,40 +16,33 @@ interface CalendarState {
 }
 
 export default class FullCalendar extends Component<CalendarOptions, CalendarState> {
-  static act = (f: () => void) => { f() }
+  static act = runNow // DEPRECATED. Not leveraged anymore
 
   private elRef = createRef<HTMLDivElement>()
   private calendar: Calendar
-  private customRenderingRequestId: any
   private handleCustomRendering: (customRendering: CustomRendering<any>) => void
-  private needsCustomRenderingResize = false
-  private isInitialRender = true
+  private resizeId: number | undefined
+  private isUnmounting = false
 
   state: CalendarState = {
     customRenderingMap: new Map<string, CustomRendering<any>>()
   }
 
   render() {
-    const portalNodes: ReactPortal[] = []
+    const customRenderingNodes: JSX.Element[] = []
 
     for (const customRendering of this.state.customRenderingMap.values()) {
-      const { generatorMeta } = customRendering
-      const vnode = typeof generatorMeta === 'function' ?
-        generatorMeta(customRendering.renderProps) :
-        generatorMeta
-
-      portalNodes.push(
-        createPortal(
-          vnode,
-          customRendering.containerEl,
-          customRendering.id, // key
-        )
+      customRenderingNodes.push(
+        <CustomRenderingComponent
+          key={customRendering.id}
+          customRendering={customRendering}
+        />
       )
     }
 
     return (
       <div ref={this.elRef}>
-        {portalNodes}
+        {customRenderingNodes}
       </div>
     )
   }
@@ -62,58 +55,93 @@ export default class FullCalendar extends Component<CalendarOptions, CalendarSta
       ...this.props,
       handleCustomRendering: this.handleCustomRendering,
     })
-
     this.calendar.render()
 
-    customRenderingStore.subscribe((customRenderingMap) => {
-      if (this.isInitialRender) {
-        this.doCustomRendering(customRenderingMap)
-      } else {
-        this.requestCustomRendering(customRenderingMap)
-      }
-    })
-  }
+    let lastRequestTimestamp: number | undefined
 
-  requestCustomRendering(customRenderingMap) {
-    this.cancelCustomRendering()
-    this.customRenderingRequestId = requestAnimationFrame(() => {
-      FullCalendar.act(() => {
-        this.doCustomRendering(customRenderingMap)
+    customRenderingStore.subscribe((customRenderingMap) => {
+      const requestTimestamp = Date.now()
+      const isMounting = !lastRequestTimestamp
+      const runFunc = (
+        this.isUnmounting ||
+        isMounting ||
+        (requestTimestamp - lastRequestTimestamp) < 100 // rerendering frequently
+      ) ? runNow // either sync rendering (first-time or React 17) or async (React 18)
+        : flushSync // guaranteed sync rendering
+
+      runFunc(() => {
+        this.setState({ customRenderingMap }, () => {
+          lastRequestTimestamp = requestTimestamp
+          if (isMounting) {
+            this.doResize()
+          } else {
+            this.requestResize()
+          }
+        })
       })
     })
   }
 
-  doCustomRendering(customRenderingMap) {
-    this.needsCustomRenderingResize = true
-    this.setState({ customRenderingMap })
-  }
-
-  cancelCustomRendering() {
-    if (this.customRenderingRequestId) {
-      cancelAnimationFrame(this.customRenderingRequestId)
-      this.customRenderingRequestId = undefined
-    }
-  }
-
   componentDidUpdate() {
-    this.isInitialRender = false
     this.calendar.resetOptions({
       ...this.props,
       handleCustomRendering: this.handleCustomRendering,
     })
-
-    if (this.needsCustomRenderingResize) {
-      this.needsCustomRenderingResize = false
-      this.calendar.updateSize()
-    }
   }
 
   componentWillUnmount() {
+    this.isUnmounting = true
+    this.cancelResize()
     this.calendar.destroy()
-    this.cancelCustomRendering()
+  }
+
+  requestResize = () => {
+    if (!this.isUnmounting) {
+      this.cancelResize()
+      this.resizeId = requestAnimationFrame(() => {
+        this.doResize()
+      })
+    }
+  }
+
+  doResize() {
+    this.calendar.updateSize()
+  }
+
+  cancelResize() {
+    if (this.resizeId !== undefined) {
+      cancelAnimationFrame(this.resizeId)
+      this.resizeId = undefined
+    }
   }
 
   getApi(): CalendarApi {
     return this.calendar
   }
+}
+
+// Custom Rendering
+// -------------------------------------------------------------------------------------------------
+
+interface CustomRenderingComponentProps {
+  customRendering: CustomRendering<any>
+}
+
+class CustomRenderingComponent extends PureComponent<CustomRenderingComponentProps> {
+  render() {
+    const { customRendering } = this.props
+    const { generatorMeta } = customRendering
+    const vnode = typeof generatorMeta === 'function' ?
+      generatorMeta(customRendering.renderProps) :
+      generatorMeta
+
+    return createPortal(vnode, customRendering.containerEl)
+  }
+}
+
+// Util
+// -------------------------------------------------------------------------------------------------
+
+function runNow(f: () => void): void {
+  f()
 }
