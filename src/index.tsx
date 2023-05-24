@@ -22,6 +22,7 @@ export default class FullCalendar extends Component<CalendarOptions, CalendarSta
   private calendar: Calendar
   private handleCustomRendering: (customRendering: CustomRendering<any>) => void
   private resizeId: number | undefined
+  private isUpdating = false
   private isUnmounting = false
 
   state: CalendarState = {
@@ -63,8 +64,9 @@ export default class FullCalendar extends Component<CalendarOptions, CalendarSta
       const requestTimestamp = Date.now()
       const isMounting = !lastRequestTimestamp
       const runFunc = (
-        this.isUnmounting ||
         isMounting ||
+        this.isUpdating ||
+        this.isUnmounting ||
         (requestTimestamp - lastRequestTimestamp) < 100 // rerendering frequently
       ) ? runNow // either sync rendering (first-time or React 17) or async (React 18)
         : flushSync // guaranteed sync rendering
@@ -83,10 +85,12 @@ export default class FullCalendar extends Component<CalendarOptions, CalendarSta
   }
 
   componentDidUpdate() {
+    this.isUpdating = true
     this.calendar.resetOptions({
       ...this.props,
       handleCustomRendering: this.handleCustomRendering,
     })
+    this.isUpdating = false
   }
 
   componentWillUnmount() {
