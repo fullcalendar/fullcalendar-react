@@ -583,21 +583,51 @@ it('renders resourceGroupLaneContent function', () => {
   expect(container.querySelectorAll('.test-group-lane').length).toBe(2)
 })
 
-// https://github.com/fullcalendar/fullcalendar/issues/7160
-it('can render custom content in a custom view', () => {
-  const { container } = render(
-    <FullCalendar
-      initialView="customView"
-      views={{
-        customView: {
-          content: <div className='custom-view-content'>custom view content</div>
-        }
-      }}
-    />
-  )
 
-  expect(container.querySelectorAll('.custom-view-content').length).toBe(1)
+;[
+  'content', // https://github.com/fullcalendar/fullcalendar/issues/7160
+  'component', // https://github.com/fullcalendar/fullcalendar/issues/7207
+].forEach((settingName) => {
+  fit(`can render custom content in a custom view (with ${settingName} setting)`, () => {
+    const { container } = render(
+      <FullCalendar
+        initialView="customView"
+        views={{
+          customView: {
+            [settingName]: <div className='custom-view-content'>custom view content</div>
+          }
+        }}
+      />
+    )
+
+    expect(container.querySelectorAll('.custom-view-content').length).toBe(1)
+  })
 })
+
+;[
+  'content',
+  'component',
+].forEach((settingName) => {
+  fit(`can render custom content AS FUNCTION in a custom view (with ${settingName} setting)`, () => {
+    const { container } = render(
+      <FullCalendar
+        initialView="customView"
+        views={{
+          customView: {
+            [settingName]: () => {
+              return (
+                <div className='custom-view-content'>custom view content</div>
+              )
+            }
+          }
+        }}
+      />
+    )
+
+    expect(container.querySelectorAll('.custom-view-content').length).toBe(1)
+  })
+})
+
 
 // https://github.com/fullcalendar/fullcalendar/issues/7189
 it('custom view receives enough props for slicing', () => {
