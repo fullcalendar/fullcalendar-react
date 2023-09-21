@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, useCallback, createContext } from 'react'
+import React, { useState, useEffect, useContext, useCallback, createContext, useRef } from 'react'
 import { act } from 'react-dom/test-utils'
 import { render } from '@testing-library/react'
 import FullCalendar from '../dist/index.js'
@@ -661,6 +661,58 @@ it('custom view receives enough props for slicing', () => {
 
   expect(container.querySelector('.custom-view-title').innerText).toBe(String(NOW_DATE.getMonth()))
   expect(container.querySelector('.custom-view-events').innerText).toBe('1 events')
+})
+
+// https://github.com/fullcalendar/fullcalendar/issues/7448
+// Only in React 16
+xit('allows useEffect to call API methods without throwing error', (done) => {
+  const initialDate = new Date(Date.UTC(2023, 8, 21))
+  let dateEffectCnt = 0
+
+  function TestApp() {
+    const ref = useRef()
+    const [date, setDate] = useState(initialDate)
+
+    function incrementDate() {
+      const nextDate = new Date(Date.UTC(
+        date.getUTCFullYear(),
+        date.getUTCMonth(),
+        date.getUTCDate() + 1,
+      ))
+      setDate(nextDate)
+    }
+
+    // on initial render
+    useEffect(() => {
+      incrementDate()
+    }, [])
+
+    useEffect(() => {
+      dateEffectCnt++
+      ref.current.getApi().gotoDate(date)
+    }, [date])
+
+    return (
+      <FullCalendar
+        ref={ref}
+        plugins={[dayGridPlugin]}
+        initialView='dayGridDay'
+        initialDate={initialDate}
+        timeZone='UTC'
+      />
+    )
+  }
+
+  render(
+    <React.StrictMode>
+      <TestApp />
+    </React.StrictMode>
+  )
+
+  setTimeout(() => {
+    expect(dateEffectCnt).toBe(1)
+    done()
+  }, 100)
 })
 
 // FullCalendar data utils
