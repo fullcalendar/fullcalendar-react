@@ -11,6 +11,9 @@ import {
   CustomRenderingStore,
 } from '@fullcalendar/core/internal'
 
+const reactMajorVersion = parseInt(String(React.version).split('.')[0])
+const syncRenderingByDefault = reactMajorVersion < 18
+
 interface CalendarState {
   customRenderingMap: Map<string, CustomRendering<any>>
 }
@@ -64,11 +67,16 @@ export default class FullCalendar extends Component<CalendarOptions, CalendarSta
       const requestTimestamp = Date.now()
       const isMounting = !lastRequestTimestamp
       const runFunc = (
+        // don't call flushSync if React version already does sync rendering by default
+        // guards against fatal errors:
+        // https://github.com/fullcalendar/fullcalendar/issues/7448
+        syncRenderingByDefault ||
+        //
         isMounting ||
         this.isUpdating ||
         this.isUnmounting ||
         (requestTimestamp - lastRequestTimestamp) < 100 // rerendering frequently
-      ) ? runNow // either sync rendering (first-time or React 17) or async (React 18)
+      ) ? runNow // either sync rendering (first-time or React 16/17) or async (React 18)
         : flushSync // guaranteed sync rendering
 
       runFunc(() => {
