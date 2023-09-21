@@ -588,7 +588,7 @@ it('renders resourceGroupLaneContent function', () => {
   'content', // https://github.com/fullcalendar/fullcalendar/issues/7160
   'component', // https://github.com/fullcalendar/fullcalendar/issues/7207
 ].forEach((settingName) => {
-  fit(`can render custom content in a custom view (with ${settingName} setting)`, () => {
+  it(`can render custom content in a custom view (with ${settingName} setting)`, () => {
     const { container } = render(
       <FullCalendar
         initialView="customView"
@@ -608,7 +608,7 @@ it('renders resourceGroupLaneContent function', () => {
   'content',
   'component',
 ].forEach((settingName) => {
-  fit(`can render custom content AS FUNCTION in a custom view (with ${settingName} setting)`, () => {
+  it(`can render custom content AS FUNCTION in a custom view (with ${settingName} setting)`, () => {
     const { container } = render(
       <FullCalendar
         initialView="customView"
