@@ -308,6 +308,39 @@ it('does not produce overlapping all-day & timed events with custom eventContent
   expect(anyElsIntersect(eventEls)).toBe(false)
 })
 
+// eventDidMount
+;['auto', 'background'].forEach((eventDisplay) => {
+  it(`during ${eventDisplay} custom event rendering, receives el`, (done) => {
+    let eventDidMountCalled = false
+
+    function TestApp() {
+      return (
+        <FullCalendar
+          plugins={[dayGridPlugin]}
+          initialView='dayGridMonth'
+          initialDate='2022-04-01'
+          initialEvents={[
+            { title: 'event 1', start: '2022-04-01', display: eventDisplay },
+          ]}
+          eventContent={(eventArg) => (
+            <i>{eventArg.event.title}</i>
+          )}
+          eventDidMount={(eventArg) => {
+            expect(eventArg.el).toBeTruthy()
+            eventDidMountCalled = true
+          }}
+        />
+      );
+    }
+
+    render(<TestApp />)
+    setTimeout(() => {
+      expect(eventDidMountCalled).toBe(true)
+      done()
+    }, 100)
+  })
+})
+
 // https://github.com/fullcalendar/fullcalendar/issues/7119
 it('rerenders content-injection with latest render-func closure', (done) => {
   const DATE = '2022-04-01'
