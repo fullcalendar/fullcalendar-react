@@ -52,6 +52,9 @@ export default class FullCalendar extends Component<CalendarOptions, CalendarSta
   }
 
   componentDidMount() {
+    // reset b/c react strict-mode calls componentWillUnmount/componentDidMount
+    this.isUnmounting = false
+
     const customRenderingStore = new CustomRenderingStore<unknown>()
     this.handleCustomRendering = customRenderingStore.handle.bind(customRenderingStore)
 
