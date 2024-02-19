@@ -1,11 +1,13 @@
-import React, { useState, useEffect, useContext, useCallback, createContext } from 'react'
+import React, { useState, useEffect, useContext, useCallback, createContext, createRef } from 'react'
 import { act } from 'react-dom/test-utils'
 import { render } from '@testing-library/react'
 import FullCalendar from '../dist/index.js'
+import adaptivePlugin from '@fullcalendar/adaptive'
 import { sliceEvents } from '@fullcalendar/core'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import listPlugin from '@fullcalendar/list'
 import resourceTimelinePlugin from '@fullcalendar/resource-timeline'
+import timeGridPlugin from '@fullcalendar/timegrid'
 import { anyElsIntersect } from './utils.js'
 
 const NOW_DATE = new Date()
@@ -694,6 +696,38 @@ it('custom view receives enough props for slicing', () => {
 
   expect(container.querySelector('.custom-view-title').innerText).toBe(String(NOW_DATE.getMonth()))
   expect(container.querySelector('.custom-view-events').innerText).toBe('1 events')
+})
+
+// https://github.com/fullcalendar/fullcalendar/issues/7419
+it('render custom event JSX during print-mode', (done) => {
+  let calendarRef = createRef()
+
+  const { container } = render(
+    <FullCalendar
+      ref={calendarRef}
+      initialDate={NOW_DATE}
+      plugins={[timeGridPlugin, adaptivePlugin]}
+      initialView="timeGridWeek"
+      initialEvents={[
+        {
+          title: 'event1',
+          start: NOW_DATE,
+        }
+      ]}
+      eventContent={(eventArg) => <i>{eventArg.event.title}</i>}
+    />
+  )
+
+  act(() => {
+    const api = calendarRef.current.getApi()
+    api.trigger('_beforeprint')
+
+    setTimeout(() => {
+      const eventEls = getEventEls(container)
+      expect(eventEls[0].offsetHeight).toBeGreaterThan(10)
+      done()
+    })
+  })
 })
 
 // FullCalendar data utils
