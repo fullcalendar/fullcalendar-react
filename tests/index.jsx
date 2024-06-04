@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useContext, useCallback, createContext, createRef } from 'react'
-import { act } from 'react-dom/test-utils'
+import React, { useState, useEffect, useContext, useCallback, createContext, createRef, act } from 'react'
 import { render } from '@testing-library/react'
 import FullCalendar from '../dist/index.js'
 import adaptivePlugin from '@fullcalendar/adaptive'

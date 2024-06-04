@@ -18,8 +18,8 @@
   },
   "peerDependencies": {
     "@fullcalendar/core": "~6.1.13",
-    "react": "^16.7.0 || ^17 || ^18",
-    "react-dom": "^16.7.0 || ^17 || ^18"
+    "react": "^16.7.0 || ^17 || ^18 || ^19",
+    "react-dom": "^16.7.0 || ^17 || ^18 || ^19"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
@@ -51,8 +51,8 @@
     "karma-jasmine": "^4.0.1",
     "karma-sourcemap-loader": "^0.3.8",
     "karma-spec-reporter": "^0.0.32",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "react": "^19.0.0-rc.0",
+    "react-dom": "^19.0.0-rc.0",
     "rollup": "^2.79.0",
     "rollup-plugin-postcss": "^2.0.3",
     "rollup-plugin-sourcemaps": "^0.6.3",
