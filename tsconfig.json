@@ -2,8 +2,9 @@
   "compilerOptions": {
     "jsx": "react",
     "target": "es2015",
-    "module": "es2015",
+    "module": "node16",
     "moduleResolution": "node16",
+    "typeRoots": [],
     "lib": [
       "dom",
       "es2015"

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { Component, createRef, PureComponent } from 'react'
 import { createPortal, flushSync } from 'react-dom'
 import {
