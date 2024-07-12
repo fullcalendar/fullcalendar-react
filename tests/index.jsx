@@ -721,6 +721,9 @@ it('render custom event JSX during print-mode', (done) => {
     const api = calendarRef.current.getApi()
     api.trigger('_beforeprint')
 
+    // HACK: this timeout is not accurate. printing should not rely on timeout.
+    // However, the feature ultimately works in live testing when triggering browser printing.
+    // TODO: refactor synchronicity
     setTimeout(() => {
       const eventEls = getEventEls(container)
       expect(eventEls[0].offsetHeight).toBeGreaterThan(10)

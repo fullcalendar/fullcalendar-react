@@ -63,6 +63,13 @@ export default class FullCalendar extends Component<CalendarOptions, CalendarSta
     })
     this.calendar.render()
 
+    // attaching with .on() will cause this to fire AFTER internal preact rendering did flushSync
+    this.calendar.on('_beforeprint', () => {
+      flushSync(() => {
+        // our `customRenderingMap` state will be flushed at this point
+      })
+    })
+
     let lastRequestTimestamp: number | undefined
 
     customRenderingStore.subscribe((customRenderingMap) => {
