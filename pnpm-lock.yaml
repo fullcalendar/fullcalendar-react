@@ -31,7 +31,7 @@ devDependencies:
     version: 5.0.1(rollup@2.79.1)
   '@testing-library/react':
     specifier: ^13.4.0
-    version: 13.4.0(react-dom@19.0.0-rc.0)(react@19.0.0-rc.0)
+    version: 13.4.0(react-dom@18.3.1)(react@18.3.1)
   '@types/react':
     specifier: ^18.3.3
     version: 18.3.3
@@ -57,11 +57,11 @@ devDependencies:
     specifier: ^0.0.32
     version: 0.0.32(karma@6.4.1)
   react:
-    specifier: ^19.0.0-rc.0
-    version: 19.0.0-rc.0
+    specifier: ^18.3.1
+    version: 18.3.1
   react-dom:
-    specifier: ^19.0.0-rc.0
-    version: 19.0.0-rc.0(react@19.0.0-rc.0)
+    specifier: ^18.3.1
+    version: 18.3.1(react@18.3.1)
   rollup:
     specifier: ^2.79.0
     version: 2.79.1
@@ -1706,7 +1706,7 @@ packages:
       pretty-format: 27.5.1
     dev: true
 
-  /@testing-library/react@13.4.0(react-dom@19.0.0-rc.0)(react@19.0.0-rc.0):
+  /@testing-library/react@13.4.0(react-dom@18.3.1)(react@18.3.1):
     resolution: {integrity: sha512-sXOGON+WNTh3MLE9rve97ftaZukN3oNf2KjDy7YTx6hcTO2uuLHuCGynMDhFwGw/jYf4OJ2Qk0i4i79qMNNkyw==}
     engines: {node: '>=12'}
     peerDependencies:
@@ -1716,8 +1716,8 @@ packages:
       '@babel/runtime': 7.20.1
       '@testing-library/dom': 8.19.0
       '@types/react-dom': 18.3.0
-      react: 19.0.0-rc.0
-      react-dom: 19.0.0-rc.0(react@19.0.0-rc.0)
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
     dev: true
 
   /@types/aria-query@4.2.2:
@@ -3532,6 +3532,13 @@ packages:
       - supports-color
     dev: true
 
+  /loose-envify@1.4.0:
+    resolution: {integrity: sha512-lyuxPGr/Wfhrlem2CL/UcnUc1zcqKAImBDzukY7Y5F/yQiNdko6+fRLevlw1HgMySw7f611UIY408EtxRSoK3Q==}
+    hasBin: true
+    dependencies:
+      js-tokens: 4.0.0
+    dev: true
+
   /lru-cache@5.1.1:
     resolution: {integrity: sha512-KpNARQA3Iwv+jTA0utUVVbrh+Jlrr1Fv0e56GGzAFOXN7dk/FviaDW8LHmK52DlcH4WP2n6gI8vN1aesBFgo9w==}
     dependencies:
@@ -4195,22 +4202,25 @@ packages:
       unpipe: 1.0.0
     dev: true
 
-  /react-dom@19.0.0-rc.0(react@19.0.0-rc.0):
-    resolution: {integrity: sha512-MhgN2RMYFUkZekkFbsXg9ycwEGaMBzATpTNvGGvWNA9BZZEkdzIL4pv7iDuZKn48YoGARk8ydu4S+Ehd8Yrc4g==}
+  /react-dom@18.3.1(react@18.3.1):
+    resolution: {integrity: sha512-5m4nQKp+rZRb09LNH59GM4BxTh9251/ylbKIbpe7TpGxfJ+9kv6BLkLBXIjjspbgbnIBNqlI23tRnTWT0snUIw==}
     peerDependencies:
-      react: 19.0.0-rc.0
+      react: ^18.3.1
     dependencies:
-      react: 19.0.0-rc.0
-      scheduler: 0.25.0-rc.0
+      loose-envify: 1.4.0
+      react: 18.3.1
+      scheduler: 0.23.2
     dev: true
 
   /react-is@17.0.2:
     resolution: {integrity: sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==}
     dev: true
 
-  /react@19.0.0-rc.0:
-    resolution: {integrity: sha512-8nrDCl5uE54FHeKqKrEO0TS+10bT4cxutJGb2okiJc0FHMQ6I3FeItaqly/1nbijlhSO3HmAVyPIexIQQWYAtQ==}
+  /react@18.3.1:
+    resolution: {integrity: sha512-wS+hAgJShR0KhEvPJArfuPVN1+Hz1t0Y6n5jLrGQbkb4urgPE/0Rve+1kMB1v/oWgHgm4WIcV+i7F2pTVj+2iQ==}
     engines: {node: '>=0.10.0'}
+    dependencies:
+      loose-envify: 1.4.0
     dev: true
 
   /read-pkg@4.0.1:
@@ -4427,8 +4437,10 @@ packages:
     resolution: {integrity: sha512-NqVDv9TpANUjFm0N8uM5GxL36UgKi9/atZw+x7YFnQ8ckwFGKrl4xX4yWtrey3UJm5nP1kUbnYgLopqWNSRhWw==}
     dev: true
 
-  /scheduler@0.25.0-rc.0:
-    resolution: {integrity: sha512-B3aSqMfoRkucM94MztZD1CyNyf68W9A3dL/TT453G6uNcxMBqGQ+rhFKyxNnWH/mfRHlGBr0tF0F472JCETH4g==}
+  /scheduler@0.23.2:
+    resolution: {integrity: sha512-UOShsPwz7NrMUqhR6t0hWjFduvOzbtv7toDH1/hIrfRNIDBnnBWd0CwJTGvTpngVlmwGCdP9/Zl/tVrDqcuYzQ==}
+    dependencies:
+      loose-envify: 1.4.0
     dev: true
 
   /semver@5.7.1:
