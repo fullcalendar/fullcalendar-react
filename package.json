@@ -1,6 +1,6 @@
 {
   "name": "@fullcalendar/react",
-  "version": "6.1.15",
+  "version": "6.1.17",
   "title": "FullCalendar React Component",
   "description": "The official React Component for FullCalendar",
   "keywords": [
@@ -17,7 +17,7 @@
     "url": "https://github.com/fullcalendar/fullcalendar-react.git"
   },
   "peerDependencies": {
-    "@fullcalendar/core": "~6.1.15",
+    "@fullcalendar/core": "~6.1.17",
     "react": "^16.7.0 || ^17 || ^18 || ^19",
     "react-dom": "^16.7.0 || ^17 || ^18 || ^19"
   },
@@ -25,13 +25,13 @@
     "@babel/core": "^7.0.0",
     "@babel/preset-env": "^7.9.0",
     "@babel/preset-react": "^7.9.4",
-    "@fullcalendar/adaptive": "~6.1.15",
-    "@fullcalendar/core": "~6.1.15",
-    "@fullcalendar/daygrid": "~6.1.15",
-    "@fullcalendar/list": "~6.1.15",
-    "@fullcalendar/resource": "~6.1.15",
-    "@fullcalendar/resource-timeline": "~6.1.15",
-    "@fullcalendar/timegrid": "~6.1.15",
+    "@fullcalendar/adaptive": "~6.1.17",
+    "@fullcalendar/core": "~6.1.17",
+    "@fullcalendar/daygrid": "~6.1.17",
+    "@fullcalendar/list": "~6.1.17",
+    "@fullcalendar/resource": "~6.1.17",
+    "@fullcalendar/resource-timeline": "~6.1.17",
+    "@fullcalendar/timegrid": "~6.1.17",
     "@rollup/plugin-babel": "^5.0.0",
     "@rollup/plugin-commonjs": "^12.0.0",
     "@rollup/plugin-json": "^4.0.3",
