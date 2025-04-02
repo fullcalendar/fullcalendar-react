@@ -693,6 +693,13 @@ it('custom view receives enough props for slicing', () => {
     />
   )
 
+  // temporary
+  const test1 = container.querySelector('.custom-view-title').innerText
+  const test2 = String(NOW_DATE.getMonth())
+  if (test1 !== test2) {
+    console.log('DEBUG!!!', test1, NOW_DATE.toString())
+  }
+
   expect(container.querySelector('.custom-view-title').innerText).toBe(String(NOW_DATE.getMonth()))
   expect(container.querySelector('.custom-view-events').innerText).toBe('1 events')
 })
