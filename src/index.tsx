@@ -84,7 +84,7 @@ export default class FullCalendar extends Component<CalendarOptions, CalendarSta
         isMounting ||
         this.isUpdating ||
         this.isUnmounting ||
-        (requestTimestamp - lastRequestTimestamp) < 100 // rerendering frequently
+        (lastRequestTimestamp && (requestTimestamp - lastRequestTimestamp) < 100) // rerendering frequently
       ) ? runNow // either sync rendering (first-time or React 16/17) or async (React 18)
         : flushSync // guaranteed sync rendering
 
