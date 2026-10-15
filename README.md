@@ -1,6 +1,11 @@
 
 # FullCalendar React Component
 
+> [!IMPORTANT]
+> **This repo shows FullCalendar v6. The current version is v7**, which is developed in [fullcalendar-workspace](https://github.com/fullcalendar/fullcalendar-workspace/tree/main/standard/packages/react) for now. This repo's code is lagging behind and will be updated.
+>
+> In v7, plugins like dayGrid and timeGrid are no longer separate packages. Run `npm install @fullcalendar/react temporal-polyfill` and import plugins from `@fullcalendar/react/daygrid`, etc. Don't install `@fullcalendar/core`, `@fullcalendar/daygrid` or the other v6 packages with v7. See the [v7 React docs](https://fullcalendar.io/docs/react).
+
 The official [React](https://reactjs.org/) Component for [FullCalendar](https://fullcalendar.io)
 
 ## Installation
